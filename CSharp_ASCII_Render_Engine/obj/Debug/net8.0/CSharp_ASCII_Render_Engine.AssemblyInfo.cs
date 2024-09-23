@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CSharp_ASCII_Render_Engine")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8efce5b3fc758667a53b411289cbddcece6e3842")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+935925ca165d778fa40896d669f1263520263cc8")]
 [assembly: System.Reflection.AssemblyProductAttribute("CSharp_ASCII_Render_Engine")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CSharp_ASCII_Render_Engine")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
