@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "CSharp_ASCII_Render_Engine": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}
