@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CSharp_ASCII_Render_Engine.Display
+namespace CSharp_ASCII_Render_Engine.Screen
 {
-    internal class Display
+    internal class Screen
     {
     }
 }

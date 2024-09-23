@@ -54,24 +54,33 @@ namespace CSharp_ASCII_Render_Engine.Screen
 
                         if (globalXPos >= 0 && globalXPos < Width)
                         {
-                            // b/w alpha transform (x = b/w, y = alpha)
+                            // alpha transform (x = b/w, y = alpha)
                             bg = Buffer[globalYPos][globalXPos]; // background
                             fg = buffer.Buffer[y][x]; // foreground
-                            if (fg.y >= 1)
+                            r = new Vec2(0);
+
+                            if (fg.y >= 1d)
                             {
                                 r = fg;
                             }
-                            else if (fg.y <= 0) 
+                            else if (fg.y <= 0d) 
                             {
                                 r = bg;
                             }
                             else
                             {
-                                Vec2 vec2 = new(0);
-                                r = vec2;
-                                r.y = 1 - (1 - fg.y) * (1 - bg.y);
+                                r.y = 1d - (1d - fg.y) * (1d - bg.y);
+
+                                if (r.y < 1e-6)
+                                {
+                                    r.y = 1e-6;
+                                }
+
                                 r.x = fg.x * fg.y / r.y + bg.x * bg.y * (1 - fg.y) / r.y;
                             }
+
+                            r.x = Math.Clamp(r.x, 0.0, 1.0);
+                            r.y = Math.Clamp(r.y, 0.0, 1.0);
 
                             Buffer[globalYPos][globalXPos] = r;
                         }
