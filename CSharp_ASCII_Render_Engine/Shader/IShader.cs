@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CSharp_ASCII_Render_Engine.Graphics.Shader
+namespace CSharp_ASCII_Render_Engine.Shader
 {
     internal class IShader
     {

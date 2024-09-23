@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CSharp_ASCII_Render_Engine.Geometry.Polygons
 {
-    internal class PolygonRenderer
+    internal class PolyRenderer
     {
     }
 }
