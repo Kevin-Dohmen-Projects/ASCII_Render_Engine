@@ -39,9 +39,6 @@ namespace CSharp_ASCII_Render_Engine.Screen
         {
             int globalYPos = 0;
             int globalXPos = 0;
-            Vec2 bg = new(0);
-            Vec2 fg = new(0);
-            Vec2 r = new(0);
             for (int y = 0; y < buffer.Height; y++)
             {
                 globalYPos = y + yPos;
@@ -55,28 +52,28 @@ namespace CSharp_ASCII_Render_Engine.Screen
                         if (globalXPos >= 0 && globalXPos < Width)
                         {
                             // alpha transform (x = b/w, y = alpha)
-                            bg = Buffer[globalYPos][globalXPos]; // background
-                            fg = buffer.Buffer[y][x]; // foreground
-                            r = new Vec2(0);
+                            Vec2 bg = Buffer[globalYPos][globalXPos]; // background
+                            Vec2 fg = buffer.Buffer[y][x]; // foreground
+                            Vec2 r = new(0.0);
 
-                            if (fg.y >= 1d)
+                            if (fg.y >= 1.0)
                             {
                                 r = fg;
                             }
-                            else if (fg.y <= 0d) 
+                            else if (fg.y <= 0.0) 
                             {
                                 r = bg;
                             }
                             else
                             {
-                                r.y = 1d - (1d - fg.y) * (1d - bg.y);
+                                r.y = 1.0 - (1.0 - fg.y) * (1.0 - bg.y);
 
                                 if (r.y < 1e-6)
                                 {
                                     r.y = 1e-6;
                                 }
 
-                                r.x = fg.x * fg.y / r.y + bg.x * bg.y * (1 - fg.y) / r.y;
+                                r.x = fg.x * fg.y / r.y + bg.x * bg.y * (1.0 - fg.y) / r.y;
                             }
 
                             r.x = Math.Clamp(r.x, 0.0, 1.0);
