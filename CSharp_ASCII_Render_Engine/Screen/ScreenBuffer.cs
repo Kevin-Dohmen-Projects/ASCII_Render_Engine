@@ -86,4 +86,13 @@ namespace CSharp_ASCII_Render_Engine.Screen
             }
         }
     }
+
+    public class ObjectScreenBuffer
+    {
+        public int ScreenPosX { get; set; }
+        public int ScreenPosY { get; set; }
+        public int Width { get; set; }
+        public int Height { get; set; }
+        public List<List<Vec2>> MyProperty { get; set; }
+    }
 }

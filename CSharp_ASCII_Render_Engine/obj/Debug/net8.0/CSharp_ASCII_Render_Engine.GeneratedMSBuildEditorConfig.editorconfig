@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = CSharp_ASCII_Render_Engine
-build_property.ProjectDir = E:\Documents\GitHub\CSharp_ASCII_Render_Engine\CSharp_ASCII_Render_Engine\
+build_property.ProjectDir = C:\Users\KevinDohmen\source\repos\CSharp_ASCII_Render_Engine\CSharp_ASCII_Render_Engine\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

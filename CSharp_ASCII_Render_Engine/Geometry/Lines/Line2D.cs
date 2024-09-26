@@ -19,11 +19,13 @@ namespace CSharp_ASCII_Render_Engine.Geometry.Lines
             B = b;
             Color = color;
         }
+
         public Line2D(Vec2 a, Vec2 b)
         {
             A = a;
             B = b;
         }
+
         public Line2D()
         {
             A = new Vec2();

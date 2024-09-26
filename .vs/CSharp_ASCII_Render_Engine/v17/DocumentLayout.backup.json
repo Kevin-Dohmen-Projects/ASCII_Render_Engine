@@ -3,6 +3,46 @@
   "WorkspaceRootPath": "C:\\Users\\KevinDohmen\\source\\repos\\CSharp_ASCII_Render_Engine\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{CAD6B15C-C0FF-458A-9222-F39235702587}|CSharp_ASCII_Render_Engine\\CSharp_ASCII_Render_Engine.csproj|c:\\users\\kevindohmen\\source\\repos\\csharp_ascii_render_engine\\csharp_ascii_render_engine\\screen\\renderqueue.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CAD6B15C-C0FF-458A-9222-F39235702587}|CSharp_ASCII_Render_Engine\\CSharp_ASCII_Render_Engine.csproj|solutionrelative:csharp_ascii_render_engine\\screen\\renderqueue.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CAD6B15C-C0FF-458A-9222-F39235702587}|CSharp_ASCII_Render_Engine\\CSharp_ASCII_Render_Engine.csproj|c:\\users\\kevindohmen\\source\\repos\\csharp_ascii_render_engine\\csharp_ascii_render_engine\\geometry\\lines\\line2d.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CAD6B15C-C0FF-458A-9222-F39235702587}|CSharp_ASCII_Render_Engine\\CSharp_ASCII_Render_Engine.csproj|solutionrelative:csharp_ascii_render_engine\\geometry\\lines\\line2d.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CAD6B15C-C0FF-458A-9222-F39235702587}|CSharp_ASCII_Render_Engine\\CSharp_ASCII_Render_Engine.csproj|c:\\users\\kevindohmen\\source\\repos\\csharp_ascii_render_engine\\csharp_ascii_render_engine\\geometry\\lines\\linerenderer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CAD6B15C-C0FF-458A-9222-F39235702587}|CSharp_ASCII_Render_Engine\\CSharp_ASCII_Render_Engine.csproj|solutionrelative:csharp_ascii_render_engine\\geometry\\lines\\linerenderer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CAD6B15C-C0FF-458A-9222-F39235702587}|CSharp_ASCII_Render_Engine\\CSharp_ASCII_Render_Engine.csproj|c:\\users\\kevindohmen\\source\\repos\\csharp_ascii_render_engine\\csharp_ascii_render_engine\\screen\\screen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CAD6B15C-C0FF-458A-9222-F39235702587}|CSharp_ASCII_Render_Engine\\CSharp_ASCII_Render_Engine.csproj|solutionrelative:csharp_ascii_render_engine\\screen\\screen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CAD6B15C-C0FF-458A-9222-F39235702587}|CSharp_ASCII_Render_Engine\\CSharp_ASCII_Render_Engine.csproj|c:\\users\\kevindohmen\\source\\repos\\csharp_ascii_render_engine\\csharp_ascii_render_engine\\shader\\ishader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CAD6B15C-C0FF-458A-9222-F39235702587}|CSharp_ASCII_Render_Engine\\CSharp_ASCII_Render_Engine.csproj|solutionrelative:csharp_ascii_render_engine\\shader\\ishader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CAD6B15C-C0FF-458A-9222-F39235702587}|CSharp_ASCII_Render_Engine\\CSharp_ASCII_Render_Engine.csproj|c:\\users\\kevindohmen\\source\\repos\\csharp_ascii_render_engine\\csharp_ascii_render_engine\\geometry\\primitives\\triangle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CAD6B15C-C0FF-458A-9222-F39235702587}|CSharp_ASCII_Render_Engine\\CSharp_ASCII_Render_Engine.csproj|solutionrelative:csharp_ascii_render_engine\\geometry\\primitives\\triangle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CAD6B15C-C0FF-458A-9222-F39235702587}|CSharp_ASCII_Render_Engine\\CSharp_ASCII_Render_Engine.csproj|c:\\users\\kevindohmen\\source\\repos\\csharp_ascii_render_engine\\csharp_ascii_render_engine\\geometry\\primitives\\rectangle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CAD6B15C-C0FF-458A-9222-F39235702587}|CSharp_ASCII_Render_Engine\\CSharp_ASCII_Render_Engine.csproj|solutionrelative:csharp_ascii_render_engine\\geometry\\primitives\\rectangle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CAD6B15C-C0FF-458A-9222-F39235702587}|CSharp_ASCII_Render_Engine\\CSharp_ASCII_Render_Engine.csproj|c:\\users\\kevindohmen\\source\\repos\\csharp_ascii_render_engine\\csharp_ascii_render_engine\\geometry\\primitives\\primitiverenderer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CAD6B15C-C0FF-458A-9222-F39235702587}|CSharp_ASCII_Render_Engine\\CSharp_ASCII_Render_Engine.csproj|solutionrelative:csharp_ascii_render_engine\\geometry\\primitives\\primitiverenderer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CAD6B15C-C0FF-458A-9222-F39235702587}|CSharp_ASCII_Render_Engine\\CSharp_ASCII_Render_Engine.csproj|c:\\users\\kevindohmen\\source\\repos\\csharp_ascii_render_engine\\csharp_ascii_render_engine\\geometry\\polygons\\poly2d.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CAD6B15C-C0FF-458A-9222-F39235702587}|CSharp_ASCII_Render_Engine\\CSharp_ASCII_Render_Engine.csproj|solutionrelative:csharp_ascii_render_engine\\geometry\\polygons\\poly2d.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CAD6B15C-C0FF-458A-9222-F39235702587}|CSharp_ASCII_Render_Engine\\CSharp_ASCII_Render_Engine.csproj|c:\\users\\kevindohmen\\source\\repos\\csharp_ascii_render_engine\\csharp_ascii_render_engine\\geometry\\polygons\\polyrenderer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CAD6B15C-C0FF-458A-9222-F39235702587}|CSharp_ASCII_Render_Engine\\CSharp_ASCII_Render_Engine.csproj|solutionrelative:csharp_ascii_render_engine\\geometry\\polygons\\polyrenderer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{CAD6B15C-C0FF-458A-9222-F39235702587}|CSharp_ASCII_Render_Engine\\CSharp_ASCII_Render_Engine.csproj|c:\\users\\kevindohmen\\source\\repos\\csharp_ascii_render_engine\\csharp_ascii_render_engine\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{CAD6B15C-C0FF-458A-9222-F39235702587}|CSharp_ASCII_Render_Engine\\CSharp_ASCII_Render_Engine.csproj|solutionrelative:csharp_ascii_render_engine\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
@@ -23,6 +63,129 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "RenderQueue.cs",
+              "DocumentMoniker": "C:\\Users\\KevinDohmen\\source\\repos\\CSharp_ASCII_Render_Engine\\CSharp_ASCII_Render_Engine\\Screen\\RenderQueue.cs",
+              "RelativeDocumentMoniker": "CSharp_ASCII_Render_Engine\\Screen\\RenderQueue.cs",
+              "ToolTip": "C:\\Users\\KevinDohmen\\source\\repos\\CSharp_ASCII_Render_Engine\\CSharp_ASCII_Render_Engine\\Screen\\RenderQueue.cs*",
+              "RelativeToolTip": "CSharp_ASCII_Render_Engine\\Screen\\RenderQueue.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-26T07:18:08.862Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Triangle.cs",
+              "DocumentMoniker": "C:\\Users\\KevinDohmen\\source\\repos\\CSharp_ASCII_Render_Engine\\CSharp_ASCII_Render_Engine\\Geometry\\Primitives\\Triangle.cs",
+              "RelativeDocumentMoniker": "CSharp_ASCII_Render_Engine\\Geometry\\Primitives\\Triangle.cs",
+              "ToolTip": "C:\\Users\\KevinDohmen\\source\\repos\\CSharp_ASCII_Render_Engine\\CSharp_ASCII_Render_Engine\\Geometry\\Primitives\\Triangle.cs",
+              "RelativeToolTip": "CSharp_ASCII_Render_Engine\\Geometry\\Primitives\\Triangle.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-23T18:57:46.964Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Rectangle.cs",
+              "DocumentMoniker": "C:\\Users\\KevinDohmen\\source\\repos\\CSharp_ASCII_Render_Engine\\CSharp_ASCII_Render_Engine\\Geometry\\Primitives\\Rectangle.cs",
+              "RelativeDocumentMoniker": "CSharp_ASCII_Render_Engine\\Geometry\\Primitives\\Rectangle.cs",
+              "ToolTip": "C:\\Users\\KevinDohmen\\source\\repos\\CSharp_ASCII_Render_Engine\\CSharp_ASCII_Render_Engine\\Geometry\\Primitives\\Rectangle.cs",
+              "RelativeToolTip": "CSharp_ASCII_Render_Engine\\Geometry\\Primitives\\Rectangle.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-23T18:57:35.76Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "PrimitiveRenderer.cs",
+              "DocumentMoniker": "C:\\Users\\KevinDohmen\\source\\repos\\CSharp_ASCII_Render_Engine\\CSharp_ASCII_Render_Engine\\Geometry\\Primitives\\PrimitiveRenderer.cs",
+              "RelativeDocumentMoniker": "CSharp_ASCII_Render_Engine\\Geometry\\Primitives\\PrimitiveRenderer.cs",
+              "ToolTip": "C:\\Users\\KevinDohmen\\source\\repos\\CSharp_ASCII_Render_Engine\\CSharp_ASCII_Render_Engine\\Geometry\\Primitives\\PrimitiveRenderer.cs",
+              "RelativeToolTip": "CSharp_ASCII_Render_Engine\\Geometry\\Primitives\\PrimitiveRenderer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-23T18:57:21.38Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "PolyRenderer.cs",
+              "DocumentMoniker": "C:\\Users\\KevinDohmen\\source\\repos\\CSharp_ASCII_Render_Engine\\CSharp_ASCII_Render_Engine\\Geometry\\Polygons\\PolyRenderer.cs",
+              "RelativeDocumentMoniker": "CSharp_ASCII_Render_Engine\\Geometry\\Polygons\\PolyRenderer.cs",
+              "ToolTip": "C:\\Users\\KevinDohmen\\source\\repos\\CSharp_ASCII_Render_Engine\\CSharp_ASCII_Render_Engine\\Geometry\\Polygons\\PolyRenderer.cs",
+              "RelativeToolTip": "CSharp_ASCII_Render_Engine\\Geometry\\Polygons\\PolyRenderer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-23T18:56:53.844Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Poly2D.cs",
+              "DocumentMoniker": "C:\\Users\\KevinDohmen\\source\\repos\\CSharp_ASCII_Render_Engine\\CSharp_ASCII_Render_Engine\\Geometry\\Polygons\\Poly2D.cs",
+              "RelativeDocumentMoniker": "CSharp_ASCII_Render_Engine\\Geometry\\Polygons\\Poly2D.cs",
+              "ToolTip": "C:\\Users\\KevinDohmen\\source\\repos\\CSharp_ASCII_Render_Engine\\CSharp_ASCII_Render_Engine\\Geometry\\Polygons\\Poly2D.cs",
+              "RelativeToolTip": "CSharp_ASCII_Render_Engine\\Geometry\\Polygons\\Poly2D.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-23T18:56:41.934Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "LineRenderer.cs",
+              "DocumentMoniker": "C:\\Users\\KevinDohmen\\source\\repos\\CSharp_ASCII_Render_Engine\\CSharp_ASCII_Render_Engine\\Geometry\\Lines\\LineRenderer.cs",
+              "RelativeDocumentMoniker": "CSharp_ASCII_Render_Engine\\Geometry\\Lines\\LineRenderer.cs",
+              "ToolTip": "C:\\Users\\KevinDohmen\\source\\repos\\CSharp_ASCII_Render_Engine\\CSharp_ASCII_Render_Engine\\Geometry\\Lines\\LineRenderer.cs",
+              "RelativeToolTip": "CSharp_ASCII_Render_Engine\\Geometry\\Lines\\LineRenderer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-23T18:56:03.569Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "IShader.cs",
+              "DocumentMoniker": "C:\\Users\\KevinDohmen\\source\\repos\\CSharp_ASCII_Render_Engine\\CSharp_ASCII_Render_Engine\\Shader\\IShader.cs",
+              "RelativeDocumentMoniker": "CSharp_ASCII_Render_Engine\\Shader\\IShader.cs",
+              "ToolTip": "C:\\Users\\KevinDohmen\\source\\repos\\CSharp_ASCII_Render_Engine\\CSharp_ASCII_Render_Engine\\Shader\\IShader.cs",
+              "RelativeToolTip": "CSharp_ASCII_Render_Engine\\Shader\\IShader.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-23T17:01:55.015Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Line2D.cs",
+              "DocumentMoniker": "C:\\Users\\KevinDohmen\\source\\repos\\CSharp_ASCII_Render_Engine\\CSharp_ASCII_Render_Engine\\Geometry\\Lines\\Line2D.cs",
+              "RelativeDocumentMoniker": "CSharp_ASCII_Render_Engine\\Geometry\\Lines\\Line2D.cs",
+              "ToolTip": "C:\\Users\\KevinDohmen\\source\\repos\\CSharp_ASCII_Render_Engine\\CSharp_ASCII_Render_Engine\\Geometry\\Lines\\Line2D.cs*",
+              "RelativeToolTip": "CSharp_ASCII_Render_Engine\\Geometry\\Lines\\Line2D.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-23T17:00:19.707Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Screen.cs",
+              "DocumentMoniker": "C:\\Users\\KevinDohmen\\source\\repos\\CSharp_ASCII_Render_Engine\\CSharp_ASCII_Render_Engine\\Screen\\Screen.cs",
+              "RelativeDocumentMoniker": "CSharp_ASCII_Render_Engine\\Screen\\Screen.cs",
+              "ToolTip": "C:\\Users\\KevinDohmen\\source\\repos\\CSharp_ASCII_Render_Engine\\CSharp_ASCII_Render_Engine\\Screen\\Screen.cs",
+              "RelativeToolTip": "CSharp_ASCII_Render_Engine\\Screen\\Screen.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwA0AAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-23T16:57:54.454Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\KevinDohmen\\source\\repos\\CSharp_ASCII_Render_Engine\\CSharp_ASCII_Render_Engine\\Program.cs",
               "RelativeDocumentMoniker": "CSharp_ASCII_Render_Engine\\Program.cs",
@@ -30,8 +193,7 @@
               "RelativeToolTip": "CSharp_ASCII_Render_Engine\\Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-23T14:17:34.699Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-23T14:17:34.699Z"
             }
           ]
         }
