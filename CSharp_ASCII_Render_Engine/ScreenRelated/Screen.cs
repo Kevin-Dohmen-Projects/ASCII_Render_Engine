@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CSharp_ASCII_Render_Engine.Screen
+namespace CSharp_ASCII_Render_Engine.ScreenRelated
 {
     public class Screen
     {
@@ -13,6 +13,7 @@ namespace CSharp_ASCII_Render_Engine.Screen
 
         public RenderQueue Queue { get; private set; }
         public ScreenBuffer Buffer { get; private set; }
+        private ASCIIConverter Converter = new();
 
         public Screen (int width, int height)
         {
@@ -29,7 +30,13 @@ namespace CSharp_ASCII_Render_Engine.Screen
 
         public void Render()
         {
+            foreach (var item in Queue.Queue)
+            {
+                item.Render(Buffer);
+            }
 
+            string fullScreen = Converter.BufferToFullScreen(Buffer);
+            Console.WriteLine(fullScreen);
         }
     }
 }

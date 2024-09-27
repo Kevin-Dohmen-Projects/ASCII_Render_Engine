@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CSharp_ASCII_Render_Engine.Screen
+namespace CSharp_ASCII_Render_Engine.ScreenRelated
 {
     public class RenderQueue
     {
@@ -38,6 +38,6 @@ namespace CSharp_ASCII_Render_Engine.Screen
 
     public interface IRenderable
     {
-        void Render(ref ScreenBuffer buffer);
+        void Render(ScreenBuffer buffer);
     }
 }

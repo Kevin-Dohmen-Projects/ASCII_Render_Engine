@@ -1,4 +1,4 @@
-﻿using CSharp_ASCII_Render_Engine.Screen;
+﻿using CSharp_ASCII_Render_Engine.ScreenRelated;
 using System;
 using System.Collections.Generic;
 using System.Linq;

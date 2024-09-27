@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CSharp_ASCII_Render_Engine.Screen
+namespace CSharp_ASCII_Render_Engine.ScreenRelated
 {
     public class ScreenBuffer
     {
@@ -18,7 +18,7 @@ namespace CSharp_ASCII_Render_Engine.Screen
         {
             Width = width;
             Height = height;
-            Buffer = [];
+            Buffer = new List<List<Vec2>>();
             Clear();
         }
 
