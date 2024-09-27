@@ -1,4 +1,5 @@
 ﻿using CSharp_ASCII_Render_Engine.ScreenRelated;
+using CSharp_ASCII_Render_Engine.Shader;
 using CSharp_ASCII_Render_Engine.Types.Vectors;
 using System;
 using System.Collections.Generic;
@@ -8,17 +9,20 @@ using System.Threading.Tasks;
 
 namespace CSharp_ASCII_Render_Engine.Geometry.Primitives
 {
-    internal class Rectangle : IRenderable
+    public class FullScreenShaderObject
     {
-        Vec2 Pos;
-        Vec2 Size;
         Vec2 Color;
+        IShader? Shader;
 
-        public Rectangle(Vec2 pos, Vec2 size, Vec2 color)
+        public FullScreenShaderObject(IShader shader)
         {
-            Pos = pos;
-            Size = size;
+            Shader = shader;
+            Color = new Vec2();
+        }
+        public FullScreenShaderObject(Vec2 color)
+        {
             Color = color;
+            Shader = null;
         }
 
         public void Render(ScreenBuffer buffer)
