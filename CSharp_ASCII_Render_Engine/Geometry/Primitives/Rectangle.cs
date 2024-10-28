@@ -22,6 +22,7 @@ namespace CSharp_ASCII_Render_Engine.Geometry.Primitives
         // object pool
         private ShaderPixel shaderPixel = new();
         private Vec2 shaderPixelScreenRes = new();
+        private Vec2 tmpVec = new();
 
         public Rectangle(Vec2 pos, Vec2 size, Vec2 color)
         {
@@ -67,10 +68,12 @@ namespace CSharp_ASCII_Render_Engine.Geometry.Primitives
                             pix.ScreenPos.x = x;
                             pix.ScreenPos.y = y;
                             pix.Frame = frame;
-                            pix.UV = pix.ScreenPos.DivideInPlace(pix.ScreenRes);
+                            pix.UV.DivideInPlace(pix.ScreenPos, pix.ScreenRes);
 
                             Vec2 col = Shader.Render(pix);
-                            buffer.Buffer[y][x] = RenderFuncs.AlphaTransform(col.MultiplyInPlace(Color), buffer.Buffer[y][x]);
+                            tmpVec = RenderFuncs.AlphaTransform(col.MultiplyInPlace(Color), buffer.Buffer[y][x], tmpVec);
+                            buffer.Buffer[y][x].x = tmpVec.x;
+                            buffer.Buffer[y][x].y = tmpVec.y;
                         }
                         else
                         {

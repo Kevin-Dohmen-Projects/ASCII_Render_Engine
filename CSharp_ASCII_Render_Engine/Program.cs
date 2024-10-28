@@ -10,6 +10,7 @@ using System.Data.SqlTypes;
 using CSharp_ASCII_Render_Engine.Geometry.Lines;
 using System.Xml.Serialization;
 using CSharp_ASCII_Render_Engine.Shader;
+using CSharp_ASCII_Render_Engine.Utils;
 
 namespace CSharp_ASCII_Render_Engine
 {
@@ -19,12 +20,6 @@ namespace CSharp_ASCII_Render_Engine
         {
 
             Screen screen = new Screen(100, 100);
-
-            //Vec2 A = new Vec2(50, 50);
-            //Vec2 B = new Vec2(50, 0);
-            //Line2D line1 = new Line2D(A, B, new Vec2(1, 1));
-
-            //Rectangle rect1 = new Rectangle(A, B, new Vec2(.5, 1), false);
 
             Rectangle frame = new Rectangle(new Vec2(0), new Vec2(100, 100), new Vec2(1, 1), false);
 
@@ -36,31 +31,14 @@ namespace CSharp_ASCII_Render_Engine
                 DateTime sTime = DateTime.Now;
 
                 screen.Clear();
-                //screen.Draw(rect1);
-                //screen.Draw(rect2);
-
-
-                //B = A + new Vec2(Math.Sin((double)frameCount / 30)*40, Math.Cos((double)frameCount / 30)*40);
-
-                ////A = new Vec2(0);
-                ////B = new Vec2(50);
-                //line1.B = B;
-
-                //double ax = A.x;
-                //double ay = A.y;
-                //double bx = B.x;
-                //double by = B.y;
-                //double xmin = Math.Min(ax, bx);
-                //double xmax = Math.Max(ax, bx);
-                //double ymin = Math.Min(ay, by);
-                //double ymax = Math.Max(ay, by);
-
-                //rect1.Pos = new Vec2(xmin, ymin);
-                //rect1.Size = new Vec2(xmax - xmin, ymax - ymin);
 
                 screen.Draw(shaderRect);
-                //screen.Draw(rect1);
-                //screen.Draw(line1);
+
+                // sum stuff
+                foreach (ShapeData shape in ShapeStore.GetShapes())
+                {
+                    screen.Draw(shape.shape);
+                }
 
                 screen.Draw(frame);
 

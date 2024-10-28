@@ -146,6 +146,12 @@ namespace CSharp_ASCII_Render_Engine.Types.Vectors
             y /= scalar;
             return this;
         }
+        public Vec2 DivideInPlace(Vec2 left, Vec2 right)
+        {
+            this.x = left.x / right.x;
+            this.y = left.y / right.y;
+            return this;
+        }
 
         // functions
         public double Length()

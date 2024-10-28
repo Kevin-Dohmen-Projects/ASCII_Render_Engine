@@ -1,4 +1,5 @@
-﻿using CSharp_ASCII_Render_Engine.Utils;
+﻿using CSharp_ASCII_Render_Engine.Types.Vectors;
+using CSharp_ASCII_Render_Engine.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,9 @@ namespace CSharp_ASCII_Render_Engine.ScreenRelated
         public RenderQueue Queue { get; private set; }
         public ScreenBuffer Buffer { get; private set; }
         private ASCIIConverter Converter = new();
+
+        // pools
+        ObjectPool<Vec2> Vec2Pool = new(100_000);
 
         public Screen (int width, int height)
         {
