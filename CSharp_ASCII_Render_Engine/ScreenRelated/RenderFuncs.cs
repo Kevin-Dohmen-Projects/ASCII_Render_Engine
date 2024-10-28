@@ -16,11 +16,13 @@ namespace CSharp_ASCII_Render_Engine.ScreenRelated
 
             if (fg.y >= 1.0)
             {
-                r = fg;
+                r.x = fg.x;
+                r.y = fg.y;
             }
             else if (fg.y <= 0.0)
             {
-                r = bg;
+                r.x = bg.x;
+                r.y = bg.y;
             }
             else
             {

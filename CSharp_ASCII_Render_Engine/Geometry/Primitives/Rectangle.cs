@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace CSharp_ASCII_Render_Engine.Geometry.Primitives
 {
-    internal class Rectangle : IRenderable
+    public class Rectangle : IRenderable
     {
         public Vec2 Pos;
         public Vec2 Size;
@@ -27,13 +27,13 @@ namespace CSharp_ASCII_Render_Engine.Geometry.Primitives
         {
             Pos = pos;
             Size = size;
-            Color = color;
+            Color = new Vec2(color.x, color.y);
         }
         public Rectangle(Vec2 pos, Vec2 size, Vec2 color, bool filled)
         {
             Pos = pos;
             Size = size;
-            Color = color;
+            Color = new Vec2(color.x, color.y);
             IsFilled = filled;
         }
 
@@ -70,7 +70,7 @@ namespace CSharp_ASCII_Render_Engine.Geometry.Primitives
                             pix.UV = pix.ScreenPos.DivideInPlace(pix.ScreenRes);
 
                             Vec2 col = Shader.Render(pix);
-                            buffer.Buffer[y][x] = RenderFuncs.AlphaTransform(col * Color, buffer.Buffer[y][x]);
+                            buffer.Buffer[y][x] = RenderFuncs.AlphaTransform(col.MultiplyInPlace(Color), buffer.Buffer[y][x]);
                         }
                         else
                         {
