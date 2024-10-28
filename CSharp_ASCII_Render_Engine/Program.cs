@@ -14,7 +14,7 @@ using CSharp_ASCII_Render_Engine.Utils;
 
 namespace CSharp_ASCII_Render_Engine
 {
-    internal class Program
+    public class Program
     {
         public static void Main(string[] args)
         {
