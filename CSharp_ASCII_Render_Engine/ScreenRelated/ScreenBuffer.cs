@@ -1,9 +1,4 @@
 ﻿using CSharp_ASCII_Render_Engine.Types.Vectors;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CSharp_ASCII_Render_Engine.ScreenRelated
 {
@@ -71,7 +66,7 @@ namespace CSharp_ASCII_Render_Engine.ScreenRelated
                             {
                                 r = fg;
                             }
-                            else if (fg.y <= 0.0) 
+                            else if (fg.y <= 0.0)
                             {
                                 r = bg;
                             }

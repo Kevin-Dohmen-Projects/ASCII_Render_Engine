@@ -1,12 +1,4 @@
 ﻿using CSharp_ASCII_Render_Engine.Types.Vectors;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata.Ecma335;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-using CSharp_ASCII_Render_Engine.Shader;
 
 namespace CSharp_ASCII_Render_Engine.ScreenRelated
 {

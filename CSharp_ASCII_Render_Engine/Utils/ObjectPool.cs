@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace CSharp_ASCII_Render_Engine.Utils;
+﻿namespace CSharp_ASCII_Render_Engine.Utils;
 public class ObjectPool<T> where T : new()
 {
     private readonly Stack<T> _pool;

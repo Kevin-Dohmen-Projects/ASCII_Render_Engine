@@ -2,12 +2,6 @@
 using CSharp_ASCII_Render_Engine.Shader;
 using CSharp_ASCII_Render_Engine.Types.Pixels;
 using CSharp_ASCII_Render_Engine.Types.Vectors;
-using CSharp_ASCII_Render_Engine.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CSharp_ASCII_Render_Engine.Geometry.Primitives
 {
@@ -88,8 +82,8 @@ namespace CSharp_ASCII_Render_Engine.Geometry.Primitives
                 {
                     for (int x = int.Max(posx, 0); x < int.Min(posx + sizex, buffer.Height); x++)
                     {
-                        if (x == posx || x == posx+sizex-1 || y == posy || y == posy+sizey-1)
-                        buffer.Buffer[y][x] = RenderFuncs.AlphaTransform(Color, buffer.Buffer[y][x]);
+                        if (x == posx || x == posx + sizex - 1 || y == posy || y == posy + sizey - 1)
+                            buffer.Buffer[y][x] = RenderFuncs.AlphaTransform(Color, buffer.Buffer[y][x]);
                     }
                 }
             }

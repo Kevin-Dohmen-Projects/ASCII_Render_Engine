@@ -1,11 +1,5 @@
 ﻿using CSharp_ASCII_Render_Engine.ScreenRelated;
 using CSharp_ASCII_Render_Engine.Types.Vectors;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CSharp_ASCII_Render_Engine.Geometry.Lines
 {
@@ -14,6 +8,9 @@ namespace CSharp_ASCII_Render_Engine.Geometry.Lines
         public Vec2 A;
         public Vec2 B;
         public Vec2 Color;
+
+        // pool
+        private Vec2 tmpVec = new();
 
         public Line2D(Vec2 a, Vec2 b, Vec2 color)
         {
@@ -36,7 +33,7 @@ namespace CSharp_ASCII_Render_Engine.Geometry.Lines
 
         public void Render(ScreenBuffer buffer, int frame)
         {
-            Vec2 deltaVec = B - A-1;
+            Vec2 deltaVec = B - A - 1;
 
             Vec2 min = new Vec2(Math.Min(this.A.x, this.B.x), Math.Min(this.A.y, this.B.y));
             Vec2 max = new Vec2(Math.Max(this.A.x, this.B.x), Math.Max(this.A.y, this.B.y));
@@ -59,19 +56,25 @@ namespace CSharp_ASCII_Render_Engine.Geometry.Lines
             {
                 for (int x = xMin; x < xMax; x++)
                 {
-                    buffer.Buffer[yMin][x] = RenderFuncs.AlphaTransform(Color, buffer.Buffer[yMin][x]);
+                    tmpVec = RenderFuncs.AlphaTransform(Color, buffer.Buffer[yMin][x], tmpVec);
+                    buffer.Buffer[yMin][x].x = tmpVec.x;
+                    buffer.Buffer[yMin][x].y = tmpVec.y;
                 }
             }
             else if (isVertical)
             {
                 for (int y = yMin; y < yMax; y++)
                 {
-                    buffer.Buffer[y][xMin] = RenderFuncs.AlphaTransform(Color, buffer.Buffer[y][xMin]);
+                    tmpVec = RenderFuncs.AlphaTransform(Color, buffer.Buffer[y][xMin], tmpVec);
+                    buffer.Buffer[y][xMin].x = tmpVec.x;
+                    buffer.Buffer[y][xMin].y = tmpVec.y;
                 }
             }
             else if (isDot)
             {
-                buffer.Buffer[yMin][xMin] = RenderFuncs.AlphaTransform(Color, buffer.Buffer[yMin][xMin]);
+                tmpVec = RenderFuncs.AlphaTransform(Color, buffer.Buffer[yMin][xMin], tmpVec);
+                buffer.Buffer[yMin][xMin].x = tmpVec.x;
+                buffer.Buffer[yMin][xMin].y = tmpVec.y;
             }
             else if (isSideways)
             {
@@ -89,7 +92,9 @@ namespace CSharp_ASCII_Render_Engine.Geometry.Lines
 
                         if (isCol)
                         {
-                            buffer.Buffer[y][x] = RenderFuncs.AlphaTransform(Color, buffer.Buffer[y][x]);
+                            tmpVec = RenderFuncs.AlphaTransform(Color, buffer.Buffer[y][x], tmpVec);
+                            buffer.Buffer[y][x].x = tmpVec.x;
+                            buffer.Buffer[y][x].y = tmpVec.y;
                         }
                     }
                 }

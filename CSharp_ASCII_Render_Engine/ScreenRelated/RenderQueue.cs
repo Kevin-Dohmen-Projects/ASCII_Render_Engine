@@ -1,12 +1,4 @@
-﻿using CSharp_ASCII_Render_Engine.Types.Vectors;
-using CSharp_ASCII_Render_Engine.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CSharp_ASCII_Render_Engine.ScreenRelated
+﻿namespace CSharp_ASCII_Render_Engine.ScreenRelated
 {
     public class RenderQueue
     {
@@ -24,7 +16,7 @@ namespace CSharp_ASCII_Render_Engine.ScreenRelated
 
         public void Remove(IRenderable item)
         {
-            Queue.Remove(item); 
+            Queue.Remove(item);
         }
 
         public void Clear()
