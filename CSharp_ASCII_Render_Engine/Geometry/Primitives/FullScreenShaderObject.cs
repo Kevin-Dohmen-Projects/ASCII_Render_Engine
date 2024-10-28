@@ -25,20 +25,20 @@ namespace CSharp_ASCII_Render_Engine.Geometry.Primitives
             Shader = null;
         }
 
-        public void Render(ScreenBuffer buffer)
-        {
-            int posx = (int)Math.Round(Pos.x);
-            int posy = (int)Math.Round(Pos.y);
-            int sizex = (int)Math.Round(Size.x);
-            int sizey = (int)Math.Round(Size.y);
+        //public void Render(ScreenBuffer buffer)
+        //{
+        //    int posx = (int)Math.Round(Pos.x);
+        //    int posy = (int)Math.Round(Pos.y);
+        //    int sizex = (int)Math.Round(Size.x);
+        //    int sizey = (int)Math.Round(Size.y);
 
-            for (int y = int.Max(posy, 0); y < int.Min(posy + sizey, buffer.Height); y++)
-            {
-                for (int x = int.Max(posx, 0); x < int.Min(posx + sizex, buffer.Height); x++)
-                {
-                    buffer.Buffer[y][x] = Color;
-                }
-            }
-        }
+        //    for (int y = int.Max(posy, 0); y < int.Min(posy + sizey, buffer.Height); y++)
+        //    {
+        //        for (int x = int.Max(posx, 0); x < int.Min(posx + sizex, buffer.Height); x++)
+        //        {
+        //            buffer.Buffer[y][x] = Color;
+        //        }
+        //    }
+        //}
     }
 }

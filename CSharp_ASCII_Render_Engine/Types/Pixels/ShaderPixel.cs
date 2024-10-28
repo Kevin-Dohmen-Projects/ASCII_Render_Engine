@@ -7,27 +7,31 @@ using System.Threading.Tasks;
 
 namespace CSharp_ASCII_Render_Engine.Types.Pixels
 {
-    public struct ShaderPixel
+    public class ShaderPixel
     {
-        Vec2? ScreenPos;
-        Vec2? ScreenRes;
-        Vec2 UV;
-        double? Time;
+        public Vec2 ScreenPos;
+        public Vec2 ScreenRes;
+        public Vec2 UV;
+        public int Frame;
 
-
-        public ShaderPixel(Vec2 screenPos, Vec2 screnRes, Vec2 uv, double time)
-        {
-            ScreenPos = screenPos;
-            ScreenRes = screnRes;
-            UV = uv;
-            Time = time;
-        }
+        // pool
+        public Vec2 Col;
 
         public ShaderPixel()
         {
-            Vec2 UV = new Vec2();
+            ScreenPos = new Vec2();
+            ScreenRes = new Vec2();
+            UV = new Vec2();
+            Col = new Vec2();
         }
 
-
+        public ShaderPixel(Vec2 screenPos, Vec2 screenRes, int frame)
+        {
+            ScreenPos = screenPos;
+            ScreenRes = screenRes;
+            Frame = frame;
+            UV = screenPos.DivideInPlace(screenRes);
+            Col = new Vec2(0, 0);
+        }
     }
 }

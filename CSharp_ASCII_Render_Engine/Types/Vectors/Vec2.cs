@@ -109,6 +109,44 @@ namespace CSharp_ASCII_Render_Engine.Types.Vectors
             return new Vec2(left) % right;
         }
 
+        // In-place
+        public Vec2 AddInPlace(Vec2 other)
+        {
+            x += other.x;
+            y += other.y;
+            return this;
+        }
+        public Vec2 AddInPlace(double other)
+        {
+            x += other;
+            y += other;
+            return this;
+        }
+        public Vec2 MultiplyInPlace(Vec2 other)
+        {
+            x *= other.x;
+            y *= other.y;
+            return this;
+        }
+        public Vec2 MultiplyInPlace(double scalar)
+        {
+            x *= scalar;
+            y *= scalar;
+            return this;
+        }
+        public Vec2 DivideInPlace(Vec2 other)
+        {
+            x /= other.x;
+            y /= other.y;
+            return this;
+        }
+        public Vec2 DivideInPlace(double scalar)
+        {
+            x /= scalar;
+            y /= scalar;
+            return this;
+        }
+
         // functions
         public double Length()
         {
@@ -124,6 +162,13 @@ namespace CSharp_ASCII_Render_Engine.Types.Vectors
                 x / len,
                 y / len
                 );
+        }
+        public Vec2 NormalizeInPlace()
+        {
+            double len = Length();
+            x /= len;
+            y /= len;
+            return this;
         }
         public static double Dot(Vec2 left, Vec2 right)
         {

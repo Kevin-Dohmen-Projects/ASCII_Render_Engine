@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CSharp_ASCII_Render_Engine.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,8 @@ namespace CSharp_ASCII_Render_Engine.ScreenRelated
     {
         public int Width { get; private set; }
         public int Height { get; private set; }
+
+        public int Frame { get; private set; }
 
         public RenderQueue Queue { get; private set; }
         public ScreenBuffer Buffer { get; private set; }
@@ -23,6 +26,12 @@ namespace CSharp_ASCII_Render_Engine.ScreenRelated
             Buffer = new ScreenBuffer(width, height);
         }
 
+        public void Clear()
+        {
+            Queue.Clear();
+            Buffer.Clear();
+        }
+
         public void Draw(IRenderable item)
         {
             Queue.Add(item);
@@ -30,10 +39,13 @@ namespace CSharp_ASCII_Render_Engine.ScreenRelated
 
         public void Render()
         {
+            Frame++;
+
             foreach (var item in Queue.Queue)
             {
-                item.Render(Buffer);
+                item.Render(Buffer, Frame);
             }
+            Queue.Clear();
 
             string fullScreen = Converter.BufferToFullScreen(Buffer);
             Console.WriteLine(fullScreen);

@@ -38,6 +38,6 @@ namespace CSharp_ASCII_Render_Engine.ScreenRelated
 
     public interface IRenderable
     {
-        void Render(ScreenBuffer buffer);
+        void Render(ScreenBuffer buffer, int frame);
     }
 }

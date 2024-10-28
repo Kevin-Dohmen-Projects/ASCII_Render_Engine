@@ -18,11 +18,10 @@ namespace CSharp_ASCII_Render_Engine.ScreenRelated
         {
             Width = width;
             Height = height;
-            Buffer = new List<List<Vec2>>();
-            Clear();
+            InitBuffer();
         }
 
-        public void Clear()
+        private void InitBuffer()
         {
             Buffer = new List<List<Vec2>>();
             for (int i = 0; i < Width; i++)
@@ -30,7 +29,19 @@ namespace CSharp_ASCII_Render_Engine.ScreenRelated
                 Buffer.Add(new List<Vec2>());
                 for (int j = 0; j < Height; j++)
                 {
-                    Buffer[i].Add(new Vec2(0));
+                    Buffer[i].Add(new Vec2());
+                }
+            }
+        }
+
+        public void Clear()
+        {
+            for (int i = 0; i < Width; i++)
+            {
+                for (int j = 0; j < Height; j++)
+                {
+                    Buffer[i][j].x = 0;
+                    Buffer[i][j].y = 0;
                 }
             }
         }
@@ -85,14 +96,5 @@ namespace CSharp_ASCII_Render_Engine.ScreenRelated
                 }
             }
         }
-    }
-
-    public class ObjectScreenBuffer
-    {
-        public int ScreenPosX { get; set; }
-        public int ScreenPosY { get; set; }
-        public int Width { get; set; }
-        public int Height { get; set; }
-        public List<List<Vec2>> MyProperty { get; set; }
     }
 }

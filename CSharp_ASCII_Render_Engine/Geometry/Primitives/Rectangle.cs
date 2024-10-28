@@ -1,5 +1,8 @@
 ﻿using CSharp_ASCII_Render_Engine.ScreenRelated;
+using CSharp_ASCII_Render_Engine.Shader;
+using CSharp_ASCII_Render_Engine.Types.Pixels;
 using CSharp_ASCII_Render_Engine.Types.Vectors;
+using CSharp_ASCII_Render_Engine.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +13,15 @@ namespace CSharp_ASCII_Render_Engine.Geometry.Primitives
 {
     internal class Rectangle : IRenderable
     {
-        Vec2 Pos;
-        Vec2 Size;
-        Vec2 Color;
+        public Vec2 Pos;
+        public Vec2 Size;
+        public Vec2 Color;
+        public bool IsFilled = true;
+        public IShader? Shader;
+
+        // object pool
+        private ShaderPixel shaderPixel = new();
+        private Vec2 shaderPixelScreenRes = new();
 
         public Rectangle(Vec2 pos, Vec2 size, Vec2 color)
         {
@@ -20,19 +29,65 @@ namespace CSharp_ASCII_Render_Engine.Geometry.Primitives
             Size = size;
             Color = color;
         }
-
-        public void Render(ScreenBuffer buffer)
+        public Rectangle(Vec2 pos, Vec2 size, Vec2 color, bool filled)
         {
-            int posx = (int)Math.Round(Pos.x);
-            int posy = (int)Math.Round(Pos.y);
-            int sizex = (int)Math.Round(Size.x);
-            int sizey = (int)Math.Round(Size.y);
+            Pos = pos;
+            Size = size;
+            Color = color;
+            IsFilled = filled;
+        }
 
-            for (int y = int.Max(posy, 0); y < int.Min(posy + sizey, buffer.Height); y++)
+        public Rectangle(Vec2 pos, Vec2 size, IShader shader, double alpha = 1)
+        {
+            Pos = pos;
+            Size = size;
+            Shader = shader;
+            Color = new Vec2(1, alpha);
+        }
+
+        public void Render(ScreenBuffer buffer, int frame)
+        {
+            int posx = (int)Math.Floor(Pos.x);
+            int posy = (int)Math.Floor(Pos.y);
+            int sizex = (int)Math.Ceiling(Size.x);
+            int sizey = (int)Math.Ceiling(Size.y);
+
+            if (IsFilled)
             {
-                for (int x = int.Max(posx, 0); x < int.Min(posx + sizex, buffer.Height); x++)
+                ShaderPixel pix = shaderPixel;
+                shaderPixelScreenRes.x = sizex; shaderPixelScreenRes.y = sizey;
+                pix.ScreenRes = shaderPixelScreenRes;
+
+                for (int y = int.Max(posy, 0); y < int.Min(posy + sizey, buffer.Height); y++)
                 {
-                    buffer.Buffer[y][x] = Color;
+                    for (int x = int.Max(posx, 0); x < int.Min(posx + sizex, buffer.Height); x++)
+                    {
+                        if (Shader != null)
+                        {
+                            pix.ScreenPos.x = x;
+                            pix.ScreenPos.y = y;
+                            pix.Frame = frame;
+                            pix.UV = pix.ScreenPos.DivideInPlace(pix.ScreenRes);
+
+                            Vec2 col = Shader.Render(pix);
+                            buffer.Buffer[y][x] = RenderFuncs.AlphaTransform(col * Color, buffer.Buffer[y][x]);
+                        }
+                        else
+                        {
+                            buffer.Buffer[y][x] = RenderFuncs.AlphaTransform(Color, buffer.Buffer[y][x]);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                for (int y = int.Max(posy, 0); y < int.Min(posy + sizey, buffer.Height); y++)
+                {
+                    for (int x = int.Max(posx, 0); x < int.Min(posx + sizex, buffer.Height); x++)
+                    {
+                        if (x == posx || x == posx+sizex-1 || y == posy || y == posy+sizey-1)
+                        buffer.Buffer[y][x] = RenderFuncs.AlphaTransform(Color, buffer.Buffer[y][x]);
+                    }
                 }
             }
         }
