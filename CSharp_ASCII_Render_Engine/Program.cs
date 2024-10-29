@@ -7,13 +7,12 @@ using CSharp_ASCII_Render_Engine.Utils;
 
 namespace CSharp_ASCII_Render_Engine
 {
-    public class Program
+    public static class Program
     {
+        static Screen screen = new Screen(100, 100);
+
         public static void Main(string[] args)
         {
-
-            Screen screen = new Screen(100, 100);
-
             Rectangle frame = new Rectangle(new Vec2(0), new Vec2(100, 100), new Vec2(1, 1), false);
 
             Rectangle shaderRect = new Rectangle(new Vec2(0), new Vec2(100, 100), new SinShader());
