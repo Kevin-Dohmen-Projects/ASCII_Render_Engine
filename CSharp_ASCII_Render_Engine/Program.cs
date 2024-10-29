@@ -9,7 +9,7 @@ namespace CSharp_ASCII_Render_Engine
 {
     public static class Program
     {
-        static Screen screen = new Screen(100, 100);
+        public static Screen screen = new Screen(100, 100);
 
         public static void Main(string[] args)
         {
