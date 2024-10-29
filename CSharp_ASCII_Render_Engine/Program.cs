@@ -27,7 +27,12 @@ namespace CSharp_ASCII_Render_Engine
             while (true)
             {
                 DateTime sTime = DateTime.Now;
+                frameCount = screen.Frame;
+                
+                // animation
 
+
+                // drawing objects
                 screen.Clear();
 
                 screen.Draw(shaderRect);
@@ -36,7 +41,7 @@ namespace CSharp_ASCII_Render_Engine
                 screen.Draw(rect2);
                 screen.Draw(rect2Frame);
 
-                // sum stuff
+                // api-injected objects
                 foreach (ShapeData shape in ShapeStore.GetShapes())
                 {
                     screen.Draw(shape.shape);
@@ -44,12 +49,12 @@ namespace CSharp_ASCII_Render_Engine
 
                 screen.Draw(frame);
 
+                // render
                 screen.Render();
                 DateTime eTime = DateTime.Now;
 
                 Console.WriteLine(1 / (eTime - sTime).TotalSeconds);
                 Thread.Sleep(200);
-                frameCount++;
             }
         }
     }

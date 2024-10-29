@@ -59,8 +59,8 @@ namespace CSharp_ASCII_Render_Engine.Geometry.Primitives
                     {
                         if (Shader != null)
                         {
-                            pix.ScreenPos.x = x;
-                            pix.ScreenPos.y = y;
+                            pix.ScreenPos.x = x - posx;
+                            pix.ScreenPos.y = y - posy;
                             pix.Frame = frame;
                             pix.UV.DivideInPlace(pix.ScreenPos, pix.ScreenRes);
 
