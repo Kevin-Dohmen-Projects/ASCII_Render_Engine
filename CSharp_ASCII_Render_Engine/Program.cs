@@ -13,9 +13,11 @@ namespace CSharp_ASCII_Render_Engine
 
         public static void Main(string[] args)
         {
+            screen.Background = new FullScreenShaderObject(new SinShader());
+
             Rectangle frame = new Rectangle(new Vec2(0), new Vec2(screen.Width, screen.Height), new Vec2(1, 1), false);
 
-            Rectangle shaderRect = new Rectangle(new Vec2(0), new Vec2(screen.Width, screen.Height), new StaticNoiseShader());
+            //Rectangle shaderRect = new Rectangle(new Vec2(0), new Vec2(screen.Width, screen.Height), new StaticNoiseShader());
 
             Rectangle rect1 = new Rectangle(new Vec2(60, 10), new Vec2(20, 30), new Vec2(1, 1));
             Rectangle rect2 = new Rectangle(new Vec2(70, 20), new Vec2(20, 30), new Vec2(.8, .6));
@@ -35,7 +37,7 @@ namespace CSharp_ASCII_Render_Engine
                 // drawing objects
                 screen.Clear();
 
-                screen.Draw(shaderRect);
+                //screen.Draw(shaderRect);
                 screen.Draw(line1);
                 screen.Draw(rect1);
                 screen.Draw(rect2);
