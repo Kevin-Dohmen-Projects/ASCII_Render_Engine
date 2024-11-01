@@ -114,6 +114,12 @@
             y += other;
             return this;
         }
+        public Vec2 AddInPlace(double otherX, double otherY)
+        {
+            x += otherX;
+            y += otherY;
+            return this;
+        }
         public Vec2 MultiplyInPlace(Vec2 other)
         {
             x *= other.x;
