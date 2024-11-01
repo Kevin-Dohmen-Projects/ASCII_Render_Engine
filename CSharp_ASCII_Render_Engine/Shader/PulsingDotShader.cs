@@ -21,6 +21,7 @@ namespace CSharp_ASCII_Render_Engine.Shader
             // Set a pulsing effect by varying the radius with frame
             double radius = 0.25 + 0.1 * Math.Sin(frame * 0.1);
             col.x = distance < radius ? 1.0 : 0.0;
+            col.y = col.x;
 
             shaderPixel.Vec2Pool.ReturnObject(col);
             return col;
