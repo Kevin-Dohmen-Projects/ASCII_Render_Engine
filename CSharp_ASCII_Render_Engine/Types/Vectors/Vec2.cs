@@ -20,6 +20,13 @@
             y = 0;
         }
 
+        public Vec2 reset()
+        {
+            x = 0;
+            y = 0;
+            return this;
+        }
+
         // -=-=-=-=- math -=-=-=-=-
         // operators
         // vec-vec

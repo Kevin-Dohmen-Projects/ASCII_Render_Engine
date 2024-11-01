@@ -7,17 +7,17 @@ namespace CSharp_ASCII_Render_Engine.Shader
     {
         public Vec2 Render(ShaderPixel shaderPixel)
         {
-            double col;
+            Vec2 col = shaderPixel.Vec2Pool.GetObject().reset();
             Vec2 uv = shaderPixel.UV;
             double frame = (double)shaderPixel.Frame;
 
-            col = (Math.Sin(uv.x * 20 + frame / 2) + Math.Sin(uv.y * 20 + frame / 4)) / 4 + .5;
+            col.y = 1;
+            
+            // shader
+            col.x = (Math.Sin(uv.x * 20 + frame / 2) + Math.Sin(uv.y * 20 + frame / 4)) / 4 + .5;
 
-
-            shaderPixel.Col.x = col;
-            shaderPixel.Col.y = 1;
-
-            return shaderPixel.Col;
+            shaderPixel.Vec2Pool.ReturnObject(col);
+            return col;
         }
     }
 }

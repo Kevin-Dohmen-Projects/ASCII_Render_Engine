@@ -8,16 +8,17 @@ namespace CSharp_ASCII_Render_Engine.Shader
         // Source: ChatGPT
         public Vec2 Render(ShaderPixel shaderPixel)
         {
-            double col = 0;
+            Vec2 col = shaderPixel.Vec2Pool.GetObject().reset();
             Vec2 uv = shaderPixel.UV;
             double frame = (double)shaderPixel.Frame;
 
-            // Checkerboard pattern using the floor of uv coordinates
-            col = ((Math.Floor(uv.x * 10) + Math.Floor(uv.y * 10)) % 2 == 0) ? 1.0 : 0.0;
+            col.y = 1;
 
-            shaderPixel.Col.x = col; // luminance
-            shaderPixel.Col.y = 1;   // transparency
-            return shaderPixel.Col;
+            // Checkerboard pattern using the floor of uv coordinates
+            col.x = ((Math.Floor(uv.x * 10) + Math.Floor(uv.y * 10)) % 2 == 0) ? 1.0 : 0.0;
+
+            shaderPixel.Vec2Pool.ReturnObject(col);
+            return col;
         }
     }
 }

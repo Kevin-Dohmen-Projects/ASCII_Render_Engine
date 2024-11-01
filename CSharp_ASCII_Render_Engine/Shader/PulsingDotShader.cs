@@ -8,9 +8,11 @@ namespace CSharp_ASCII_Render_Engine.Shader
         // Source: ChatGPT
         public Vec2 Render(ShaderPixel shaderPixel)
         {
-            double col = 0;
+            Vec2 col = shaderPixel.Vec2Pool.GetObject().reset();
             Vec2 uv = shaderPixel.UV;
             double frame = (double)shaderPixel.Frame;
+
+            col.y = 1;
 
             // Shift uv to center and compute distance from center
             uv.AddInPlace(-0.5, -0.5);
@@ -18,11 +20,10 @@ namespace CSharp_ASCII_Render_Engine.Shader
 
             // Set a pulsing effect by varying the radius with frame
             double radius = 0.25 + 0.1 * Math.Sin(frame * 0.1);
-            col = distance < radius ? 1.0 : 0.0;
+            col.x = distance < radius ? 1.0 : 0.0;
 
-            shaderPixel.Col.x = col; // luminance
-            shaderPixel.Col.y = 1;   // transparency
-            return shaderPixel.Col;
+            shaderPixel.Vec2Pool.ReturnObject(col);
+            return col;
         }
     }
 }

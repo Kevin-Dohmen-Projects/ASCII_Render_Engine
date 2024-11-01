@@ -8,9 +8,11 @@ namespace CSharp_ASCII_Render_Engine.Shader
         // Source: ChatGPT
         public Vec2 Render(ShaderPixel shaderPixel)
         {
-            double col = 0;
+            Vec2 col = shaderPixel.Vec2Pool.GetObject().reset();
             Vec2 uv = shaderPixel.UV;
             double frame = (double)shaderPixel.Frame;
+
+            col.y = 1;
 
             // Shift uv to center for a spiral effect
             uv.AddInPlace(-0.5, -0.5);
@@ -20,11 +22,10 @@ namespace CSharp_ASCII_Render_Engine.Shader
             double radius = Math.Sqrt(uv.x * uv.x + uv.y * uv.y);
 
             // Create a rotating spiral effect
-            col = (Math.Sin(10 * radius - frame * 0.1 + angle) + 1) / 2;
+            col.x = (Math.Sin(10 * radius - frame * 0.1 + angle) + 1) / 2;
 
-            shaderPixel.Col.x = col; // luminance
-            shaderPixel.Col.y = 1;   // transparency
-            return shaderPixel.Col;
+            shaderPixel.Vec2Pool.ReturnObject(col);
+            return col;
         }
 
     }
