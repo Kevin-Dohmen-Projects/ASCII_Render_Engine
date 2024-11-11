@@ -56,6 +56,7 @@ namespace CSharp_ASCII_Render_Engine.ScreenRelated
             Queue.Clear();
 
             string fullScreen = Converter.BufferToFullScreen(Buffer);
+            Console.SetCursorPosition(0, 0);
             Console.WriteLine(fullScreen);
         }
     }
