@@ -5,6 +5,8 @@ namespace CSharp_ASCII_Render_Engine.Shader
 {
     public class CheckerboardShader : IShader
     {
+        public string Name { get; } = "Checkerboard Shader";
+
         // Source: ChatGPT
         public Vec2 Render(ShaderPixel shaderPixel)
         {

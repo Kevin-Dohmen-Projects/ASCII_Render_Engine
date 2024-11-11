@@ -5,6 +5,8 @@ namespace CSharp_ASCII_Render_Engine.Shader
 {
     public class PulsingDotShader : IShader
     {
+        public string Name { get; } = "Pulsing Dot Shaders";
+
         // Source: ChatGPT
         public Vec2 Render(ShaderPixel shaderPixel)
         {

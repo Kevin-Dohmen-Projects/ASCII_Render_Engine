@@ -5,6 +5,8 @@ namespace CSharp_ASCII_Render_Engine.Shader
 {
     public class StaticNoiseShader : IShader
     {
+        public string Name { get; } = "Static Noise Shader";
+
         // Source: ChatGPT
         public Vec2 Render(ShaderPixel shaderPixel)
         {

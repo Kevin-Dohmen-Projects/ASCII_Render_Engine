@@ -5,6 +5,8 @@ namespace CSharp_ASCII_Render_Engine.Shader
 {
     public class SpiralShader : IShader
     {
+        public string Name { get; } = "Spiral Shader";
+
         // Source: ChatGPT
         public Vec2 Render(ShaderPixel shaderPixel)
         {
