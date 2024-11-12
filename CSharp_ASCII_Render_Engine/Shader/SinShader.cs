@@ -16,7 +16,7 @@ namespace CSharp_ASCII_Render_Engine.Shader
             col.y = 1;
             
             // shader
-            col.x = (Math.Sin(uv.x * 20 + frame / 2) + Math.Sin(uv.y * 20 + frame / 4)) / 4 + .5;
+            col.x = (Math.Sin(uv.x * 20 + frame / 4) + Math.Sin(uv.y * 20 + frame / 8)) / 4 + .5;
 
             shaderPixel.Vec2Pool.ReturnObject(col);
             return col;
