@@ -29,6 +29,9 @@ namespace CSharp_ASCII_Render_Engine.Utils
                 shapes.RemoveAll(shape => shape.name == name);
             }
         }
+        public static void ClearShapes() {
+            lock (lockObject) { shapes.Clear(); }
+        }
     }
 
 
