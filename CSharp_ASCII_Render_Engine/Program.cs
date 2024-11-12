@@ -16,6 +16,9 @@ namespace CSharp_ASCII_Render_Engine
         {
             screen.Background = new FullScreenShaderObject(new SinShader());
 
+            // screen config
+            screen.Config.Dithering = true;
+
             Rectangle frame = new Rectangle(new Vec2(0), new Vec2(screen.Width, screen.Height), new Vec2(1, 1), false);
 
             //Rectangle shaderRect = new Rectangle(new Vec2(0), new Vec2(screen.Width, screen.Height), new StaticNoiseShader());
@@ -39,9 +42,9 @@ namespace CSharp_ASCII_Render_Engine
                 frameCount = screen.Frame;
                 
                 // animation
-                Vec2 animPos = animation.Animate(((double)frameCount)/10);
+                Vec2 animPos = animation.Animate(((double)frameCount) / 10);
 
-                rect1.Pos = animPos*new Vec2(screen.Width, screen.Height)-(rect1.Size/2);
+                rect1.Pos = animPos * new Vec2(screen.Width, screen.Height)-(rect1.Size/2);
 
                 // drawing objects
                 screen.Clear();

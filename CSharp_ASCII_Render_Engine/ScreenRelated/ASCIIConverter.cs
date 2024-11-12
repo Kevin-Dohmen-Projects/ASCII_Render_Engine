@@ -13,27 +13,28 @@ namespace CSharp_ASCII_Render_Engine.ScreenRelated
             { 0.5, -0.5 }
         };
 
-        public string BufferToFullScreen(ScreenBuffer screenBuffer)
+        public Display BufferToFullScreen(ScreenBuffer screenBuffer, Display display, ScreenConfig config)
         {
-            string FullScreen = "";
-
             int width = screenBuffer.Width;
             int height = screenBuffer.Height;
 
             for (int y = 0; y < height; y++)
             {
-
-                List<char> row = new();
                 for (int x = 0; x < width; x++)
                 {
-                    //char tmpChar = CharFromColor(screenBuffer.Buffer[y][x]);
-                    char tmpChar = CharFromColorDither(screenBuffer.Buffer[y][x], x, y);
-                    row.Add(tmpChar);
-                    row.Add(tmpChar);
+                    char tmpChar;
+                    if (config.Dithering)
+                    {
+                        tmpChar = CharFromColorDither(screenBuffer.Buffer[y][x], x, y);
+                    }
+                    else
+                    {
+                        tmpChar = CharFromColor(screenBuffer.Buffer[y][x]);
+                    }
+                    display.SetChar(x, y, tmpChar);
                 }
-                FullScreen += "\n" + string.Join("", row);
             }
-            return FullScreen;
+            return display;
         }
 
         public char CharFromColor(Vec2 color)

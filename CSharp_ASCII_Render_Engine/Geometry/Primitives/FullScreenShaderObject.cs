@@ -44,9 +44,7 @@ namespace CSharp_ASCII_Render_Engine.Geometry.Primitives
                         pix.UV.DivideInPlace(pix.ScreenPos, pix.ScreenRes);
 
                         Vec2 col = Shader.Render(pix);
-                        tmpVec = RenderFuncs.AlphaTransform(col.MultiplyInPlace(Color), buffer.Buffer[y][x], tmpVec);
-                        buffer.Buffer[y][x].x = tmpVec.x;
-                        buffer.Buffer[y][x].y = tmpVec.y;
+                        buffer.Buffer[y][x].SetInPlace(RenderFuncs.AlphaTransform(col.MultiplyInPlace(Color), buffer.Buffer[y][x], tmpVec));
                     }
                     else
                     {

@@ -1,4 +1,6 @@
-﻿namespace CSharp_ASCII_Render_Engine.Types.Vectors
+﻿using System.Runtime.CompilerServices;
+
+namespace CSharp_ASCII_Render_Engine.Types.Vectors
 {
     public class Vec2
     {
@@ -190,6 +192,19 @@
         {
             return left.x * right.y
                 - left.y * right.x;
+        }
+
+        public Vec2 SetInPlace(Vec2 other)
+        {
+            this.x = other.x;
+            this.y = other.y;
+            return this;
+        }
+        public Vec2 SetInPlace(double x, double y)
+        {
+            this.x = x;
+            this.y = y;
+            return this;
         }
 
 

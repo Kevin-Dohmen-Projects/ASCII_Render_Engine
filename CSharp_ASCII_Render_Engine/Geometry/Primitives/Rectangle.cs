@@ -65,13 +65,11 @@ namespace CSharp_ASCII_Render_Engine.Geometry.Primitives
                             pix.UV.DivideInPlace(pix.ScreenPos, pix.ScreenRes);
 
                             Vec2 col = Shader.Render(pix);
-                            tmpVec = RenderFuncs.AlphaTransform(col.MultiplyInPlace(Color), buffer.Buffer[y][x], tmpVec);
-                            buffer.Buffer[y][x].x = tmpVec.x;
-                            buffer.Buffer[y][x].y = tmpVec.y;
+                            buffer.Buffer[y][x].SetInPlace(RenderFuncs.AlphaTransform(col.MultiplyInPlace(Color), buffer.Buffer[y][x], tmpVec));
                         }
                         else
                         {
-                            buffer.Buffer[y][x] = RenderFuncs.AlphaTransform(Color, buffer.Buffer[y][x]);
+                            buffer.Buffer[y][x].SetInPlace(RenderFuncs.AlphaTransform(Color, buffer.Buffer[y][x], tmpVec));
                         }
                     }
                 }
@@ -83,7 +81,7 @@ namespace CSharp_ASCII_Render_Engine.Geometry.Primitives
                     for (int x = int.Max(posx, 0); x < int.Min(posx + sizex, buffer.Height); x++)
                     {
                         if (x == posx || x == posx + sizex - 1 || y == posy || y == posy + sizey - 1)
-                            buffer.Buffer[y][x] = RenderFuncs.AlphaTransform(Color, buffer.Buffer[y][x]);
+                            buffer.Buffer[y][x].SetInPlace(RenderFuncs.AlphaTransform(Color, buffer.Buffer[y][x], tmpVec));
                     }
                 }
             }

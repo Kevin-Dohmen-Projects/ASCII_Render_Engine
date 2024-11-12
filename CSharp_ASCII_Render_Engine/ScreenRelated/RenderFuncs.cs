@@ -31,8 +31,10 @@ namespace CSharp_ASCII_Render_Engine.ScreenRelated
                 r.x = fg.x * fg.y / r.y + bg.x * bg.y * (1.0 - fg.y) / r.y;
             }
 
-            r.x = Math.Clamp(r.x, 0.0, 1.0);
-            r.y = Math.Clamp(r.y, 0.0, 1.0);
+            r.SetInPlace(
+                Math.Clamp(r.x, 0.0, 1.0),
+                Math.Clamp(r.y, 0.0, 1.0)
+            );
 
             return r;
         }
@@ -65,8 +67,10 @@ namespace CSharp_ASCII_Render_Engine.ScreenRelated
                 r.x = fg.x * fg.y / r.y + bg.x * bg.y * (1.0 - fg.y) / r.y;
             }
 
-            r.x = Math.Clamp(r.x, 0.0, 1.0);
-            r.y = Math.Clamp(r.y, 0.0, 1.0);
+            r.SetInPlace(
+                Math.Clamp(r.x, 0.0, 1.0),
+                Math.Clamp(r.y, 0.0, 1.0)
+            );
 
             return r;
         }

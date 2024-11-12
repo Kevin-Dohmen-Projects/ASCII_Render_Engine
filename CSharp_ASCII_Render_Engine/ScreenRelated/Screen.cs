@@ -15,8 +15,11 @@ namespace CSharp_ASCII_Render_Engine.ScreenRelated
         public ScreenBuffer Buffer { get; private set; }
         private ASCIIConverter Converter = new();
 
+        private Display Display;
+
         public FullScreenShaderObject? Background;
 
+        public ScreenConfig Config;
 
         // pools
         ObjectPool<Vec2> Vec2Pool = new(100_000);
@@ -27,6 +30,8 @@ namespace CSharp_ASCII_Render_Engine.ScreenRelated
             Height = height;
             Queue = new RenderQueue();
             Buffer = new ScreenBuffer(width, height);
+            Display = new Display(width, height);
+            Config = new();
         }
 
         public void Clear()
@@ -55,9 +60,20 @@ namespace CSharp_ASCII_Render_Engine.ScreenRelated
             }
             Queue.Clear();
 
-            string fullScreen = Converter.BufferToFullScreen(Buffer);
+            string fullScreen = Converter.BufferToFullScreen(Buffer, Display, Config).ToString();
+
             Console.SetCursorPosition(0, 0);
             Console.WriteLine(fullScreen);
+        }
+    }
+
+    public struct ScreenConfig
+    {
+        // Render settings:
+        public bool Dithering;
+        public ScreenConfig()
+        {
+            Dithering = false;
         }
     }
 }
