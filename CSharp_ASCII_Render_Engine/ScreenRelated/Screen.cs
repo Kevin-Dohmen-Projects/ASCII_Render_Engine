@@ -63,7 +63,7 @@ namespace CSharp_ASCII_Render_Engine.ScreenRelated
             string fullScreen = Converter.BufferToFullScreen(Buffer, Display, Config).ToString();
 
             Console.SetCursorPosition(0, 0);
-            Console.WriteLine(fullScreen);
+            Console.WriteLine(Display.fullScreenString);
         }
     }
 
@@ -71,9 +71,11 @@ namespace CSharp_ASCII_Render_Engine.ScreenRelated
     {
         // Render settings:
         public bool Dithering;
+        public double FPSCap;
         public ScreenConfig()
         {
             Dithering = false;
+            FPSCap = 30;
         }
     }
 }

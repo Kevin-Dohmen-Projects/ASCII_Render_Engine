@@ -12,6 +12,9 @@ namespace CSharp_ASCII_Render_Engine
     {
         public static Screen screen = new Screen(150, 150);
 
+        private static DateTime sTime = new();
+        private static DateTime eTime = new();
+
         public static void Main(string[] args)
         {
             screen.Background = new FullScreenShaderObject(new SinShader());
@@ -24,7 +27,7 @@ namespace CSharp_ASCII_Render_Engine
             int frameCount = 0;
             while (true)
             {
-                DateTime sTime = DateTime.Now;
+                sTime = DateTime.Now;
                 frameCount = screen.Frame;
 
                 // api-injected objects
@@ -37,10 +40,19 @@ namespace CSharp_ASCII_Render_Engine
 
                 // render
                 screen.Render();
-                DateTime eTime = DateTime.Now;
 
-                Console.WriteLine(1 / (eTime - sTime).TotalSeconds);
-                Thread.Sleep(50);
+                eTime = DateTime.Now;
+
+                // frame cap
+                double elapsedTime = (eTime - sTime).TotalSeconds;
+
+                Console.WriteLine(1 / elapsedTime);
+
+                double sleepTime = (1 / screen.Config.FPSCap) - elapsedTime;
+                if (sleepTime > 0)
+                {
+                    Thread.Sleep((int)(sleepTime * 1000));
+                }
             }
         }
     }

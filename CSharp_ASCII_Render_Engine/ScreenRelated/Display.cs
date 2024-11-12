@@ -13,6 +13,8 @@ namespace CSharp_ASCII_Render_Engine.ScreenRelated
         private int height;
         private readonly StringBuilder sb; // Reusable StringBuilder instance
 
+        public string fullScreenString;
+
         public Display(int width, int height)
         {
             this.width = width;
@@ -44,7 +46,8 @@ namespace CSharp_ASCII_Render_Engine.ScreenRelated
                 sb.AppendLine(); // Add newline after each row
             }
 
-            return sb.ToString();
+            fullScreenString = sb.ToString();
+            return fullScreenString;
         }
     }
 }
