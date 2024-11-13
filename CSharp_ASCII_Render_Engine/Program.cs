@@ -36,6 +36,7 @@ namespace CSharp_ASCII_Render_Engine
                 if (screen.Config.ScaleToWindow)
                 {
                     screen.ScaleToWindow();
+                    frame.Size.SetInPlace(screen.Width, screen.Height);
                 }
 
                 screen.Clear();
