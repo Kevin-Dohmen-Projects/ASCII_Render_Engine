@@ -30,6 +30,8 @@ namespace CSharp_ASCII_Render_Engine
                 sTime = DateTime.Now;
                 frameCount = screen.Frame;
 
+                screen.Clear();
+
                 // api-injected objects
                 foreach (ShapeData shape in ShapeStore.GetShapes())
                 {

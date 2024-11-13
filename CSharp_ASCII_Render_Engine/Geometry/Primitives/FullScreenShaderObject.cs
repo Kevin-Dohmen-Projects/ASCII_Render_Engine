@@ -14,7 +14,7 @@ namespace CSharp_ASCII_Render_Engine.Geometry.Primitives
         Vec2 tmpVec = new();
         ShaderPixel shaderPixel = new ShaderPixel();
 
-        public FullScreenShaderObject(IShader shader, double Alpha = 1)
+        public FullScreenShaderObject(IShader? shader, double Alpha = 1)
         {
             Shader = shader;
             Color = new();
