@@ -40,7 +40,6 @@ namespace CSharp_ASCII_Render_Engine.ScreenRelated
             Height = height;
             Buffer = new ScreenBuffer(width, height);
             Display = new Display(width, height);
-            Config = new();
         }
 
         public (int, int) ScaleToWindow()

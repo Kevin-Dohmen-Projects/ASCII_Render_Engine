@@ -22,7 +22,7 @@ namespace CSharp_ASCII_Render_Engine
             // screen config
             screen.Config.Dithering = true;
             screen.Config.FPSCap = 30;
-            screen.Config.ScaleToWindow = false;
+            screen.Config.ScaleToWindow = true;
             
 
             Rectangle frame = new Rectangle(new Vec2(0), new Vec2(screen.Width, screen.Height), new Vec2(1, 1), false);
@@ -33,7 +33,7 @@ namespace CSharp_ASCII_Render_Engine
                 sTime = DateTime.Now;
                 frameCount = screen.Frame;
 
-                if (screen.Config.ScaleToWindow)
+                if (screen.Config.ScaleToWindow == true)
                 {
                     screen.ScaleToWindow();
                     frame.Size.SetInPlace(screen.Width, screen.Height);
