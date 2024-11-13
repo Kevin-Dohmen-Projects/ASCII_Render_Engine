@@ -32,6 +32,6 @@
 
     public interface IRenderable
     {
-        void Render(ScreenBuffer buffer, int frame);
+        void Render(ScreenBuffer buffer, int frame, double runTime);
     }
 }

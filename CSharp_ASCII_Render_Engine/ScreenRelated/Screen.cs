@@ -21,6 +21,8 @@ namespace CSharp_ASCII_Render_Engine.ScreenRelated
 
         public ScreenConfig Config;
 
+        private DateTime StartTime;
+
         // pools
         ObjectPool<Vec2> Vec2Pool = new(100_000);
 
@@ -32,6 +34,7 @@ namespace CSharp_ASCII_Render_Engine.ScreenRelated
             Buffer = new ScreenBuffer(width, height);
             Display = new Display(width, height);
             Config = new();
+            StartTime = DateTime.Now;
         }
 
         public void SetRes(int width, int height)
@@ -68,15 +71,16 @@ namespace CSharp_ASCII_Render_Engine.ScreenRelated
         public void Render()
         {
             Frame++;
+            double runTime = (DateTime.Now - StartTime).TotalSeconds;
 
             if (Background != null)
             {
-                Background.Render(Buffer, Frame);
+                Background.Render(Buffer, Frame, runTime);
             }
 
             foreach (var item in Queue.Queue)
             {
-                item.Render(Buffer, Frame);
+                item.Render(Buffer, Frame, runTime);
             }
             Queue.Clear();
 

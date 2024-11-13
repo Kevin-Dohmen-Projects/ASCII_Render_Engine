@@ -2,6 +2,7 @@
 using CSharp_ASCII_Render_Engine.Shader;
 using CSharp_ASCII_Render_Engine.Types.Pixels;
 using CSharp_ASCII_Render_Engine.Types.Vectors;
+using System.Net.NetworkInformation;
 
 namespace CSharp_ASCII_Render_Engine.Geometry.Primitives
 {
@@ -40,7 +41,7 @@ namespace CSharp_ASCII_Render_Engine.Geometry.Primitives
             Color = new Vec2(1, alpha);
         }
 
-        public void Render(ScreenBuffer buffer, int frame)
+        public void Render(ScreenBuffer buffer, int frame, double runTime)
         {
             int posx = (int)Math.Floor(Pos.x);
             int posy = (int)Math.Floor(Pos.y);
@@ -53,6 +54,9 @@ namespace CSharp_ASCII_Render_Engine.Geometry.Primitives
                 shaderPixelScreenRes.x = sizex; shaderPixelScreenRes.y = sizey;
                 pix.ScreenRes = shaderPixelScreenRes;
 
+                pix.Frame = frame;
+                pix.Time = runTime;
+
                 for (int y = int.Max(posy, 0); y < int.Min(posy + sizey, buffer.Height); y++)
                 {
                     for (int x = int.Max(posx, 0); x < int.Min(posx + sizex, buffer.Width); x++)
@@ -61,7 +65,6 @@ namespace CSharp_ASCII_Render_Engine.Geometry.Primitives
                         {
                             pix.ScreenPos.x = x - posx;
                             pix.ScreenPos.y = y - posy;
-                            pix.Frame = frame;
                             pix.UV.DivideInPlace(pix.ScreenPos, pix.ScreenRes);
 
                             Vec2 col = Shader.Render(pix);

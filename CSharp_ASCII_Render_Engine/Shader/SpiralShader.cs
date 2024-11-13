@@ -13,6 +13,7 @@ namespace CSharp_ASCII_Render_Engine.Shader
             Vec2 col = shaderPixel.Vec2Pool.GetObject().reset();
             Vec2 uv = shaderPixel.UV;
             double frame = (double)shaderPixel.Frame;
+            double time = shaderPixel.Time;
 
             col.y = 1;
 
@@ -24,7 +25,7 @@ namespace CSharp_ASCII_Render_Engine.Shader
             double radius = Math.Sqrt(uv.x * uv.x + uv.y * uv.y);
 
             // Create a rotating spiral effect
-            col.x = (Math.Sin(10 * radius - frame * 0.1 + angle) + 1) / 2;
+            col.x = (Math.Sin(10 * radius - time * 0.2 + angle) + 1) / 2;
 
             shaderPixel.Vec2Pool.ReturnObject(col);
             return col;

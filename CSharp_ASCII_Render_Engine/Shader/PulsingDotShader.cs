@@ -13,6 +13,7 @@ namespace CSharp_ASCII_Render_Engine.Shader
             Vec2 col = shaderPixel.Vec2Pool.GetObject().reset();
             Vec2 uv = shaderPixel.UV;
             double frame = (double)shaderPixel.Frame;
+            double time = shaderPixel.Time;
 
             col.y = 1;
 
@@ -21,7 +22,7 @@ namespace CSharp_ASCII_Render_Engine.Shader
             double distance = Math.Sqrt(uv.x * uv.x + uv.y * uv.y);
 
             // Set a pulsing effect by varying the radius with frame
-            double radius = 0.25 + 0.1 * Math.Sin(frame * 0.1);
+            double radius = 0.35 + 0.15 * Math.Sin(time);
             col.x = distance < radius ? 1.0 : 0.0;
             col.y = col.x;
 

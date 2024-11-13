@@ -5,6 +5,7 @@ using CSharp_ASCII_Render_Engine.Shader;
 using CSharp_ASCII_Render_Engine.Types.Vectors;
 using CSharp_ASCII_Render_Engine.Utils;
 using CSharp_ASCII_Render_Engine.Demo.Animation;
+using System.Globalization;
 
 namespace CSharp_ASCII_Render_Engine
 {
@@ -12,25 +13,26 @@ namespace CSharp_ASCII_Render_Engine
     {
         public static Screen screen = new(150, 150);
 
-        private static DateTime sTime = new();
-        private static DateTime eTime = new();
-
         public static void Main(string[] args)
         {
             screen.Background = new FullScreenShaderObject(new SinShader());
 
             // screen config
             screen.Config.Dithering = true;
-            screen.Config.FPSCap = 30;
+            screen.Config.FPSCap = 144;
             screen.Config.ScaleToWindow = true;
             
 
             Rectangle frame = new Rectangle(new Vec2(0), new Vec2(screen.Width, screen.Height), new Vec2(1, 1), false);
 
+            DateTime startTime = DateTime.Now;
+            DateTime frameStartTime = new();
+            DateTime frameEndTime = new();
+
             int frameCount = 0;
             while (true)
             {
-                sTime = DateTime.Now;
+                frameStartTime = DateTime.Now;
                 frameCount = screen.Frame;
 
                 if (screen.Config.ScaleToWindow == true)
@@ -52,10 +54,10 @@ namespace CSharp_ASCII_Render_Engine
                 // render
                 screen.Render();
 
-                eTime = DateTime.Now;
+                frameEndTime = DateTime.Now;
 
                 // frame cap
-                double elapsedTime = (eTime - sTime).TotalSeconds;
+                double elapsedTime = (frameEndTime - frameStartTime).TotalSeconds;
 
                 Console.WriteLine(1 / elapsedTime);
 

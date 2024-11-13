@@ -39,7 +39,7 @@ namespace CSharp_ASCII_Render_Engine.Geometry.Primitives
             Color = new Vec2(1, alpha);
         }
 
-        public void Render(ScreenBuffer buffer, int frame)
+        public void Render(ScreenBuffer buffer, int frame, double runTime)
         {
             int posx = (int)Math.Floor(Pos.x);
             int posy = (int)Math.Floor(Pos.y);
@@ -49,6 +49,10 @@ namespace CSharp_ASCII_Render_Engine.Geometry.Primitives
             ShaderPixel pix = shaderPixel;
             shaderPixelScreenRes.x = sizex; shaderPixelScreenRes.y = sizey;
             pix.ScreenRes = shaderPixelScreenRes;
+
+
+            pix.Frame = frame;
+            pix.Time = runTime;
 
             for (int y = int.Max(posy, 0); y < int.Min(posy + sizey, buffer.Height); y++)
             {
@@ -65,7 +69,6 @@ namespace CSharp_ASCII_Render_Engine.Geometry.Primitives
                         {
                             pix.ScreenPos.x = x - posx;
                             pix.ScreenPos.y = y - posy;
-                            pix.Frame = frame;
                             pix.UV.DivideInPlace(pix.ScreenPos, pix.ScreenRes);
 
                             Vec2 col = Shader.Render(pix);

@@ -31,7 +31,7 @@ namespace CSharp_ASCII_Render_Engine.Geometry.Lines
         //    B = new Vec2();
         //}
 
-        public void Render(ScreenBuffer buffer, int frame)
+        public void Render(ScreenBuffer buffer, int frame, double runTime)
         {
             Vec2 deltaVec = B - A - 1;
 

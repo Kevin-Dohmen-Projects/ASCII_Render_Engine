@@ -12,11 +12,12 @@ namespace CSharp_ASCII_Render_Engine.Shader
             Vec2 col = shaderPixel.Vec2Pool.GetObject().reset();
             Vec2 uv = shaderPixel.UV;
             double frame = (double)shaderPixel.Frame;
+            double time = shaderPixel.Time;
 
             col.y = 1;
             
             // shader
-            col.x = (Math.Sin(uv.x * 20 + frame / 4) + Math.Sin(uv.y * 20 + frame / 8)) / 4 + .5;
+            col.x = (Math.Sin(uv.x * 20 + time * 2) + Math.Sin(uv.y * 20 + time)) / 4 + .5;
 
             shaderPixel.Vec2Pool.ReturnObject(col);
             return col;

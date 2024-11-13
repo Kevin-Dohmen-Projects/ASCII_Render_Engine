@@ -8,7 +8,8 @@ namespace CSharp_ASCII_Render_Engine.Types.Pixels
         public Vec2 ScreenPos;
         public Vec2 ScreenRes;
         public Vec2 UV;
-        public int Frame;
+        public int Frame; // frame count
+        public double Time; // time in seconds
 
         // pool
         public ObjectPool<Vec2> Vec2Pool;

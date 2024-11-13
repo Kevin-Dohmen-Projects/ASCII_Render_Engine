@@ -27,11 +27,15 @@ namespace CSharp_ASCII_Render_Engine.Geometry.Primitives
             Shader = null;
         }
 
-        public void Render(ScreenBuffer buffer, int frame)
+        public void Render(ScreenBuffer buffer, int frame, double time)
         {
             ShaderPixel pix = shaderPixel;
             shaderPixel.ScreenRes.x = buffer.Width;
             shaderPixel.ScreenRes.y = buffer.Height;
+
+            pix.Frame = frame;
+            pix.Time = time;
+
             for (int y = 0; y < buffer.Height; y++)
             {
                 for (int x = 0; x < buffer.Width; x++)
@@ -40,7 +44,6 @@ namespace CSharp_ASCII_Render_Engine.Geometry.Primitives
                     {
                         pix.ScreenPos.x = x;
                         pix.ScreenPos.y = y;
-                        pix.Frame = frame;
                         pix.UV.DivideInPlace(pix.ScreenPos, pix.ScreenRes);
 
                         Vec2 col = Shader.Render(pix);

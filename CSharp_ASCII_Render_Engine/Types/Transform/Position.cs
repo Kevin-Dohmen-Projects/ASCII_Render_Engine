@@ -46,7 +46,7 @@ namespace CSharp_ASCII_Render_Engine.Types.Transform
                 case PositionType.RelPercentage:
                     return RelPercentageToPixelsInPlace(width, height);
                 case PositionType.RelFraction:
-                    return NaN;
+                    return RelFractionToPixelsInPlace(width, height);
                 default:
                     throw new NotImplementedException();
             }
