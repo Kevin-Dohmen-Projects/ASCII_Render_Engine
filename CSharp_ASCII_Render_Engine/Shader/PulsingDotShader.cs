@@ -7,13 +7,26 @@ namespace CSharp_ASCII_Render_Engine.Shader
     {
         public string Name { get; } = "Pulsing Dot Shaders";
 
+        // ShaderSettings
+        public double TimeOffset { get; set; }
+
+        public PulsingDotShader()
+        {
+            TimeOffset = 0;
+        }
+
+        public PulsingDotShader(double timeOffset)
+        {
+            TimeOffset = timeOffset;
+        }
+
         // Source: ChatGPT
         public Vec2 Render(ShaderPixel shaderPixel)
         {
             Vec2 col = shaderPixel.Vec2Pool.GetObject().reset();
             Vec2 uv = shaderPixel.UV;
             double frame = (double)shaderPixel.Frame;
-            double time = shaderPixel.Time;
+            double time = shaderPixel.Time + TimeOffset;
 
             col.y = 1;
 

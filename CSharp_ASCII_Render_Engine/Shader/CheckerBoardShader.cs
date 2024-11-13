@@ -7,6 +7,9 @@ namespace CSharp_ASCII_Render_Engine.Shader
     {
         public string Name { get; } = "Checkerboard Shader";
 
+        // ShaderSettings
+        public double TimeOffset { get; set; }
+
         // Source: ChatGPT
         public Vec2 Render(ShaderPixel shaderPixel)
         {
