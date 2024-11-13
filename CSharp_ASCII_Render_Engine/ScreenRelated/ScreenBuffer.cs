@@ -19,10 +19,10 @@ namespace CSharp_ASCII_Render_Engine.ScreenRelated
         private void InitBuffer()
         {
             Buffer = new List<List<Vec2>>();
-            for (int i = 0; i < Width; i++)
+            for (int i = 0; i < Height; i++)
             {
                 Buffer.Add(new List<Vec2>());
-                for (int j = 0; j < Height; j++)
+                for (int j = 0; j < Width; j++)
                 {
                     Buffer[i].Add(new Vec2());
                 }
@@ -31,9 +31,9 @@ namespace CSharp_ASCII_Render_Engine.ScreenRelated
 
         public void Clear()
         {
-            for (int i = 0; i < Width; i++)
+            for (int i = 0; i < Height; i++)
             {
-                for (int j = 0; j < Height; j++)
+                for (int j = 0; j < Width; j++)
                 {
                     Buffer[i][j].SetInPlace(0, 0);
                 }

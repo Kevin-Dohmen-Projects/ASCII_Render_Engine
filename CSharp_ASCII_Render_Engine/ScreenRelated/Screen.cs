@@ -34,6 +34,27 @@ namespace CSharp_ASCII_Render_Engine.ScreenRelated
             Config = new();
         }
 
+        public void SetRes(int width, int height)
+        {
+            Width = width;
+            Height = height;
+            Buffer = new ScreenBuffer(width, height);
+            Display = new Display(width, height);
+            Config = new();
+        }
+
+        public (int, int) ScaleToWindow()
+        {
+            int newWidth = Console.WindowWidth / 2;
+            int newHeight = Console.WindowHeight - 4;
+            if (Height != newHeight || Width != newWidth)
+            {
+                this.SetRes(newWidth, newHeight);
+                Console.Clear();
+            }
+            return (newWidth, newHeight);
+        }
+
         public void Clear()
         {
             Queue.Clear();
@@ -69,11 +90,17 @@ namespace CSharp_ASCII_Render_Engine.ScreenRelated
 
     public struct ScreenConfig
     {
+        // Resolution:
+        public bool ScaleToWindow;
+
         // Render settings:
         public bool Dithering;
         public double FPSCap;
+
         public ScreenConfig()
         {
+            ScaleToWindow = false;
+
             Dithering = false;
             FPSCap = 30;
         }

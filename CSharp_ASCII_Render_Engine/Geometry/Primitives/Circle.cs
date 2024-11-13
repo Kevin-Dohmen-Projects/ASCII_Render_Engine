@@ -52,7 +52,7 @@ namespace CSharp_ASCII_Render_Engine.Geometry.Primitives
 
             for (int y = int.Max(posy, 0); y < int.Min(posy + sizey, buffer.Height); y++)
             {
-                for (int x = int.Max(posx, 0); x < int.Min(posx + sizex, buffer.Height); x++)
+                for (int x = int.Max(posx, 0); x < int.Min(posx + sizex, buffer.Width); x++)
                 {
                     circleUV.SetInPlace(
                         (x - Pos.x) / Size.x,

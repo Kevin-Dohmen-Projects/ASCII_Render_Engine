@@ -55,7 +55,7 @@ namespace CSharp_ASCII_Render_Engine.Geometry.Primitives
 
                 for (int y = int.Max(posy, 0); y < int.Min(posy + sizey, buffer.Height); y++)
                 {
-                    for (int x = int.Max(posx, 0); x < int.Min(posx + sizex, buffer.Height); x++)
+                    for (int x = int.Max(posx, 0); x < int.Min(posx + sizex, buffer.Width); x++)
                     {
                         if (Shader != null)
                         {
@@ -78,7 +78,7 @@ namespace CSharp_ASCII_Render_Engine.Geometry.Primitives
             {
                 for (int y = int.Max(posy, 0); y < int.Min(posy + sizey, buffer.Height); y++)
                 {
-                    for (int x = int.Max(posx, 0); x < int.Min(posx + sizex, buffer.Height); x++)
+                    for (int x = int.Max(posx, 0); x < int.Min(posx + sizex, buffer.Width); x++)
                     {
                         if (x == posx || x == posx + sizex - 1 || y == posy || y == posy + sizey - 1)
                             buffer.Buffer[y][x].SetInPlace(RenderFuncs.AlphaTransform(Color, buffer.Buffer[y][x], tmpVec));

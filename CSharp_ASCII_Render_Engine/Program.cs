@@ -10,7 +10,7 @@ namespace CSharp_ASCII_Render_Engine
 {
     public static class Program
     {
-        public static Screen screen = new Screen(150, 150);
+        public static Screen screen = new(150, 150);
 
         private static DateTime sTime = new();
         private static DateTime eTime = new();
@@ -21,6 +21,9 @@ namespace CSharp_ASCII_Render_Engine
 
             // screen config
             screen.Config.Dithering = true;
+            screen.Config.FPSCap = 30;
+            screen.Config.ScaleToWindow = false;
+            
 
             Rectangle frame = new Rectangle(new Vec2(0), new Vec2(screen.Width, screen.Height), new Vec2(1, 1), false);
 
@@ -29,6 +32,11 @@ namespace CSharp_ASCII_Render_Engine
             {
                 sTime = DateTime.Now;
                 frameCount = screen.Frame;
+
+                if (screen.Config.ScaleToWindow)
+                {
+                    screen.ScaleToWindow();
+                }
 
                 screen.Clear();
 
