@@ -4,7 +4,6 @@ using ASCII_Render_Engine.ScreenRelated;
 using ASCII_Render_Engine.Shader;
 using ASCII_Render_Engine.Types.Vectors;
 using ASCII_Render_Engine.Utils;
-using ASCII_Render_Engine.Demo.Animation;
 using System.Globalization;
 using Example_ASCII_Game_Engine.GameObjects;
 
