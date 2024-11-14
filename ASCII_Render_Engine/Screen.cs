@@ -75,46 +75,16 @@ namespace ASCII_Render_Engine
             Queue.Add(item);
         }
 
-        public void Render()
-        {
-            Frame++;
-            double runTime = (DateTime.Now - StartTime).TotalSeconds;
-
-            if (Background != null)
-            {
-                Background.Render(Buffer, Frame, runTime);
-            }
-
-            foreach (var item in Queue.Queue)
-            {
-                item.Render(Buffer, Frame, runTime);
-            }
-
-            Queue.Clear();
-
-            string fullScreen = Converter.BufferToFullScreen(Buffer, Display, Config).ToString();
-
-            if (Config.VisualizeAsync)
-            {
-                // Await the previous visualization task before starting a new one
-                lastVisualizationTask = lastVisualizationTask.ContinueWith(async _ =>
-                {
-                    await VisualizeAsync(fullScreen);
-                }).Unwrap(); // Unwrap the nested task structure
-            }
-            else
-            {
-                Visualize(Display.fullScreenString);
-            }
-        }
-
-        public async Task RenderAsync()
+        public async Task Render()
         {
             // Ensure only one RenderAsync runs at a time
             await renderSemaphore.WaitAsync();
             try
             {
-                await lastRenderTask; // Ensure previous render task is finished before starting a new one
+                if (Config.ScaleToWindow)
+                {
+                    ScaleToWindow();
+                }
 
                 Frame++;
                 double runTime = (DateTime.Now - StartTime).TotalSeconds;
