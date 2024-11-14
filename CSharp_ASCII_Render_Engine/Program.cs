@@ -21,20 +21,36 @@ namespace CSharp_ASCII_Render_Engine
             screen.Config.Dithering = true;
             screen.Config.FPSCap = 30;
             screen.Config.ScaleToWindow = true;
+            screen.Config.VisualizeAsync = true;
 
             Rectangle frame = new Rectangle(new Vec2(0), new Vec2(screen.Width, screen.Height), new Vec2(1, 1), false);
 
-            DateTime startTime = DateTime.Now;
+            DateTime fpsStartTime = DateTime.Now;
+            int frameCounter = 0;
+            double currentFPS = 0;
+
             DateTime frameStartTime = new();
             DateTime frameEndTime = new();
 
-            int frameCount = 0;
             while (true)
             {
                 frameStartTime = DateTime.Now;
-                frameCount = screen.Frame;
 
-                if (screen.Config.ScaleToWindow == true)
+                // Frame counting
+                frameCounter++;
+
+                // If one second has passed, calculate the FPS and reset counter
+                if ((DateTime.Now - fpsStartTime).TotalSeconds >= 1)
+                {
+                    currentFPS = frameCounter / (DateTime.Now - fpsStartTime).TotalSeconds;
+                    fpsStartTime = DateTime.Now;
+                    frameCounter = 0;
+
+                    // Display the FPS in the console (optional)
+                    Console.Title = $"FPS: {currentFPS:F2}"; // Update console title with FPS
+                }
+
+                if (screen.Config.ScaleToWindow)
                 {
                     screen.ScaleToWindow();
                     frame.Size.SetInPlace(screen.Width, screen.Height);
@@ -50,22 +66,24 @@ namespace CSharp_ASCII_Render_Engine
 
                 screen.Draw(frame);
 
-                // render
-                screen.Render();
+                // Render (fire-and-forget)
+                screen.RenderAsync();
 
                 frameEndTime = DateTime.Now;
 
-                // frame cap
+                // Frame cap: calculate time taken for rendering
                 double elapsedTime = (frameEndTime - frameStartTime).TotalSeconds;
+                double targetFrameTime = 1.0 / screen.Config.FPSCap; // Target frame time for 30 FPS is around 33.33ms
 
-                Console.WriteLine(1 / elapsedTime);
-
-                double sleepTime = (1 / screen.Config.FPSCap) - elapsedTime;
+                // Calculate the remaining time to maintain the FPS cap
+                double sleepTime = targetFrameTime - elapsedTime;
                 if (sleepTime > 0)
                 {
-                    Thread.Sleep((int)(sleepTime * 1000));
+                    // Sleep for the remaining time to maintain FPS
+                    Thread.Sleep((int)(sleepTime * 1000)); // Convert seconds to milliseconds
                 }
             }
         }
+
     }
 }

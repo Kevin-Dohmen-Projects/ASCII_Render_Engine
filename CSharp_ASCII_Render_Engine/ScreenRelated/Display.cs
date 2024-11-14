@@ -43,7 +43,10 @@ namespace CSharp_ASCII_Render_Engine.ScreenRelated
                     sb.Append(currentChar); // Add character twice
                     sb.Append(currentChar);
                 }
-                sb.AppendLine(); // Add newline after each row
+                if (y < height - 1)
+                {
+                    sb.AppendLine(); // Add newline after each row
+                }
             }
 
             fullScreenString = sb.ToString();
