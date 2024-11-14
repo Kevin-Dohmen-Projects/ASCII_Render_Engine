@@ -43,8 +43,8 @@ namespace ASCII_Render_Engine.Geometry.Primitives
         {
             int posx = (int)Math.Floor(Pos.x);
             int posy = (int)Math.Floor(Pos.y);
-            int sizex = (int)Math.Ceiling(Size.x);
-            int sizey = (int)Math.Ceiling(Size.y);
+            int sizex = (int)Math.Ceiling(Size.x) + 1;
+            int sizey = (int)Math.Ceiling(Size.y) + 1;
 
             ShaderPixel pix = shaderPixel;
             shaderPixelScreenRes.x = sizex; shaderPixelScreenRes.y = sizey;
