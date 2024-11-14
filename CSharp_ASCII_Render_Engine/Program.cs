@@ -19,14 +19,10 @@ namespace CSharp_ASCII_Render_Engine
 
             // screen config
             screen.Config.Dithering = true;
-            screen.Config.FPSCap = 144;
+            screen.Config.FPSCap = 30;
             screen.Config.ScaleToWindow = true;
-            
 
             Rectangle frame = new Rectangle(new Vec2(0), new Vec2(screen.Width, screen.Height), new Vec2(1, 1), false);
-
-            Rectangle rect1 = new Rectangle(new Vec2(10), new Vec2(50), new ModShader());
-            Rectangle rect2 = new Rectangle(new Vec2(10, 60), new Vec2(50), new ModShader(0.5));
 
             DateTime startTime = DateTime.Now;
             DateTime frameStartTime = new();
@@ -51,9 +47,6 @@ namespace CSharp_ASCII_Render_Engine
                 {
                     screen.Draw(shape.shape);
                 }
-
-                screen.Draw(rect1);
-                screen.Draw(rect2);
 
                 screen.Draw(frame);
 
