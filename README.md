@@ -1,4 +1,5 @@
 # C#_ASCII_Render_Engine
+[![Build and Release](https://github.com/Kevin-Dohmen/CSharp_ASCII_Render_Engine/actions/workflows/build-and-release.yml/badge.svg)](https://github.com/Kevin-Dohmen/CSharp_ASCII_Render_Engine/actions/workflows/build-and-release.yml)  
 A C# ASCII render engine
 
 ## Functionality:
@@ -9,3 +10,7 @@ A C# ASCII render engine
   - `Vec2`
   - `Vec3`
   - `Vec4`
+
+## CI/CD:
+The Pipeline is set up to build and release the project if a commit message contains `[run-ci]`.  
+Example: `git commit -m "[run-ci] Fixed a bug"`
