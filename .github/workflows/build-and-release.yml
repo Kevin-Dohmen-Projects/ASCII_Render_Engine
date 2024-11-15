@@ -37,8 +37,8 @@ jobs:
 
       - name: Publish output
         run: |
-          mkdir -p ./publish
-          dotnet publish -c Release -o ./publish
+          mkdir -p ${{ github.workspace }}/publish
+          dotnet publish -c Release -o ${{ github.workspace }}/publish
 
   release:
     needs: build
@@ -48,6 +48,10 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '8.0'
+      - name: Debug
+        run: |
+          ls -la ${{ github.workspace }}
+          ls -la ${{ github.workspace }}/publish
 
       - name: Publish to GitHub Packages
-        run: dotnet nuget push ./publish/*.nupkg -k ${{ secrets.GITHUB_TOKEN }} -s https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
+        run: dotnet nuget push ${{ github.workspace }}/publish/*.nupkg -k ${{ secrets.GITHUB_TOKEN }} -s https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
