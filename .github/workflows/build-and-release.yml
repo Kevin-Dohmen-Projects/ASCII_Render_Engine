@@ -35,10 +35,11 @@ jobs:
       # - name: Test
       #   run: dotnet test --configuration Release --no-build
 
-      - name: Publish output
-        run: |
-          mkdir -p ${{ github.workspace }}/publish
-          dotnet publish -c Release -o ${{ github.workspace }}/publish
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-artifacts
+          path: ./publish/*.nupkg
 
   release:
     needs: build
@@ -48,6 +49,13 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '8.0'
+      
+      - name: Download build artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: build-artifacts
+          path: ./publish
+      
       - name: Debug
         run: |
           ls -la ${{ github.workspace }}
