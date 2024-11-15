@@ -34,12 +34,14 @@ jobs:
 
       # - name: Test
       #   run: dotnet test --configuration Release --no-build
+      - name: Pack
+        run: dotnet pack --configuration Release --no-build --output ./publish
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v3
         with:
           name: build-artifacts
-          path: ./publish
+          path: ./publish/*.nupkg
 
   release:
     needs: build
