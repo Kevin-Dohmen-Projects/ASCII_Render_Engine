@@ -36,7 +36,9 @@ jobs:
       #   run: dotnet test --configuration Release --no-build
 
       - name: Publish output
-        run: dotnet publish -c Release -o ./publish
+        run: |
+          mkdir -p ./publish
+          dotnet publish -c Release -o ./publish
 
   release:
     needs: build
