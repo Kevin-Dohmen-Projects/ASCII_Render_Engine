@@ -10,6 +10,7 @@ A C# ASCII render engine
   - `Vec2`
   - `Vec3`
   - `Vec4`
+- Basic keyboard input (at the moment only windows)
 
 ## CI/CD:
 The Pipeline is set up to build and release the project if a commit message contains `[run-ci]`.  
