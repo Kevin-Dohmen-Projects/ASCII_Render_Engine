@@ -1,4 +1,5 @@
-﻿using ASCII_Render_Engine.Geometry.Lines;
+﻿using System;
+using ASCII_Render_Engine.Geometry.Lines;
 using ASCII_Render_Engine.Geometry.Primitives;
 using ASCII_Render_Engine.ScreenRelated;
 using ASCII_Render_Engine.Shader;
@@ -6,8 +7,12 @@ using ASCII_Render_Engine.Types.Vectors;
 using ASCII_Render_Engine.Utils;
 using System.Globalization;
 using Example_ASCII_Game_Engine.GameObjects;
+using ASCII_Render_Engine;
+using System.Reflection.Metadata;
 
-namespace ASCII_Render_Engine
+using ASCII_Render_Engine.Input.Keyboard;
+
+namespace Example_ASCII_Game_Engine
 {
     public static class Program
     {
@@ -15,111 +20,156 @@ namespace ASCII_Render_Engine
 
         public static void Main(string[] args)
         {
+            // screen configuration
+            screen.Config.FPSCap = 30;
+            screen.Config.ScaleToWindow = false;
+            screen.Config.Dithering = true;
             screen.Background = new FullScreenShaderObject(new SpiralShader(), 0.25);
 
-            // screen config
-            screen.Config.Dithering = true;
-            screen.Config.FPSCap = 30;
-            screen.Config.ScaleToWindow = true;
-            screen.Config.VisualizeAsync = true;
+            // game objects
+            Ball ball = new(new Vec2(100, 50), 5);
+            Rectangle BarLeft = new(new Vec2(8, 10), new Vec2(4, 20), new Vec2(1, 1));
+            Rectangle BarRight = new(new Vec2(188, 10), new Vec2(4, 20), new Vec2(1, 1));
 
-            //Console.SetWindowSize(screen.Width * 2, screen.Height);
-            //Console.d
+            // physics config
+            double ballVelocity = 50; // pixels per second
+            Vec2 ballDirection = new Vec2(5, 3).NormalizeInPlace();
+            double barVelocity = 50; // pixels per second
+            Vec2 ballTempNextPos = new Vec2();
 
-            Rectangle frame = new Rectangle(new Vec2(0), new Vec2(screen.Width, screen.Height), new Vec2(1, 1), false);
-
-            DateTime fpsStartTime = DateTime.Now;
-            int frameCounter = 0;
-            double currentFPS = 0;
-
-            DateTime frameStartTime = new();
-            DateTime frameEndTime = new();
-
-            // game
+            // game counters
+            int frames = 0;
+            double runTime = 0;
             double deltaTime = 0;
-            DateTime gFrameEndTime = new();
-            DateTime gFrameStartTime = new();
+            DateTime startTime = DateTime.Now;
+            DateTime frameStart = DateTime.Now;
+            DateTime prevFrameTime = DateTime.Now;
+            DateTime lastFPSTime = DateTime.Now;
 
-            // ball
-            Ball ball = new Ball(new Vec2(10, 10));
-            double ballVel = 100;
-            Vec2 ballDir = new Vec2(5, 2).NormalizeInPlace();
-            Vec2 ballNextPos = new Vec2();
+            // key states
+            bool isWPressed = false;
+            bool isSPressed = false;
+            bool isUpArrowPressed = false;
+            bool isDownArrowPressed = false;
+            KeyboardInput keyboardInput = new KeyboardInput();
 
-            // paddles
-            double paddleSpeed = 5;
-            double paddleBorderDistance = 10;
-            double paddleWidth = 4;
-            double paddleHeight = 10;
-
-            // paddleLeft
-            Rectangle paddleLeft = new Rectangle(new Vec2(), new Vec2(paddleWidth, paddleHeight), new Vec2(1, 1));
-
-
-            gFrameStartTime = DateTime.Now;
+            // game loop
             while (true)
             {
-                frameStartTime = DateTime.Now;
-                gFrameEndTime = DateTime.Now;
+                prevFrameTime = frameStart;
+                frameStart = DateTime.Now;
+                runTime = (frameStart - startTime).TotalSeconds;
+                deltaTime = (frameStart - prevFrameTime).TotalSeconds;
+                frames++;
 
-                // Frame counting
-                frameCounter++;
-
-                // If one second has passed, calculate the FPS and reset counter
-                if ((DateTime.Now - fpsStartTime).TotalSeconds >= 1)
+                // update FPS in console title every second
+                if ((frameStart - lastFPSTime).TotalSeconds >= 0.5)
                 {
-                    currentFPS = frameCounter / (DateTime.Now - fpsStartTime).TotalSeconds;
-                    fpsStartTime = DateTime.Now;
-                    frameCounter = 0;
-
-                    // Display the FPS in the console (optional)
-                    Console.Title = $"FPS: {currentFPS:F2}"; // Update console title with FPS
+                    double fps = 1.0 / deltaTime;
+                    Console.Title = $"FPS: {fps:F2}";
+                    lastFPSTime = frameStart;
                 }
 
-                frame.Size.SetInPlace(screen.Width, screen.Height);
+                isWPressed = keyboardInput.IsKeyPressed(Keys.W);
+                isSPressed = keyboardInput.IsKeyPressed(Keys.S);
+                isUpArrowPressed = keyboardInput.IsKeyPressed(Keys.UpArrow);
+                isDownArrowPressed = keyboardInput.IsKeyPressed(Keys.DownArrow);
 
-                deltaTime = (gFrameEndTime - gFrameStartTime).TotalSeconds;
-
-                ballNextPos.x = ball.Pos.x + ballDir.x * ballVel * deltaTime;
-                if (ballNextPos.x + ball.Radius > screen.Width || ballNextPos.x - ball.Radius < 0)
+                // move bars based on key states
+                if (isWPressed)
                 {
-                    ballDir.x = -ballDir.x;
-                    ballNextPos.x = ball.Pos.x + ballDir.x * ballVel * deltaTime;
+                    BarLeft.Pos.y -= barVelocity * deltaTime;
+                }
+                if (isSPressed)
+                {
+                    BarLeft.Pos.y += barVelocity * deltaTime;
+                }
+                if (isUpArrowPressed)
+                {
+                    BarRight.Pos.y -= barVelocity * deltaTime;
+                }
+                if (isDownArrowPressed)
+                {
+                    BarRight.Pos.y += barVelocity * deltaTime;
                 }
 
-                ballNextPos.y = ball.Pos.y + ballDir.y * ballVel * deltaTime;
-                if (ballNextPos.y + ball.Radius > screen.Height || ballNextPos.y - ball.Radius < 0)
+                // calculate next ball pos
+                ballTempNextPos.SetInPlace(
+                    ball.Pos.x + (ballDirection.x * ballVelocity * deltaTime),
+                    ball.Pos.y + (ballDirection.y * ballVelocity * deltaTime)
+                    );
+
+                // bar Left collision
+                if (ballTempNextPos.x < BarLeft.Pos.x + BarLeft.Size.x + ball.Radius &&
+                    ballTempNextPos.y > BarLeft.Pos.y &&
+                    ballTempNextPos.y < BarLeft.Pos.y + BarLeft.Size.y &&
+                    ballDirection.x < 0)
                 {
-                    ballDir.y = -ballDir.y;
-                    ballNextPos.y = ball.Pos.y + ballDir.y * ballVel * deltaTime;
+                    ballDirection.x = 0 - ballDirection.x;
+                    ballTempNextPos.x = ball.Pos.x + (ballDirection.x * ballVelocity * deltaTime);
                 }
 
-                ball.Pos.SetInPlace(ballNextPos);
-                ball.Radius = 7;
+                // bar right collision
+                if (ballTempNextPos.x > BarRight.Pos.x - ball.Radius &&
+                    ballTempNextPos.y > BarRight.Pos.y &&
+                    ballTempNextPos.y < BarRight.Pos.y + BarRight.Size.y &&
+                    ballDirection.x > 0)
+                {
+                    ballDirection.x = 0 - ballDirection.x;
+                    ballTempNextPos.x = ball.Pos.x + (ballDirection.x * ballVelocity * deltaTime);
+                }
 
+                // ball ceiling/floor collision
+                if (ballTempNextPos.y + ball.Radius > screen.Height || ballTempNextPos.y - ball.Radius < 0)
+                {
+                    ballDirection.y = 0 - ballDirection.y;
+                    ballTempNextPos.y = ball.Pos.y + (ballDirection.y * ballVelocity * deltaTime);
+                }
+
+                // ball wall collision
+                if (ballTempNextPos.x + ball.Radius > screen.Width || ballTempNextPos.x - ball.Radius < 0)
+                {
+                    ballDirection.x = 0 - ballDirection.x;
+                    ballTempNextPos.x = ball.Pos.x + (ballDirection.x * ballVelocity * deltaTime);
+
+                    // reset
+                    ball.Pos.SetInPlace(100, 50);
+
+                    ballDirection.SetInPlace(
+                        Math.Sin(runTime * 500) <= 0 ? 5 : -5,
+                        Math.Sin(runTime * 200) * 3).NormalizeInPlace();
+                    ballTempNextPos.SetInPlace(
+                        ball.Pos.x + (ballDirection.x * ballVelocity * deltaTime),
+                        ball.Pos.y + (ballDirection.y * ballVelocity * deltaTime)
+                        );
+                }
+
+                // apply new pos
+                ball.Pos.SetInPlace(ballTempNextPos);
+
+                // drawing
                 screen.Clear();
-
                 screen.Draw(ball.ToRenderable());
+                screen.Draw(BarLeft);
+                screen.Draw(BarRight);
 
-                screen.Draw(frame);
-
-                // Render (fire-and-forget)
                 screen.Render();
 
-                frameEndTime = DateTime.Now;
-
-                // Frame cap: calculate time taken for rendering
-                double elapsedTime = (frameEndTime - frameStartTime).TotalSeconds;
-                double targetFrameTime = 1.0 / screen.Config.FPSCap; // Target frame time for 30 FPS is around 33.33ms
-
-                // Calculate the remaining time to maintain the FPS cap
-                double sleepTime = targetFrameTime - elapsedTime;
-                if (sleepTime > 0)
+                // frame limiter
+                double frameTime = (DateTime.Now - frameStart).TotalMilliseconds;
+                double targetFrameTime = 1000.0 / screen.Config.FPSCap;
+                if (frameTime < targetFrameTime)
                 {
-                    // Sleep for the remaining time to maintain FPS
-                    Thread.Sleep((int)(sleepTime * 1000)); // Convert seconds to milliseconds
+                    int sleepTime = (int)(targetFrameTime - frameTime);
+                    System.Threading.Thread.Sleep(sleepTime);
                 }
-                gFrameStartTime = gFrameEndTime;
+
+                // reset keys
+                // key states
+                isWPressed = false;
+                isSPressed = false;
+                isUpArrowPressed = false;
+                isDownArrowPressed = false;
             }
         }
     }

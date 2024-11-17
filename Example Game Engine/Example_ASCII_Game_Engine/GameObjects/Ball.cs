@@ -18,10 +18,10 @@ namespace Example_ASCII_Game_Engine.GameObjects
         private Circle BallObject;
         public double Radius;
 
-        public Ball(Vec2 pos)
+        public Ball(Vec2 pos, double radius)
         {
             BallObject = new Circle(new Vec2(0, 0), new Vec2(10, 10), new Vec2(1, 1));
-            Radius = 1;
+            Radius = radius;
             Pos = pos;
         }
 
