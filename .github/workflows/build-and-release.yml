@@ -10,59 +10,9 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-    if: contains(github.event.head_commit.message, '[run-ci]')
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        dotnet-version: ['8.0']
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: ${{ matrix.dotnet-version }}
-
-      - name: Restore dependencies
-        run: dotnet restore
-
-      - name: Build
-        run: dotnet build --configuration Release --no-restore
-
-      # - name: Test
-      #   run: dotnet test --configuration Release --no-build
-      - name: Pack
-        run: dotnet pack --configuration Release --no-build --output ./publish
-
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: build-artifacts
-          path: ./publish/*.nupkg
-
-  release:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '8.0'
-      
-      - name: Download build artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: build-artifacts
-          path: ./publish
-      
-      - name: Debug
-        run: |
-          ls -la ${{ github.workspace }}
-          ls -la ${{ github.workspace }}/publish
-
-      - name: Publish to GitHub Packages
-        run: dotnet nuget push ${{ github.workspace }}/publish/*.nupkg -k ${{ secrets.GITHUB_TOKEN }} -s https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
+  build-publish:
+    uses: Kevin-Dohmen/pipelines-generic/presets/dotnet/libraries.yml@main
+    with:
+      solutionPath: 'src/MyLibrary.sln'
+      skipTests: true
+    
