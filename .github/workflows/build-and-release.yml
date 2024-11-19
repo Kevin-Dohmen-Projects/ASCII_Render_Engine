@@ -11,8 +11,7 @@ on:
 
 jobs:
   build-publish:
-    uses: Kevin-Dohmen/pipelines-generic/presets/dotnet/libraries.yml@main
+    uses: Kevin-Dohmen/pipelines-generic/.github/workflows/presets/dotnet/libraries.yml@main
     with:
       solutionPath: 'src/MyLibrary.sln'
       skipTests: true
-    
