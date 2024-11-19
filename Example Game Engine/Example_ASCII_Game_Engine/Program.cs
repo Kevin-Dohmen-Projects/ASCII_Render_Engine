@@ -21,10 +21,12 @@ namespace Example_ASCII_Game_Engine
         public static void Main(string[] args)
         {
             // screen configuration
-            screen.Config.FPSCap = 30;
+            screen.Config.FPSCap = 0;
             screen.Config.ScaleToWindow = false;
             screen.Config.Dithering = true;
             screen.Background = new FullScreenShaderObject(new SpiralShader(), 0.25);
+
+            Console.CursorVisible = false;
 
             // game objects
             Ball ball = new(new Vec2(100, 50), 5);
@@ -32,7 +34,9 @@ namespace Example_ASCII_Game_Engine
             Rectangle BarRight = new(new Vec2(188, 10), new Vec2(4, 20), new Vec2(1, 1));
 
             // physics config
-            double ballVelocity = 50; // pixels per second
+            double ballBaseVelocity = 50; // pixels per second
+            double ballVelocityIncrease = 5; // pixels per second ^ 2
+            double ballVelocity = ballBaseVelocity;
             Vec2 ballDirection = new Vec2(5, 3).NormalizeInPlace();
             double barVelocity = 50; // pixels per second
             Vec2 ballTempNextPos = new Vec2();
@@ -45,6 +49,8 @@ namespace Example_ASCII_Game_Engine
             DateTime frameStart = DateTime.Now;
             DateTime prevFrameTime = DateTime.Now;
             DateTime lastFPSTime = DateTime.Now;
+            DateTime roundStartTime = DateTime.Now;
+            double roundTime = 0;
 
             // key states
             bool isWPressed = false;
@@ -60,6 +66,7 @@ namespace Example_ASCII_Game_Engine
                 frameStart = DateTime.Now;
                 runTime = (frameStart - startTime).TotalSeconds;
                 deltaTime = (frameStart - prevFrameTime).TotalSeconds;
+                roundTime = (frameStart - roundStartTime).TotalSeconds;
                 frames++;
 
                 // update FPS in console title every second
@@ -74,6 +81,9 @@ namespace Example_ASCII_Game_Engine
                 isSPressed = keyboardInput.IsKeyPressed(Keys.S);
                 isUpArrowPressed = keyboardInput.IsKeyPressed(Keys.UpArrow);
                 isDownArrowPressed = keyboardInput.IsKeyPressed(Keys.DownArrow);
+
+                // increase ball speed
+                ballVelocity = ballBaseVelocity + (ballVelocityIncrease * roundTime);
 
                 // move bars based on key states
                 if (isWPressed)
@@ -99,14 +109,20 @@ namespace Example_ASCII_Game_Engine
                     ball.Pos.y + (ballDirection.y * ballVelocity * deltaTime)
                     );
 
+                // calculate next ball pos
+                ballTempNextPos.SetInPlace(
+                    ball.Pos.x + (ballDirection.x * ballVelocity * deltaTime),
+                    ball.Pos.y + (ballDirection.y * ballVelocity * deltaTime)
+                    );
+
                 // bar Left collision
                 if (ballTempNextPos.x < BarLeft.Pos.x + BarLeft.Size.x + ball.Radius &&
                     ballTempNextPos.y > BarLeft.Pos.y &&
                     ballTempNextPos.y < BarLeft.Pos.y + BarLeft.Size.y &&
                     ballDirection.x < 0)
                 {
-                    ballDirection.x = 0 - ballDirection.x;
-                    ballTempNextPos.x = ball.Pos.x + (ballDirection.x * ballVelocity * deltaTime);
+                    ballDirection.x = -ballDirection.x;
+                    ballTempNextPos.x = BarLeft.Pos.x + BarLeft.Size.x + ball.Radius;
                 }
 
                 // bar right collision
@@ -115,15 +131,20 @@ namespace Example_ASCII_Game_Engine
                     ballTempNextPos.y < BarRight.Pos.y + BarRight.Size.y &&
                     ballDirection.x > 0)
                 {
-                    ballDirection.x = 0 - ballDirection.x;
-                    ballTempNextPos.x = ball.Pos.x + (ballDirection.x * ballVelocity * deltaTime);
+                    ballDirection.x = -ballDirection.x;
+                    ballTempNextPos.x = BarRight.Pos.x - ball.Radius;
                 }
 
                 // ball ceiling/floor collision
-                if (ballTempNextPos.y + ball.Radius > screen.Height || ballTempNextPos.y - ball.Radius < 0)
+                if (ballTempNextPos.y + ball.Radius > screen.Height)
                 {
-                    ballDirection.y = 0 - ballDirection.y;
-                    ballTempNextPos.y = ball.Pos.y + (ballDirection.y * ballVelocity * deltaTime);
+                    ballDirection.y = -ballDirection.y;
+                    ballTempNextPos.y = screen.Height - ball.Radius;
+                }
+                else if (ballTempNextPos.y - ball.Radius < 0)
+                {
+                    ballDirection.y = -ballDirection.y;
+                    ballTempNextPos.y = ball.Radius;
                 }
 
                 // ball wall collision
@@ -142,6 +163,8 @@ namespace Example_ASCII_Game_Engine
                         ball.Pos.x + (ballDirection.x * ballVelocity * deltaTime),
                         ball.Pos.y + (ballDirection.y * ballVelocity * deltaTime)
                         );
+
+                    roundStartTime = DateTime.Now;
                 }
 
                 // apply new pos
@@ -156,12 +179,15 @@ namespace Example_ASCII_Game_Engine
                 screen.Render();
 
                 // frame limiter
-                double frameTime = (DateTime.Now - frameStart).TotalMilliseconds;
-                double targetFrameTime = 1000.0 / screen.Config.FPSCap;
-                if (frameTime < targetFrameTime)
+                if (screen.Config.FPSCap != 0)
                 {
-                    int sleepTime = (int)(targetFrameTime - frameTime);
-                    System.Threading.Thread.Sleep(sleepTime);
+                    double frameTime = (DateTime.Now - frameStart).TotalMilliseconds;
+                    double targetFrameTime = 1000.0 / screen.Config.FPSCap;
+                    if (frameTime < targetFrameTime)
+                    {
+                        int sleepTime = (int)(targetFrameTime - frameTime);
+                        System.Threading.Thread.Sleep(sleepTime);
+                    }
                 }
 
                 // reset keys
