@@ -1,8 +1,13 @@
 # C#_ASCII_Render_Engine
-[![Publish as Package](https://github.com/Kevin-Dohmen/CSharp_ASCII_Render_Engine/actions/workflows/publish-package.yml/badge.svg)](https://github.com/Kevin-Dohmen/CSharp_ASCII_Render_Engine/actions/workflows/publish-package.yml)  
 A C# ASCII render engine
 
+### Status:
+
+[![Publish as Package](https://github.com/Kevin-Dohmen/CSharp_ASCII_Render_Engine/actions/workflows/publish-package.yml/badge.svg)](https://github.com/Kevin-Dohmen/CSharp_ASCII_Render_Engine/actions/workflows/publish-package.yml)  
+[![Publish as Release](https://github.com/Kevin-Dohmen/CSharp_ASCII_Render_Engine/actions/workflows/publish-release.yml/badge.svg)](https://github.com/Kevin-Dohmen/CSharp_ASCII_Render_Engine/actions/workflows/publish-release.yml)
+
 ## Functionality:
+
 - Shader renderer (OpenGL inspired)
 - 2D Primitive Shape Renderer (with assignable shader)
 - 2D Line Renderer
@@ -13,5 +18,6 @@ A C# ASCII render engine
 - Basic keyboard input (at the moment only windows)
 
 ## CI/CD:
+
 The Pipeline is set up to build and release the project if a commit message contains `[run-ci]`.  
 Example: `git commit -m "[run-ci] Fixed a bug"`
