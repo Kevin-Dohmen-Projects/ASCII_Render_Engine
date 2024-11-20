@@ -1,5 +1,5 @@
 # C#_ASCII_Render_Engine
-[![Build and Release](https://github.com/Kevin-Dohmen/CSharp_ASCII_Render_Engine/actions/workflows/build-and-release.yml/badge.svg)](https://github.com/Kevin-Dohmen/CSharp_ASCII_Render_Engine/actions/workflows/build-and-release.yml)  
+[![Publish as Package](https://github.com/Kevin-Dohmen/CSharp_ASCII_Render_Engine/actions/workflows/publish-package.yml/badge.svg)](https://github.com/Kevin-Dohmen/CSharp_ASCII_Render_Engine/actions/workflows/publish-package.yml)  
 A C# ASCII render engine
 
 ## Functionality:
