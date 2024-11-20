@@ -1,4 +1,4 @@
-name: Build and Release
+name: Publish as Package
 
 on:
   push:
@@ -15,5 +15,4 @@ jobs:
     uses: Kevin-Dohmen-Projects/pipelines-generic/.github/workflows/dotnet-libraries.yml@main
     with:
       solutionPath: "CSharp_ASCII_Render_Engine.sln"
-      skipTests: true
   
