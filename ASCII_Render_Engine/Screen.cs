@@ -17,11 +17,8 @@ namespace ASCII_Render_Engine
         private ASCIIConverter Converter = new();
 
         private Display Display;
-
         public FullScreenShaderObject? Background;
-
         public ScreenConfig Config;
-
         private DateTime StartTime;
 
         private SemaphoreSlim consoleLock = new SemaphoreSlim(1, 1);
