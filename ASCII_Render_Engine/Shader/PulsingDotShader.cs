@@ -5,7 +5,7 @@ namespace ASCII_Render_Engine.Shader
 {
     public class PulsingDotShader : IShader
     {
-        public string Name { get; } = "Pulsing Dot Shaders";
+        public string Name { get; } = "Pulsing Dot Shader";
 
         // ShaderSettings
         public double TimeOffset { get; set; }
