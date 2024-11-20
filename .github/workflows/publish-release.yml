@@ -15,4 +15,4 @@ jobs:
     uses: Kevin-Dohmen-Projects/pipelines-generic/.github/workflows/dotnet-tools.yml@main
     with:
       solutionPath: "CSharp_ASCII_Render_Engine.sln"
-      csprojPath: "CSharp_ASCII_Render_Engine/CSharp_ASCII_Render_Engine.csproj"
+      csprojPath: "ASCII_Render_Engine/ASCII_Render_Engine.csproj"
