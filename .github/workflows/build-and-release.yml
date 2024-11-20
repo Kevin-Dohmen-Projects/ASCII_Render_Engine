@@ -13,6 +13,6 @@ jobs:
   build-publish:
     uses: Kevin-Dohmen-Projects/pipelines-generic/.github/workflows/dotnet-libraries.yml@main
     with:
-      solutionPath: 'src/MyLibrary.sln'
+      solutionPath: "CSharp_ASCII_Render_Engine.sln"
       skipTests: true
   
