@@ -9,23 +9,12 @@ on:
       - master
   workflow_dispatch:
 
-
-env:
-  # dotnet settings
-  solutionPath: "CSharp_ASCII_Render_Engine.sln"
-  csprojPath: "ASCII_Render_Engine/ASCII_Render_Engine.csproj"
-
-  # publish settings
-  publish-package: true
-  publish-release: true
-
-
 jobs:
   publish:
     if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[run-ci]')
     uses: Kevin-Dohmen-Projects/pipelines-generic/.github/workflows/dotnet-generic.yml@main
     with:
-      solutionPath: ${{ github.env.solutionPath }}
-      csprojPath: ${{ github.env.csprojPath }}
-      publish-package: ${{ github.env.publish-package }}
-      publish-release: ${{ github.env.publish-release }}
+      solutionPath: "CSharp_ASCII_Render_Engine.sln"
+      csprojPath: "ASCII_Render_Engine/ASCII_Render_Engine.csproj"
+      publish-package: true
+      publish-release: true
