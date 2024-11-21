@@ -14,7 +14,9 @@ jobs:
     if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[run-ci]')
     uses: Kevin-Dohmen-Projects-Automation/workflows-generic/.github/workflows/dotnet-generic.yml@main
     with:
-      solutionPath: "ASCII_Render_Engine/CSharp_ASCII_Render_Engine.sln"
+      solutionPath: "ASCII_Render_Engine/ASCII_Render_Engine.sln"
       csprojPath: "ASCII_Render_Engine/ASCII_Render_Engine.csproj"
       publish-package: true
       publish-release: true
+      dotnetVersion: "9.0"
+      GithubToken: ${{ secrets.GITHUB_TOKEN }}
