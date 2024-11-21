@@ -3,8 +3,7 @@ A C# ASCII render engine
 
 ### Status:
 
-[![Publish as Package](https://github.com/Kevin-Dohmen/CSharp_ASCII_Render_Engine/actions/workflows/publish-package.yml/badge.svg)](https://github.com/Kevin-Dohmen/CSharp_ASCII_Render_Engine/actions/workflows/publish-package.yml)  
-[![Publish as Release](https://github.com/Kevin-Dohmen/CSharp_ASCII_Render_Engine/actions/workflows/publish-release.yml/badge.svg)](https://github.com/Kevin-Dohmen/CSharp_ASCII_Render_Engine/actions/workflows/publish-release.yml)
+[![Publish](https://github.com/Kevin-Dohmen/CSharp_ASCII_Render_Engine/actions/workflows/publish.yml/badge.svg)](https://github.com/Kevin-Dohmen/CSharp_ASCII_Render_Engine/actions/workflows/publish.yml)
 
 ## Functionality:
 
