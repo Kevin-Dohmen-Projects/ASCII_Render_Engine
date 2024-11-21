@@ -12,7 +12,7 @@ on:
 jobs:
   publish:
     if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[run-ci]')
-    uses: Kevin-Dohmen-Projects/pipelines-generic/.github/workflows/dotnet-generic.yml@main
+    uses: Kevin-Dohmen-Projects-Automation/workflows-generic/.github/workflows/dotnet-generic.yml@main
     with:
       solutionPath: "CSharp_ASCII_Render_Engine.sln"
       csprojPath: "ASCII_Render_Engine/ASCII_Render_Engine.csproj"
