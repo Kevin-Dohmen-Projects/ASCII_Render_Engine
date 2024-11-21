@@ -9,6 +9,10 @@ on:
       - master
   workflow_dispatch:
 
+permissions:
+  packages: write
+  contents: write
+
 jobs:
   publish:
     if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[run-ci]')
@@ -21,8 +25,3 @@ jobs:
       dotnetVersion: "9.0"
     secrets:
       GitHubToken: ${{ secrets.GITHUB_TOKEN }}
-  runBS:
-    runs-on: ubuntu-latest
-    steps:
-      - name: bs
-        run: echo "${{ secrets.GITHUB_TOKEN }}"
