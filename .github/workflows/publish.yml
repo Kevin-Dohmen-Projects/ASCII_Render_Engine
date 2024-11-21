@@ -20,7 +20,7 @@ jobs:
       publish-release: true
       dotnetVersion: "9.0"
     secrets:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GitHubToken: ${{ secrets.GITHUB_TOKEN }}
   runBS:
     runs-on: ubuntu-latest
     steps:
