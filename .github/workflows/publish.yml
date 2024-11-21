@@ -19,4 +19,4 @@ jobs:
       publish-package: true
       publish-release: true
       dotnetVersion: "9.0"
-      GithubToken: ${{ secrets.GITHUB_TOKEN }}
+      GithubToken: ${{ github.token }}
