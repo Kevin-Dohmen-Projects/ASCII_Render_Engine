@@ -38,7 +38,7 @@ namespace Example_ASCII_Game_Engine
             double ballVelocityIncrease = 5; // pixels per second ^ 2
             double ballVelocity = ballBaseVelocity;
             Vec2 ballDirection = new Vec2(5, 3).NormalizeInPlace();
-            double barVelocity = 50; // pixels per second
+            double barVelocity = 100; // pixels per second
             Vec2 ballTempNextPos = new Vec2();
 
             // game counters
