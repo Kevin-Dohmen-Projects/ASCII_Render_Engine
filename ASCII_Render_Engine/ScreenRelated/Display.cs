@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.Marshalling;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,6 +15,10 @@ namespace ASCII_Render_Engine.ScreenRelated
         private readonly StringBuilder sb; // Reusable StringBuilder instance
 
         public string fullScreenString;
+
+        bool UseOffset = false;
+        private int offsetX;
+        private int offsetY;
 
         public Display(int width, int height)
         {
@@ -37,6 +42,10 @@ namespace ASCII_Render_Engine.ScreenRelated
 
             for (int y = 0; y < height; y++)
             {
+                if (UseOffset)
+                {
+                    sb.Append($"\x1b[{offsetY + y};{offsetX}H");
+                }
                 for (int x = 0; x < width; x++)
                 {
                     char currentChar = screenBuffer[y, x];
@@ -51,6 +60,13 @@ namespace ASCII_Render_Engine.ScreenRelated
 
             fullScreenString = sb.ToString();
             return fullScreenString;
+        }
+
+        public void SetOffset(int x, int y)
+        {
+            offsetX = x;
+            offsetY = y;
+            UseOffset = true;
         }
     }
 }

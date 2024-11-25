@@ -20,6 +20,10 @@ namespace ASCII_Render_Engine
         public FullScreenShaderObject? Background;
         public ScreenConfig Config;
         private DateTime StartTime;
+        private int DisplayOffsetX = 0;
+        private int DisplayOffsetY = 0;
+
+        private bool ClearBeforeVisualize = true; // resets to false after each render
 
         private SemaphoreSlim consoleLock = new SemaphoreSlim(1, 1);
         private Task lastVisualizationTask = Task.CompletedTask; // Initialize as completed task
@@ -39,6 +43,8 @@ namespace ASCII_Render_Engine
             Display = new Display(width, height);
             Config = new();
             StartTime = DateTime.Now;
+
+            Console.CursorVisible = false;
         }
 
         public void SetRes(int width, int height)
@@ -57,8 +63,24 @@ namespace ASCII_Render_Engine
             {
                 this.SetRes(newWidth, newHeight);
                 Console.Clear();
+                ClearBeforeVisualize = true;
             }
             return (newWidth, newHeight);
+        }
+
+        public (int, int) CenterScreen()
+        {
+            int offsetX = ((Console.WindowWidth / 4) - (Width / 2)) * 2;
+            int offsetY = ((Console.WindowHeight - 1) / 2) - Height / 2;
+            if (offsetX != DisplayOffsetX || offsetY != DisplayOffsetY)
+            {
+
+                DisplayOffsetX = offsetX;
+                DisplayOffsetY = offsetY;
+                Display.SetOffset(offsetX, offsetY);
+                ClearBeforeVisualize = true;
+            }
+            return (offsetX, offsetY);
         }
 
         public void Clear()
@@ -81,6 +103,10 @@ namespace ASCII_Render_Engine
                 if (Config.ScaleToWindow)
                 {
                     ScaleToWindow();
+                }
+                else if (Config.CenterScreen)
+                {
+                    CenterScreen();
                 }
 
                 Frame++;
@@ -118,6 +144,12 @@ namespace ASCII_Render_Engine
 
         public void Visualize(string displayString)
         {
+            if (ClearBeforeVisualize)
+            {
+                Console.Clear();
+                ClearBeforeVisualize = false;
+            }
+
             Console.SetCursorPosition(0, 0);
             Console.WriteLine(displayString);
         }
@@ -125,6 +157,13 @@ namespace ASCII_Render_Engine
         public async Task VisualizeAsync(string displayString)
         {
             await consoleLock.WaitAsync(); // Wait for exclusive access to the console
+
+            if (ClearBeforeVisualize)
+            {
+                Console.Clear();
+                ClearBeforeVisualize = false;
+            }
+
             try
             {
                 Console.SetCursorPosition(0, 0);
@@ -145,6 +184,7 @@ namespace ASCII_Render_Engine
         // Render settings:
         public bool Dithering;
         public double FPSCap;
+        public bool CenterScreen;
 
         public bool VisualizeAsync;
 
@@ -154,6 +194,7 @@ namespace ASCII_Render_Engine
 
             Dithering = false;
             FPSCap = 30;
+            CenterScreen = false;
 
             VisualizeAsync = false;
         }

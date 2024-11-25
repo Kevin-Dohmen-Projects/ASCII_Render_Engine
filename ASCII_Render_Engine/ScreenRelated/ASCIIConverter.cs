@@ -34,6 +34,7 @@ namespace ASCII_Render_Engine.ScreenRelated
                     display.SetChar(x, y, tmpChar);
                 }
             }
+
             return display;
         }
 
