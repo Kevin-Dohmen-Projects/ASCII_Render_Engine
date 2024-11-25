@@ -1,4 +1,5 @@
 using System.Runtime.InteropServices;
+using System.Security.Cryptography;
 using ASCII_Render_Engine.Input.Keyboard.KeyboardInputs;
 
 namespace ASCII_Render_Engine.Input.Keyboard.Factories
@@ -13,18 +14,11 @@ namespace ASCII_Render_Engine.Input.Keyboard.Factories
             }
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
-                try
-                {
-                    return new LinuxKeyboardInput("/dev/input/event0");
-                }
-                catch (Exception e)
-                {
-                    throw new Exception("Linux Keyboard Input Device not supported, " + e);
-                }
+                return new UniversalKeyboardInput();
             }
             else
             {
-                throw new PlatformNotSupportedException("Unsupported operating system.");
+                return new UniversalKeyboardInput();
             }
         }
     }
