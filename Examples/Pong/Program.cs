@@ -24,6 +24,7 @@ namespace Example_ASCII_Game_Engine
             screen.Config.FPSCap = 0;
             screen.Config.ScaleToWindow = false;
             screen.Config.Dithering = true;
+            screen.Config.CenterScreen = true;
             screen.Background = new FullScreenShaderObject(new SpiralShader(), 0.25);
 
             Console.CursorVisible = false;
@@ -37,7 +38,7 @@ namespace Example_ASCII_Game_Engine
             double ballBaseVelocity = 50; // pixels per second
             double ballVelocityIncrease = 5; // pixels per second ^ 2
             double ballVelocity = ballBaseVelocity;
-            Vec2 ballDirection = new Vec2(5, 3).NormalizeInPlace();
+            Vec2 ballDirection = new Vec2(5, 3).Normalize();
             double barVelocity = 100; // pixels per second
             Vec2 ballTempNextPos = new Vec2();
 
@@ -73,7 +74,8 @@ namespace Example_ASCII_Game_Engine
                 if ((frameStart - lastFPSTime).TotalSeconds >= 0.5)
                 {
                     double fps = 1.0 / deltaTime;
-                    Console.Title = $"FPS: {fps:F2}";
+                    //Console.Title = $"FPS: {fps:F2}";
+                    Console.Title = $"RT:{screen.RenderTime:F1}ms|VT:{screen.VisualizeTime:F1}ms|FPS:{fps:F0}";
                     lastFPSTime = frameStart;
                 }
 
@@ -104,13 +106,13 @@ namespace Example_ASCII_Game_Engine
                 }
 
                 // calculate next ball pos
-                ballTempNextPos.SetInPlace(
+                ballTempNextPos = new Vec2(
                     ball.Pos.x + (ballDirection.x * ballVelocity * deltaTime),
                     ball.Pos.y + (ballDirection.y * ballVelocity * deltaTime)
                     );
 
                 // calculate next ball pos
-                ballTempNextPos.SetInPlace(
+                ballTempNextPos = new Vec2(
                     ball.Pos.x + (ballDirection.x * ballVelocity * deltaTime),
                     ball.Pos.y + (ballDirection.y * ballVelocity * deltaTime)
                     );
@@ -154,12 +156,12 @@ namespace Example_ASCII_Game_Engine
                     ballTempNextPos.x = ball.Pos.x + (ballDirection.x * ballVelocity * deltaTime);
 
                     // reset
-                    ball.Pos.SetInPlace(100, 50);
+                    ball.Pos = new Vec2(100, 50);
 
-                    ballDirection.SetInPlace(
+                    ballDirection = new Vec2(
                         Math.Sin(runTime * 500) <= 0 ? 5 : -5,
-                        Math.Sin(runTime * 200) * 3).NormalizeInPlace();
-                    ballTempNextPos.SetInPlace(
+                        Math.Sin(runTime * 200) * 3).Normalize();
+                    ballTempNextPos = new Vec2(
                         ball.Pos.x + (ballDirection.x * ballVelocity * deltaTime),
                         ball.Pos.y + (ballDirection.y * ballVelocity * deltaTime)
                         );
@@ -168,7 +170,7 @@ namespace Example_ASCII_Game_Engine
                 }
 
                 // apply new pos
-                ball.Pos.SetInPlace(ballTempNextPos);
+                ball.Pos = ballTempNextPos;
 
                 // drawing
                 screen.Clear();

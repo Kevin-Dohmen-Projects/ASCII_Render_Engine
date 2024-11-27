@@ -10,10 +10,42 @@ namespace ASCII_Render_Engine
         public int Width { get; private set; }
         public int Height { get; private set; }
 
-        public int Frame { get; private set; }
-
         public RenderQueue Queue { get; private set; }
         public ScreenBuffer Buffer { get; private set; }
+
+        // -=-=-=- counters -=-=-=-
+        public int Frame { get; private set; }
+
+        // Render Time tracking
+        private DateTime renderStartTime = DateTime.Now;
+        private DateTime prevRenderStartTime = DateTime.Now;
+        private bool rendering = false;
+        private DateTime renderEndTime = DateTime.Now;
+        public double RenderTime // Time taken to render the last frame in milliseconds
+        {
+            get {
+                return rendering 
+                    ? (DateTime.Now - renderStartTime).TotalMilliseconds
+                    : (renderEndTime - prevRenderStartTime).TotalMilliseconds;
+            }
+        }
+
+        // Visualize Time tracking
+        private DateTime visualizeStartTime = DateTime.Now;
+        private DateTime prevVisualizeStartTime = DateTime.Now;
+        private bool visualizing = false;
+        private DateTime visualizeEndTime = DateTime.Now;
+        public double VisualizeTime // Time taken to visualize the last frame in milliseconds
+        {
+            get
+            {
+                return visualizing
+                    ? (DateTime.Now - visualizeStartTime).TotalMilliseconds
+                    : (visualizeEndTime - prevVisualizeStartTime).TotalMilliseconds;
+            }
+        }
+
+
         private ASCIIConverter Converter = new();
 
         private Display Display;
@@ -30,9 +62,6 @@ namespace ASCII_Render_Engine
 
         private Task lastRenderTask = Task.CompletedTask;
         private readonly SemaphoreSlim renderSemaphore = new SemaphoreSlim(1, 1);
-
-        // pools
-        ObjectPool<Vec2> Vec2Pool = new(100_000);
 
         public Screen(int width, int height)
         {
@@ -98,8 +127,12 @@ namespace ASCII_Render_Engine
         {
             // Ensure only one RenderAsync runs at a time
             await renderSemaphore.WaitAsync();
+
             try
             {
+                renderStartTime = DateTime.Now;
+                rendering = true;
+
                 if (Config.ScaleToWindow)
                 {
                     ScaleToWindow();
@@ -126,6 +159,10 @@ namespace ASCII_Render_Engine
 
                 string fullScreen = Converter.BufferToFullScreen(Buffer, Display, Config).ToString();
 
+                renderEndTime = DateTime.Now;
+                prevRenderStartTime = renderStartTime;
+                rendering = false;
+
                 if (Config.VisualizeAsync)
                 {
                     // Schedule visualization but track it in lastRenderTask to control the sequence
@@ -144,6 +181,9 @@ namespace ASCII_Render_Engine
 
         public void Visualize(string displayString)
         {
+            visualizeStartTime = DateTime.Now;
+            visualizing = true;
+
             if (ClearBeforeVisualize)
             {
                 Console.Clear();
@@ -152,12 +192,19 @@ namespace ASCII_Render_Engine
 
             Console.SetCursorPosition(0, 0);
             Console.WriteLine(displayString);
+
+            visualizeEndTime = DateTime.Now;
+            prevVisualizeStartTime = visualizeStartTime;
+            visualizing = false;
         }
 
         public async Task VisualizeAsync(string displayString)
         {
-            await consoleLock.WaitAsync(); // Wait for exclusive access to the console
+            visualizeStartTime = DateTime.Now;
+            visualizing = true;
 
+            await consoleLock.WaitAsync(); // Wait for exclusive access to the console
+            
             if (ClearBeforeVisualize)
             {
                 Console.Clear();
@@ -173,6 +220,10 @@ namespace ASCII_Render_Engine
             {
                 consoleLock.Release(); // Allow other threads to proceed
             }
+
+            visualizeEndTime = DateTime.Now;
+            prevVisualizeStartTime = visualizeStartTime;
+            visualizing = false;
         }
     }
 

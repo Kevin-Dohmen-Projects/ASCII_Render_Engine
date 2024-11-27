@@ -11,15 +11,11 @@ namespace ASCII_Render_Engine.Types.Pixels
         public int Frame; // frame count
         public double Time; // time in seconds
 
-        // pool
-        public ObjectPool<Vec2> Vec2Pool;
-
         public ShaderPixel()
         {
             ScreenPos = new Vec2();
             ScreenRes = new Vec2();
             UV = new Vec2();
-            Vec2Pool = new ObjectPool<Vec2>(100);
         }
 
         public ShaderPixel(Vec2 screenPos, Vec2 screenRes, int frame)
@@ -27,8 +23,7 @@ namespace ASCII_Render_Engine.Types.Pixels
             ScreenPos = screenPos;
             ScreenRes = screenRes;
             Frame = frame;
-            UV = screenPos.DivideInPlace(screenRes);
-            Vec2Pool = new ObjectPool<Vec2>(100);
+            UV = screenPos / screenRes;
         }
     }
 }

@@ -21,8 +21,6 @@ namespace ASCII_Render_Engine.Geometry.Primitives
         // object pool
         private ShaderPixel shaderPixel = new();
         private Vec2 shaderPixelScreenRes = new();
-        private Vec2 tmpVec = new();
-        private Vec2 circleUV = new();
 
         public Circle(Vec2 pos, Vec2 size, Vec2 color)
         {
@@ -58,10 +56,10 @@ namespace ASCII_Render_Engine.Geometry.Primitives
             {
                 for (int x = int.Max(posx, 0); x < int.Min(posx + sizex, buffer.Width); x++)
                 {
-                    circleUV.SetInPlace(
-                        (x - Pos.x) / Size.x,
-                        (y - Pos.y) / Size.y
-                    ).AddInPlace(-0.5);
+                    Vec2 circleUV = new Vec2(
+                        (x - Pos.x) / Size.x - 0.5,
+                        (y - Pos.y) / Size.y - 0.5
+                    );
 
                     if (circleUV.Length() < 0.5)
                     {
@@ -69,14 +67,14 @@ namespace ASCII_Render_Engine.Geometry.Primitives
                         {
                             pix.ScreenPos.x = x - posx;
                             pix.ScreenPos.y = y - posy;
-                            pix.UV.DivideInPlace(pix.ScreenPos, pix.ScreenRes);
+                            pix.UV = pix.ScreenPos / pix.ScreenRes;
 
                             Vec2 col = Shader.Render(pix);
-                            buffer.Buffer[y][x].SetInPlace(RenderFuncs.AlphaTransform(col.MultiplyInPlace(Color), buffer.Buffer[y][x], tmpVec));
+                            buffer.Buffer[y][x] = RenderFuncs.AlphaTransform(col * Color, buffer.Buffer[y][x]);
                         }
                         else
                         {
-                            buffer.Buffer[y][x].SetInPlace(RenderFuncs.AlphaTransform(Color, buffer.Buffer[y][x], tmpVec));
+                            buffer.Buffer[y][x] = RenderFuncs.AlphaTransform(Color, buffer.Buffer[y][x]);
                         }
                     }
                 }

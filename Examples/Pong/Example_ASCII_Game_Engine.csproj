@@ -10,11 +10,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="ASCII_Render_Engine" Version="1.0.1" />
+        <PackageReference Include="ASCII_Render_Engine" Version="1.0.3" />
         <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
     </ItemGroup>
 
-    <!-- 
+    <!--
 	<ItemGroup>
 	    <Reference Include="ASCII_Render_Engine">
 		    <HintPath>../../ASCII_Render_Engine/bin/Release/net9.0/ASCII_Render_Engine.dll</HintPath>

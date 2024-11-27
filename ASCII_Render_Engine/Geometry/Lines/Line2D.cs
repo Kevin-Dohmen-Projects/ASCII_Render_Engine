@@ -9,9 +9,6 @@ namespace ASCII_Render_Engine.Geometry.Lines
         public Vec2 B;
         public Vec2 Color;
 
-        // pool
-        private Vec2 tmpVec = new();
-
         public Line2D(Vec2 a, Vec2 b, Vec2 color)
         {
             A = a;
@@ -56,25 +53,19 @@ namespace ASCII_Render_Engine.Geometry.Lines
             {
                 for (int x = xMin; x < xMax; x++)
                 {
-                    tmpVec = RenderFuncs.AlphaTransform(Color, buffer.Buffer[yMin][x], tmpVec);
-                    buffer.Buffer[yMin][x].x = tmpVec.x;
-                    buffer.Buffer[yMin][x].y = tmpVec.y;
+                    buffer.Buffer[yMin][x] = RenderFuncs.AlphaTransform(Color, buffer.Buffer[yMin][x]);
                 }
             }
             else if (isVertical)
             {
                 for (int y = yMin; y < yMax; y++)
                 {
-                    tmpVec = RenderFuncs.AlphaTransform(Color, buffer.Buffer[y][xMin], tmpVec);
-                    buffer.Buffer[y][xMin].x = tmpVec.x;
-                    buffer.Buffer[y][xMin].y = tmpVec.y;
+                    buffer.Buffer[y][xMin] = RenderFuncs.AlphaTransform(Color, buffer.Buffer[y][xMin]);
                 }
             }
             else if (isDot)
             {
-                tmpVec = RenderFuncs.AlphaTransform(Color, buffer.Buffer[yMin][xMin], tmpVec);
-                buffer.Buffer[yMin][xMin].x = tmpVec.x;
-                buffer.Buffer[yMin][xMin].y = tmpVec.y;
+                buffer.Buffer[yMin][xMin] = RenderFuncs.AlphaTransform(Color, buffer.Buffer[yMin][xMin]);
             }
             else if (isSideways)
             {
@@ -92,9 +83,7 @@ namespace ASCII_Render_Engine.Geometry.Lines
 
                         if (isCol)
                         {
-                            tmpVec = RenderFuncs.AlphaTransform(Color, buffer.Buffer[y][x], tmpVec);
-                            buffer.Buffer[y][x].x = tmpVec.x;
-                            buffer.Buffer[y][x].y = tmpVec.y;
+                            buffer.Buffer[y][x] = RenderFuncs.AlphaTransform(Color, buffer.Buffer[y][x]);
                         }
                     }
                 }

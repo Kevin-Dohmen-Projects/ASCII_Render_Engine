@@ -7,7 +7,7 @@ namespace ASCII_Render_Engine.ScreenRelated
         public int Width { get; private set; }
         public int Height { get; private set; }
 
-        public List<List<Vec2>> Buffer;
+        public Vec2[][] Buffer;
 
         public ScreenBuffer(int width, int height)
         {
@@ -18,13 +18,13 @@ namespace ASCII_Render_Engine.ScreenRelated
 
         private void InitBuffer()
         {
-            Buffer = new List<List<Vec2>>();
+            Buffer = new Vec2[Height][];
             for (int i = 0; i < Height; i++)
             {
-                Buffer.Add(new List<Vec2>());
+                Buffer[i] = (new Vec2[Width]);
                 for (int j = 0; j < Width; j++)
                 {
-                    Buffer[i].Add(new Vec2());
+                    Buffer[i][j] = new Vec2(0, 1);
                 }
             }
         }
@@ -35,7 +35,7 @@ namespace ASCII_Render_Engine.ScreenRelated
             {
                 for (int j = 0; j < Width; j++)
                 {
-                    Buffer[i][j].SetInPlace(0, 0);
+                    Buffer[i][j] = new Vec2(0, 1);
                 }
             }
         }

@@ -11,15 +11,12 @@ namespace ASCII_Render_Engine.Geometry.Primitives
         public IShader? Shader;
 
         // pool
-        Vec2 tmpVec = new();
         ShaderPixel shaderPixel = new ShaderPixel();
 
         public FullScreenShaderObject(IShader? shader, double Alpha = 1)
         {
             Shader = shader;
-            Color = new();
-            Color.y = Alpha;
-            Color.x = 1;
+            Color = new(1, Alpha);
         }
         public FullScreenShaderObject(Vec2 color)
         {
@@ -44,10 +41,10 @@ namespace ASCII_Render_Engine.Geometry.Primitives
                     {
                         pix.ScreenPos.x = x;
                         pix.ScreenPos.y = y;
-                        pix.UV.DivideInPlace(pix.ScreenPos, pix.ScreenRes);
+                        pix.UV = pix.ScreenPos / pix.ScreenRes;
 
                         Vec2 col = Shader.Render(pix);
-                        buffer.Buffer[y][x].SetInPlace(RenderFuncs.AlphaTransform(col.MultiplyInPlace(Color), buffer.Buffer[y][x], tmpVec));
+                        buffer.Buffer[y][x] = RenderFuncs.AlphaTransform(col * Color, buffer.Buffer[y][x]);
                     }
                     else
                     {

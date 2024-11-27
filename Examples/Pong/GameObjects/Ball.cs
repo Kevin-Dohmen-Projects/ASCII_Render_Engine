@@ -34,8 +34,8 @@ namespace Example_ASCII_Game_Engine.GameObjects
 
         public IRenderable ToRenderable()
         {
-            BallObject.Pos.SetInPlace(Pos.x - Radius, Pos.y - Radius);
-            BallObject.Size.SetInPlace(Radius*2, Radius*2);
+            BallObject.Pos = new Vec2(Pos.x - Radius, Pos.y - Radius);
+            BallObject.Size = new Vec2(Radius * 2, Radius * 2);
             return BallObject;
         }
     }

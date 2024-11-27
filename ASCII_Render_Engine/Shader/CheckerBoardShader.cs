@@ -13,7 +13,7 @@ namespace ASCII_Render_Engine.Shader
         // Source: ChatGPT
         public Vec2 Render(ShaderPixel shaderPixel)
         {
-            Vec2 col = shaderPixel.Vec2Pool.GetObject().reset();
+            Vec2 col = new Vec2();
             Vec2 uv = shaderPixel.UV;
             double frame = (double)shaderPixel.Frame;
 
@@ -22,7 +22,6 @@ namespace ASCII_Render_Engine.Shader
             // Checkerboard pattern using the floor of uv coordinates
             col.x = ((Math.Floor(uv.x * 10) + Math.Floor(uv.y * 10)) % 2 == 0) ? 1.0 : 0.0;
 
-            shaderPixel.Vec2Pool.ReturnObject(col);
             return col;
         }
     }

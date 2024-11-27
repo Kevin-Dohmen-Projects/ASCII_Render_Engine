@@ -22,7 +22,7 @@ namespace ASCII_Render_Engine.Shader
 
         public Vec2 Render(ShaderPixel shaderPixel)
         {
-            Vec2 col = shaderPixel.Vec2Pool.GetObject().reset();
+            Vec2 col = new Vec2();
             Vec2 uv = shaderPixel.UV;
             double frame = (double)shaderPixel.Frame;
             double time = shaderPixel.Time + TimeOffset;
@@ -32,7 +32,6 @@ namespace ASCII_Render_Engine.Shader
             // shader
             col.x = (Math.Sin(uv.x * 20 + time * 2) + Math.Sin(uv.y * 20 + time)) / 4 + .5;
 
-            shaderPixel.Vec2Pool.ReturnObject(col);
             return col;
         }
     }

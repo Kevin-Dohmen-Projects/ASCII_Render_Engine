@@ -2,7 +2,8 @@
 
 namespace ASCII_Render_Engine.Types.Vectors
 {
-    public class Vec2
+    
+    public struct Vec2
     {
         public double x, y;
 
@@ -22,7 +23,7 @@ namespace ASCII_Render_Engine.Types.Vectors
             y = 0;
         }
 
-        public Vec2 reset()
+        public Vec2 Reset()
         {
             x = 0;
             y = 0;
@@ -110,56 +111,6 @@ namespace ASCII_Render_Engine.Types.Vectors
             return new Vec2(left) % right;
         }
 
-        // In-place
-        public Vec2 AddInPlace(Vec2 other)
-        {
-            x += other.x;
-            y += other.y;
-            return this;
-        }
-        public Vec2 AddInPlace(double other)
-        {
-            x += other;
-            y += other;
-            return this;
-        }
-        public Vec2 AddInPlace(double otherX, double otherY)
-        {
-            x += otherX;
-            y += otherY;
-            return this;
-        }
-        public Vec2 MultiplyInPlace(Vec2 other)
-        {
-            x *= other.x;
-            y *= other.y;
-            return this;
-        }
-        public Vec2 MultiplyInPlace(double scalar)
-        {
-            x *= scalar;
-            y *= scalar;
-            return this;
-        }
-        public Vec2 DivideInPlace(Vec2 other)
-        {
-            x /= other.x;
-            y /= other.y;
-            return this;
-        }
-        public Vec2 DivideInPlace(double scalar)
-        {
-            x /= scalar;
-            y /= scalar;
-            return this;
-        }
-        public Vec2 DivideInPlace(Vec2 left, Vec2 right)
-        {
-            this.x = left.x / right.x;
-            this.y = left.y / right.y;
-            return this;
-        }
-
         // functions
         public double Length()
         {
@@ -176,13 +127,6 @@ namespace ASCII_Render_Engine.Types.Vectors
                 y / len
                 );
         }
-        public Vec2 NormalizeInPlace()
-        {
-            double len = Length();
-            x /= len;
-            y /= len;
-            return this;
-        }
         public static double Dot(Vec2 left, Vec2 right)
         {
             return left.x * right.x
@@ -193,20 +137,6 @@ namespace ASCII_Render_Engine.Types.Vectors
             return left.x * right.y
                 - left.y * right.x;
         }
-
-        public Vec2 SetInPlace(Vec2 other)
-        {
-            this.x = other.x;
-            this.y = other.y;
-            return this;
-        }
-        public Vec2 SetInPlace(double x, double y)
-        {
-            this.x = x;
-            this.y = y;
-            return this;
-        }
-
 
         // -=-=-=-=- conversion and parse -=-=-=-=-
         public string Stringify()
