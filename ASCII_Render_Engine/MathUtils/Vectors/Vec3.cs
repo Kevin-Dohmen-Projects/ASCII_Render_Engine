@@ -133,10 +133,12 @@
         public Vec3 Normalize()
         {
             double len = Length();
-            return new Vec3(
-                x / len,
-                y / len,
-                z / len
+            return len == 0 ?
+                new Vec3() :
+                new Vec3(
+                    x / len,
+                    y / len,
+                    z / len
                 );
         }
         public static double Dot(Vec3 left, Vec3 right)
