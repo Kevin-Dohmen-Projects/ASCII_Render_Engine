@@ -1,4 +1,4 @@
-﻿using ASCII_Render_Engine.MathUtils.Vector;
+﻿using ASCII_Render_Engine.MathUtils.Vectors;
 using ASCII_Render_Engine.Utils;
 
 namespace ASCII_Render_Engine.Rendering

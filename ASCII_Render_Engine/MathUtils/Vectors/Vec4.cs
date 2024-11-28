@@ -1,4 +1,4 @@
-﻿namespace ASCII_Render_Engine.MathUtils.Vector
+﻿namespace ASCII_Render_Engine.MathUtils.Vectors
 {
     public struct Vec4
     {

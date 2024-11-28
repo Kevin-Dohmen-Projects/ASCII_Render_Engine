@@ -1,6 +1,7 @@
-﻿using ASCII_Render_Engine.Types.Vectors;
+﻿using ASCII_Render_Engine.MathUtils.Vectors;
 using ASCII_Render_Engine.Utils;
 using ASCII_Render_Engine.Objects.Geometry.Primitives;
+using ASCII_Render_Engine.Utils.Profiling;
 
 namespace ASCII_Render_Engine.Core
 {
@@ -15,35 +16,10 @@ namespace ASCII_Render_Engine.Core
         // -=-=-=- counters -=-=-=-
         public int Frame { get; private set; }
 
-        // Render Time tracking
-        private DateTime renderStartTime = DateTime.Now;
-        private DateTime prevRenderStartTime = DateTime.Now;
-        private bool rendering = false;
-        private DateTime renderEndTime = DateTime.Now;
-        public double RenderTime // Time taken to render the last frame in milliseconds
-        {
-            get
-            {
-                return rendering
-                    ? (DateTime.Now - renderStartTime).TotalMilliseconds
-                    : (renderEndTime - prevRenderStartTime).TotalMilliseconds;
-            }
-        }
-
-        // Visualize Time tracking
-        private DateTime visualizeStartTime = DateTime.Now;
-        private DateTime prevVisualizeStartTime = DateTime.Now;
-        private bool visualizing = false;
-        private DateTime visualizeEndTime = DateTime.Now;
-        public double VisualizeTime // Time taken to visualize the last frame in milliseconds
-        {
-            get
-            {
-                return visualizing
-                    ? (DateTime.Now - visualizeStartTime).TotalMilliseconds
-                    : (visualizeEndTime - prevVisualizeStartTime).TotalMilliseconds;
-            }
-        }
+        // Profiling
+        public readonly TimeProfiler RenderTimer = new();
+        public readonly TimeProfiler VisualizeTimer = new();
+        public readonly TimeProfiler FrameTimer = new();
 
 
         private ASCIIConverter Converter = new();
@@ -130,8 +106,8 @@ namespace ASCII_Render_Engine.Core
 
             try
             {
-                renderStartTime = DateTime.Now;
-                rendering = true;
+                RenderTimer.Start();
+                FrameTimer.lap();
 
                 if (Config.ScaleToWindow)
                 {
@@ -159,9 +135,7 @@ namespace ASCII_Render_Engine.Core
 
                 string fullScreen = Converter.BufferToFullScreen(Buffer, Display, Config).ToString();
 
-                renderEndTime = DateTime.Now;
-                prevRenderStartTime = renderStartTime;
-                rendering = false;
+                RenderTimer.Stop();
 
                 if (Config.VisualizeAsync)
                 {
@@ -181,8 +155,7 @@ namespace ASCII_Render_Engine.Core
 
         public void Visualize(string displayString)
         {
-            visualizeStartTime = DateTime.Now;
-            visualizing = true;
+            VisualizeTimer.Start();
 
             if (ClearBeforeVisualize)
             {
@@ -193,15 +166,12 @@ namespace ASCII_Render_Engine.Core
             Console.SetCursorPosition(0, 0);
             Console.WriteLine(displayString);
 
-            visualizeEndTime = DateTime.Now;
-            prevVisualizeStartTime = visualizeStartTime;
-            visualizing = false;
+            VisualizeTimer.Stop();
         }
 
         public async Task VisualizeAsync(string displayString)
         {
-            visualizeStartTime = DateTime.Now;
-            visualizing = true;
+            VisualizeTimer.Start();
 
             await consoleLock.WaitAsync(); // Wait for exclusive access to the console
 
@@ -221,9 +191,7 @@ namespace ASCII_Render_Engine.Core
                 consoleLock.Release(); // Allow other threads to proceed
             }
 
-            visualizeEndTime = DateTime.Now;
-            prevVisualizeStartTime = visualizeStartTime;
-            visualizing = false;
+            VisualizeTimer.Stop();
         }
     }
 

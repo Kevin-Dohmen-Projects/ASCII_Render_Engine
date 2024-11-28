@@ -1,7 +1,7 @@
 ﻿using ASCII_Render_Engine.Core;
-using ASCII_Render_Engine.MathUtils.Vector;
+using ASCII_Render_Engine.MathUtils.Vectors;
 using ASCII_Render_Engine.Rendering;
-using ASCII_Render_Engine.Rendering.Shader;
+using ASCII_Render_Engine.Rendering.Shaders;
 
 namespace ASCII_Render_Engine.Objects.Geometry.Primitives
 {

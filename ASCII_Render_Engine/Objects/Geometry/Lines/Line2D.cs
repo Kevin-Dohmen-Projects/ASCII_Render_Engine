@@ -1,5 +1,5 @@
 ﻿using ASCII_Render_Engine.Core;
-using ASCII_Render_Engine.MathUtils.Vector;
+using ASCII_Render_Engine.MathUtils.Vectors;
 using ASCII_Render_Engine.Rendering;
 
 namespace ASCII_Render_Engine.Objects.Geometry.Lines

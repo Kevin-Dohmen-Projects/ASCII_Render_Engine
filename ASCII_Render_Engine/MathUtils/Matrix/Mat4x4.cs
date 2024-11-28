@@ -1,4 +1,4 @@
-﻿using ASCII_Render_Engine.MathUtils.Vector;
+﻿using ASCII_Render_Engine.MathUtils.Vectors;
 using System;
 using System.Collections.Generic;
 using System.Linq;
