@@ -4,11 +4,10 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ASCII_Render_Engine.Geometry.Primitives;
-using ASCII_Render_Engine.Types.Vectors;
-using ASCII_Render_Engine.Shader;
-using ASCII_Render_Engine.ScreenRelated;
-using ASCII_Render_Engine.Types.Transform;
+using ASCII_Render_Engine.Objects.Geometry.Primitives;
+using ASCII_Render_Engine.MathUtils.Vectors;
+using ASCII_Render_Engine.Rendering.Shaders;
+using ASCII_Render_Engine.Core;
 
 namespace Example_ASCII_Game_Engine.GameObjects
 {

@@ -34,10 +34,11 @@ namespace ASCII_Render_Engine.Utils.Profiling
             running = false;
         }
 
-        public void lap()
+        public void Lap()
         {
+            StartTime = EndTime;
             PrevStartTime = StartTime;
-            StartTime = DateTime.Now;
+            EndTime = DateTime.Now;
             running = true;
         }
 
@@ -46,8 +47,8 @@ namespace ASCII_Render_Engine.Utils.Profiling
             get
             {
                 return running
-                    ? (DateTime.Now - StartTime).TotalMilliseconds
-                    : (EndTime - PrevStartTime).TotalMilliseconds;
+                    ? (EndTime - PrevStartTime).TotalMilliseconds
+                    : (EndTime - StartTime).TotalMilliseconds;
             }
         }
     }

@@ -1,14 +1,10 @@
 ﻿using System;
-using ASCII_Render_Engine.Geometry.Lines;
-using ASCII_Render_Engine.Geometry.Primitives;
-using ASCII_Render_Engine.ScreenRelated;
-using ASCII_Render_Engine.Shader;
-using ASCII_Render_Engine.Types.Vectors;
-using ASCII_Render_Engine.Utils;
-using System.Globalization;
+using ASCII_Render_Engine.Objects.Geometry.Lines;
+using ASCII_Render_Engine.Objects.Geometry.Primitives;
+using ASCII_Render_Engine.Rendering.Shaders;
+using ASCII_Render_Engine.MathUtils.Vectors;
 using Example_ASCII_Game_Engine.GameObjects;
-using ASCII_Render_Engine;
-using System.Reflection.Metadata;
+using ASCII_Render_Engine.Core;
 
 using ASCII_Render_Engine.Input.Keyboard;
 
@@ -48,7 +44,6 @@ namespace Example_ASCII_Game_Engine
             double deltaTime = 0;
             DateTime startTime = DateTime.Now;
             DateTime frameStart = DateTime.Now;
-            DateTime prevFrameTime = DateTime.Now;
             DateTime lastFPSTime = DateTime.Now;
             DateTime roundStartTime = DateTime.Now;
             double roundTime = 0;
@@ -63,19 +58,18 @@ namespace Example_ASCII_Game_Engine
             // game loop
             while (true)
             {
-                prevFrameTime = frameStart;
                 frameStart = DateTime.Now;
                 runTime = (frameStart - startTime).TotalSeconds;
-                deltaTime = (frameStart - prevFrameTime).TotalSeconds;
+                //deltaTime = (frameStart - prevFrameTime).TotalSeconds;
+                deltaTime = screen.FrameTimer.ElapsedTime / 1000;
                 roundTime = (frameStart - roundStartTime).TotalSeconds;
                 frames++;
 
                 // update FPS in console title every second
                 if ((frameStart - lastFPSTime).TotalSeconds >= 0.5)
                 {
-                    double fps = 1.0 / deltaTime;
-                    //Console.Title = $"FPS: {fps:F2}";
-                    Console.Title = $"RT:{screen.RenderTime:F1}ms|VT:{screen.VisualizeTime:F1}ms|FPS:{fps:F0}";
+                    double fps = 1 / (screen.FrameTimer.ElapsedTime / 1000);
+                    Console.Title = $"RT:{screen.RenderTimer.ElapsedTime:F1}ms|VT:{screen.RenderTimer.ElapsedTime:F1}ms|FPS:{fps:F0}";
                     lastFPSTime = frameStart;
                 }
 

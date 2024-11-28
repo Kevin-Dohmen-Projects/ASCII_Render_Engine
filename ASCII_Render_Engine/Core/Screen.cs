@@ -107,7 +107,7 @@ namespace ASCII_Render_Engine.Core
             try
             {
                 RenderTimer.Start();
-                FrameTimer.lap();
+                FrameTimer.Lap();
 
                 if (Config.ScaleToWindow)
                 {
