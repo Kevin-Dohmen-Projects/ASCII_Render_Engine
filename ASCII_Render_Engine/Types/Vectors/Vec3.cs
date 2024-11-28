@@ -1,8 +1,10 @@
 ﻿namespace ASCII_Render_Engine.Types.Vectors
 {
-    public class Vec3
+    public struct Vec3
     {
-        public double x, y, z;
+        public double x;
+        public double y;
+        public double z;
 
         public Vec3(double fx, double fy, double fz)
         {

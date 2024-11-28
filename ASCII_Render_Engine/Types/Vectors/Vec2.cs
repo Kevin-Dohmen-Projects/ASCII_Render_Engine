@@ -5,7 +5,8 @@ namespace ASCII_Render_Engine.Types.Vectors
     
     public struct Vec2
     {
-        public double x, y;
+        public double x;
+        public double y;
 
         public Vec2(double fx, double fy)
         {

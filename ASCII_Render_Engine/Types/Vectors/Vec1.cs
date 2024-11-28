@@ -1,6 +1,6 @@
 ﻿namespace ASCII_Render_Engine.Types.Vectors
 {
-    public class Vec1
+    public struct Vec1
     {
         public double x;
 
@@ -96,7 +96,8 @@
         }
         public Vec1 Normalize()
         {
-            return new Vec1(1);
+            double len = Length();
+            return this / len;
         }
 
 
