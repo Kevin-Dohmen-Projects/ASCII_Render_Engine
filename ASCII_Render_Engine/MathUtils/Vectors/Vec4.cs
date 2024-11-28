@@ -160,11 +160,13 @@
         public Vec4 Normalize()
         {
             double len = Length();
-            return new Vec4(
-                x / len,
-                y / len,
-                z / len,
-                w / len
+            return len == 0 ?
+                new Vec4() :
+                new Vec4(
+                    x / len,
+                    y / len,
+                    z / len,
+                    w / len
                 );
         }
         public static double Dot(Vec4 left, Vec4 right)

@@ -121,9 +121,11 @@
         public Vec2 Normalize()
         {
             double len = Length();
-            return new Vec2(
-                x / len,
-                y / len
+            return len == 0 ?
+                new Vec2() :
+                new Vec2(
+                    x / len,
+                    y / len
                 );
         }
         public static double Dot(Vec2 left, Vec2 right)
