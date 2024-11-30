@@ -16,6 +16,11 @@
             x = f;
             y = f;
         }
+        public Vec2(Vec2 vec)
+        {
+            x = vec.x;
+            y = vec.y;
+        }
         public Vec2()
         {
             x = 0;

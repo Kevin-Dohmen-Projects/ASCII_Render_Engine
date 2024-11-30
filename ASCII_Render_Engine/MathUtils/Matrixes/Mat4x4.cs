@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ASCII_Render_Engine.MathUtils.Matrix
+namespace ASCII_Render_Engine.MathUtils.Matrixes
 {
     public class Mat4x4
     {
@@ -23,6 +23,35 @@ namespace ASCII_Render_Engine.MathUtils.Matrix
         public Mat4x4(double[][] matrix)
         {
             Matrix = matrix;
+        }
+
+        public static Mat4x4 operator *(Mat4x4 a, Mat4x4 b)
+        {
+            Mat4x4 result = new Mat4x4();
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    result.Matrix[i][j] = a.Matrix[i][0] * b.Matrix[0][j] +
+                                          a.Matrix[i][1] * b.Matrix[1][j] +
+                                          a.Matrix[i][2] * b.Matrix[2][j] +
+                                          a.Matrix[i][3] * b.Matrix[3][j];
+                }
+            }
+            return result;
+        }
+
+        public static Mat4x4 operator *(Mat4x4 a, Vec4 b)
+        {
+            Mat4x4 result = new Mat4x4();
+            for (int i = 0; i < 4; i++)
+            {
+                result.Matrix[i][0] = a.Matrix[i][0] * b.x;
+                result.Matrix[i][1] = a.Matrix[i][1] * b.y;
+                result.Matrix[i][2] = a.Matrix[i][2] * b.z;
+                result.Matrix[i][3] = a.Matrix[i][3] * b.w;
+            }
+            return result;
         }
 
         public Vec4 Solve(Vec4 v)

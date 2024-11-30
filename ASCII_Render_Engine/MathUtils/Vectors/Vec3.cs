@@ -24,6 +24,12 @@
             y = f;
             z = f;
         }
+        public Vec3(Vec3 vec)
+        {
+            x = vec.x;
+            y = vec.y;
+            z = vec.z;
+        }
         public Vec3()
         {
             x = 0;
@@ -146,6 +152,16 @@
             return left.x * right.x
                 + left.y * right.y
                 + left.z * right.z;
+        }
+
+        public static Vec3 Cross(Vec3 left, Vec3 right)
+        {
+            return new Vec3
+            {
+                x = left.y * right.z - left.z * right.y,
+                y = left.z * right.x - left.x * right.z,
+                z = left.x * right.y - left.y * right.x
+            };
         }
 
 

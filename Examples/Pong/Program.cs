@@ -3,10 +3,14 @@ using ASCII_Render_Engine.Objects.Geometry.Lines;
 using ASCII_Render_Engine.Objects.Geometry.Primitives;
 using ASCII_Render_Engine.Rendering.Shaders;
 using ASCII_Render_Engine.MathUtils.Vectors;
+using ASCII_Render_Engine.Objects.Geometry.Polygons;
+using ASCII_Render_Engine.Objects.Geometry.Vertices;
 using Example_ASCII_Game_Engine.GameObjects;
 using ASCII_Render_Engine.Core;
 
 using ASCII_Render_Engine.Input.Keyboard;
+using System.Numerics;
+using ASCII_Render_Engine.Objects.Camera;
 
 namespace Example_ASCII_Game_Engine
 {
@@ -29,6 +33,27 @@ namespace Example_ASCII_Game_Engine
             Ball ball = new(new Vec2(100, 50), 5);
             Rectangle BarLeft = new(new Vec2(8, 10), new Vec2(4, 20), new Vec2(1, 1));
             Rectangle BarRight = new(new Vec2(188, 10), new Vec2(4, 20), new Vec2(1, 1));
+
+            ICamera camera = new PerspectiveCamera3D(new Vec3(), new Vec3(0, 0, 1), 100, 1, 1000);
+
+            CameraConfig cameraConfig = new CameraConfig(camera);
+
+            Vertex3D v1 = new Vertex3D(new Vec3(-5, -5, 5), new Vec2(), cameraConfig);
+            Vertex3D v2 = new Vertex3D(new Vec3(5, -5, 5), new Vec2(), cameraConfig);
+            Vertex3D v3 = new Vertex3D(new Vec3(5, 5, 5), new Vec2(), cameraConfig);
+            Vertex3D v4 = new Vertex3D(new Vec3(-5, 5, 5), new Vec2(), cameraConfig);
+            Vertex3D v5 = new Vertex3D(new Vec3(-5, -5, 15), new Vec2(), cameraConfig);
+            Vertex3D v6 = new Vertex3D(new Vec3(5, -5, 15), new Vec2(), cameraConfig);
+            Vertex3D v7 = new Vertex3D(new Vec3(5, 5, 15), new Vec2(), cameraConfig);
+            Vertex3D v8 = new Vertex3D(new Vec3(-5, 5, 15), new Vec2(), cameraConfig);
+
+            Poly3D face1 = new Poly3D(new Vertex3D[] { v1, v2, v3, v4 }); // Front face
+            Poly3D face2 = new Poly3D(new Vertex3D[] { v5, v6, v7, v8 }); // Back face
+            Poly3D face3 = new Poly3D(new Vertex3D[] { v1, v2, v6, v5 }); // Bottom face
+            Poly3D face4 = new Poly3D(new Vertex3D[] { v3, v4, v8, v7 }); // Top face
+            Poly3D face5 = new Poly3D(new Vertex3D[] { v1, v4, v8, v5 }); // Left face
+            Poly3D face6 = new Poly3D(new Vertex3D[] { v2, v3, v7, v6 }); // Right face
+
 
             // physics config
             double ballBaseVelocity = 50; // pixels per second
@@ -166,11 +191,22 @@ namespace Example_ASCII_Game_Engine
                 // apply new pos
                 ball.Pos = ballTempNextPos;
 
+                //camera.Position = new Vec3(Math.Sin(runTime) * 10, 0, Math.Cos(runTime) * 10);
+                //// point to the center
+                //camera.Direction = (new Vec3(0, 0, 0) - camera.Position).Normalize();
+
                 // drawing
                 screen.Clear();
                 screen.Draw(ball.ToRenderable());
                 screen.Draw(BarLeft);
                 screen.Draw(BarRight);
+
+                screen.Draw(face1);
+                screen.Draw(face2);
+                screen.Draw(face3);
+                screen.Draw(face4);
+                screen.Draw(face5);
+                screen.Draw(face6);
 
                 screen.Render();
 
