@@ -11,6 +11,7 @@ using ASCII_Render_Engine.Core;
 using ASCII_Render_Engine.Input.Keyboard;
 using System.Numerics;
 using ASCII_Render_Engine.Objects.Camera;
+using ASCII_Render_Engine.Objects.Geometry.Mesh;
 
 namespace Example_ASCII_Game_Engine
 {
@@ -34,25 +35,31 @@ namespace Example_ASCII_Game_Engine
             Rectangle BarLeft = new(new Vec2(8, 10), new Vec2(4, 20), new Vec2(1, 1));
             Rectangle BarRight = new(new Vec2(188, 10), new Vec2(4, 20), new Vec2(1, 1));
 
-            ICamera camera = new PerspectiveCamera3D(new Vec3(), new Vec3(0, 0, 1), 100, 1, 1000);
+            ICamera camera = new PerspectiveCamera3D(new Vec3(0, 0, -15), new Vec3(0, 0, 1), 75, 1, 1000);
+            //ICamera camera = new OrthographicCamera3D(new Vec3(0, 0, -15), new Vec3(0, 0, 1), 10);
 
             CameraConfig cameraConfig = new CameraConfig(camera);
 
-            Vertex3D v1 = new Vertex3D(new Vec3(-5, -5, 5), new Vec2(), cameraConfig);
-            Vertex3D v2 = new Vertex3D(new Vec3(5, -5, 5), new Vec2(), cameraConfig);
-            Vertex3D v3 = new Vertex3D(new Vec3(5, 5, 5), new Vec2(), cameraConfig);
-            Vertex3D v4 = new Vertex3D(new Vec3(-5, 5, 5), new Vec2(), cameraConfig);
-            Vertex3D v5 = new Vertex3D(new Vec3(-5, -5, 15), new Vec2(), cameraConfig);
-            Vertex3D v6 = new Vertex3D(new Vec3(5, -5, 15), new Vec2(), cameraConfig);
-            Vertex3D v7 = new Vertex3D(new Vec3(5, 5, 15), new Vec2(), cameraConfig);
-            Vertex3D v8 = new Vertex3D(new Vec3(-5, 5, 15), new Vec2(), cameraConfig);
 
-            Poly3D face1 = new Poly3D(new Vertex3D[] { v1, v2, v3, v4 }); // Front face
-            Poly3D face2 = new Poly3D(new Vertex3D[] { v5, v6, v7, v8 }); // Back face
-            Poly3D face3 = new Poly3D(new Vertex3D[] { v1, v2, v6, v5 }); // Bottom face
-            Poly3D face4 = new Poly3D(new Vertex3D[] { v3, v4, v8, v7 }); // Top face
-            Poly3D face5 = new Poly3D(new Vertex3D[] { v1, v4, v8, v5 }); // Left face
-            Poly3D face6 = new Poly3D(new Vertex3D[] { v2, v3, v7, v6 }); // Right face
+            // -=-=-=- Cube1 Start -=-=-=-
+            Vertex3D c1v1 = new(new Vec3(-5, -5, -5), new Vec2());
+            Vertex3D c1v2 = new(new Vec3(5, -5, -5), new Vec2());
+            Vertex3D c1v3 = new(new Vec3(5, 5, -5), new Vec2());
+            Vertex3D c1v4 = new(new Vec3(-5, 5, -5), new Vec2());
+            Vertex3D c1v5 = new(new Vec3(-5, -5, 5), new Vec2());
+            Vertex3D c1v6 = new(new Vec3(5, -5, 5), new Vec2());
+            Vertex3D c1v7 = new(new Vec3(5, 5, 5), new Vec2());
+            Vertex3D c1v8 = new(new Vec3(-5, 5, 5), new Vec2());
+
+            Poly3D c1face1 = new([c1v1, c1v2, c1v3, c1v4]); // Front face
+            Poly3D c1face2 = new([c1v5, c1v6, c1v7, c1v8]); // Back face
+            Poly3D c1face3 = new([c1v1, c1v2, c1v6, c1v5]); // Bottom face
+            Poly3D c1face4 = new([c1v3, c1v4, c1v8, c1v7]); // Top face
+            Poly3D c1face5 = new([c1v1, c1v4, c1v8, c1v5]); // Left face
+            Poly3D c1face6 = new([c1v2, c1v3, c1v7, c1v6]); // Right face
+
+            Mesh3D Cube1 = new([c1face1, c1face2, c1face3, c1face4, c1face5, c1face6], cameraConfig);
+            // -=-=-=- Cube1 End -=-=-=-
 
 
             // physics config
@@ -94,7 +101,7 @@ namespace Example_ASCII_Game_Engine
                 if ((frameStart - lastFPSTime).TotalSeconds >= 0.5)
                 {
                     double fps = 1 / (screen.FrameTimer.ElapsedTime / 1000);
-                    Console.Title = $"RT:{screen.RenderTimer.ElapsedTime:F1}ms|VT:{screen.RenderTimer.ElapsedTime:F1}ms|FPS:{fps:F0}";
+                    Console.Title = $"RT:{screen.RenderTimer.ElapsedTime:F1}ms|VT:{screen.VisualizeTimer.ElapsedTime:F1}ms|FPS:{fps:F0}";
                     lastFPSTime = frameStart;
                 }
 
@@ -191,9 +198,7 @@ namespace Example_ASCII_Game_Engine
                 // apply new pos
                 ball.Pos = ballTempNextPos;
 
-                //camera.Position = new Vec3(Math.Sin(runTime) * 10, 0, Math.Cos(runTime) * 10);
-                //// point to the center
-                //camera.Direction = (new Vec3(0, 0, 0) - camera.Position).Normalize();
+                Cube1.Angle = new Vec3(runTime/5, runTime, runTime/2);
 
                 // drawing
                 screen.Clear();
@@ -201,12 +206,7 @@ namespace Example_ASCII_Game_Engine
                 screen.Draw(BarLeft);
                 screen.Draw(BarRight);
 
-                screen.Draw(face1);
-                screen.Draw(face2);
-                screen.Draw(face3);
-                screen.Draw(face4);
-                screen.Draw(face5);
-                screen.Draw(face6);
+                screen.Draw(Cube1);
 
                 screen.Render();
 

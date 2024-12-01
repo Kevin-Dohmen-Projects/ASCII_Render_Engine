@@ -1,6 +1,7 @@
 ﻿using ASCII_Render_Engine.MathUtils.Vectors;
 using ASCII_Render_Engine.MathUtils.Matrixes;
 using System;
+using System.Diagnostics;
 
 namespace ASCII_Render_Engine.Objects.Camera;
 
@@ -97,7 +98,7 @@ public class PerspectiveCamera3D : ICamera
 
         // Apply the view and projection transformations
         Mat4x4 transform = projectionMatrix * viewMatrix;
-        Vec4 transformedPoint = transform.Solve(new Vec4(point, 1));
+        Vec4 transformedPoint = transform * new Vec4(point, 1);
 
         // Perform perspective divide
         if (transformedPoint.w == 0) throw new DivideByZeroException("Perspective divide failed (w == 0)");
@@ -105,7 +106,7 @@ public class PerspectiveCamera3D : ICamera
         double y = transformedPoint.y / transformedPoint.w;
 
         // Map to screen resolution (normalized to pixel coordinates)
-        double screenX = (x + 1) * 0.5 * screenResolution.x; // Map from [-1, 1] to [0, width]
+        double screenX = (1 - x) * 0.5 * screenResolution.x; // Invert x-axis mapping
         double screenY = (1 - y) * 0.5 * screenResolution.y; // Map from [-1, 1] to [0, height] (y inverted for screen space)
 
         return new Vec2(screenX, screenY);

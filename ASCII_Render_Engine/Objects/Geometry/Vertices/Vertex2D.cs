@@ -1,5 +1,6 @@
 ﻿using ASCII_Render_Engine.Core;
 using ASCII_Render_Engine.MathUtils.Vectors;
+using ASCII_Render_Engine.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

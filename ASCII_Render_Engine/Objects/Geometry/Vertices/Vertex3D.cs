@@ -1,6 +1,7 @@
 ﻿using ASCII_Render_Engine.Core;
 using ASCII_Render_Engine.MathUtils.Vectors;
 using ASCII_Render_Engine.Objects.Camera;
+using ASCII_Render_Engine.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ public class Vertex3D : IRenderable
     public Vec2 UV { get; set; }
     public CameraConfig Camera { get; set; }
 
-    public Vertex3D(Vec3 position, Vec2 uv, CameraConfig camera)
+    public Vertex3D(Vec3 position, Vec2 uv, CameraConfig camera = null)
     {
         Position = position;
         UV = uv;
@@ -29,6 +30,12 @@ public class Vertex3D : IRenderable
     }
 
     public Vertex3D(Vertex3D vertex)
+    {
+        Position = new Vec3(vertex.Position);
+        UV = new Vec2(vertex.UV);
+    }
+
+    public void Copy(Vertex3D vertex)
     {
         Position = new Vec3(vertex.Position);
         UV = new Vec2(vertex.UV);

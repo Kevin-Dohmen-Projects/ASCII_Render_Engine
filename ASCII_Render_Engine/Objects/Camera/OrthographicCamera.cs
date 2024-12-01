@@ -75,7 +75,7 @@ public class OrthographicCamera3D : ICamera
         Mat4x4 transform = rotation * translation;
 
         // Apply the transformation to the point
-        Vec4 transformedPoint = transform.Solve(new Vec4(point, 1));
+        Vec4 transformedPoint = transform * new Vec4(point, 1);
 
         // Apply orthographic scaling
         double x = transformedPoint.x / OrthographicScale;
@@ -91,7 +91,7 @@ public class OrthographicCamera3D : ICamera
 
         // Map to screen resolution (normalized to pixel coordinates)
         double screenX = (x + 1) * 0.5 * screenResolution.x; // Map from [-1, 1] to [0, width]
-        double screenY = (1 - y) * 0.5 * screenResolution.y; // Map from [-1, 1] to [0, height] (y inverted for screen space)
+        double screenY = (y + 1) * 0.5 * screenResolution.y;
 
         return new Vec2(screenX, screenY);
     }

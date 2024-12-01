@@ -1,6 +1,7 @@
 ﻿using ASCII_Render_Engine.Core;
 using ASCII_Render_Engine.MathUtils.Vectors;
 using ASCII_Render_Engine.Objects.Geometry.Vertices;
+using ASCII_Render_Engine.Rendering;
 
 namespace ASCII_Render_Engine.Objects.Geometry.Polygons;
 public class Poly2D : IRenderable

@@ -2,6 +2,7 @@
 using ASCII_Render_Engine.MathUtils.Vectors;
 using ASCII_Render_Engine.Objects.Camera;
 using ASCII_Render_Engine.Objects.Geometry.Vertices;
+using ASCII_Render_Engine.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,13 +16,24 @@ public class Poly3D : IRenderable
     public Vertex3D[] Vertices { get; set; }
     public CameraConfig Camera { get; set; }
 
-    public Poly3D(Vertex3D[] vertices)
+    public Poly3D(Vertex3D[] vertices, CameraConfig cameraConfig = null)
     {
         Vertices = vertices;
+        Camera = cameraConfig;
+        for (int i = 0; i < Vertices.Length; i++)
+        {
+            Vertices[i].Camera = Camera;
+        }
     }
-    public Poly3D(int vertexCount)
+    public Poly3D(int vertexCount, CameraConfig cameraConfig = null)
     {
+        Camera = cameraConfig;
         Vertices = new Vertex3D[vertexCount];
+        for (int i = 0; i < Vertices.Length; i++)
+        {
+            Vertices[i] = new Vertex3D();
+            Vertices[i].Camera = Camera;
+        }
     }
     public Poly3D(Poly3D poly)
     {
@@ -30,6 +42,21 @@ public class Poly3D : IRenderable
         for (int i = 0; i < poly.Vertices.Length; i++)
         {
             Vertices[i] = new Vertex3D(poly.Vertices[i]);
+        }
+    }
+
+    public void Copy(Poly3D poly)
+    {
+        if (Vertices.Length != poly.Vertices.Length)
+        {
+            Vertices = new Vertex3D[poly.Vertices.Length];
+        }
+
+        Camera = poly.Camera;
+
+        for (int i = 0; i < poly.Vertices.Length; i++)
+        {
+            Vertices[i].Copy(poly.Vertices[i]);
         }
     }
 
@@ -42,6 +69,7 @@ public class Poly3D : IRenderable
         for (int i = 0; i < Vertices.Length; i++)
         {
             Vertex3D vertex = Vertices[i];
+            vertex.Camera = Camera; // NOTE: possibly redundant but just in case
             Vec2 screenPos = vertex.PerspectiveTransform(screenResolution);
             vertices2D[i] = new Vertex2D(screenPos, new Vec2()); // Populate the array
         }
