@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,14 +10,32 @@ namespace ASCII_Render_Engine.MathUtils.Matrixes;
 
 public class Mat3x3
 {
-    double[][] Matrix { get; set; }
+    public double[][] Matrix { get; set; }
+    private double[][] tmpMatrix;
 
     public Mat3x3()
     {
         Matrix = new double[3][];
+        tmpMatrix = new double[3][];
         for (int i = 0; i < 3; i++)
         {
             Matrix[i] = new double[3];
+            tmpMatrix[i] = new double[3];
+        }
+    }
+
+    public Mat3x3(Mat3x3 mat)
+    {
+        Matrix = new double[3][];
+        tmpMatrix = new double[3][];
+        for (int i = 0; i < 3; i++)
+        {
+            Matrix[i] = new double[3];
+            tmpMatrix[i] = new double[3];
+            for (int j = 0; j < 3; j++)
+            {
+                Matrix[i][j] = mat.Matrix[i][j];
+            }
         }
     }
 
@@ -27,6 +46,11 @@ public class Mat3x3
             throw new ArgumentException("Matrix must be 3x3.");
         }
         Matrix = matrix;
+        tmpMatrix = new double[3][];
+        for (int i = 0; i < 3; i++)
+        {
+            tmpMatrix[i] = new double[3];
+        }
     }
 
     public static Mat3x3 operator *(Mat3x3 a, Mat3x3 b)
@@ -52,5 +76,28 @@ public class Mat3x3
             a.Matrix[2][0] * b.x + a.Matrix[2][1] * b.y + a.Matrix[2][2] * b.z
         );
         return result;
+    }
+
+    public Mat3x3 MultiplyInPlace(Mat3x3 b)
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                tmpMatrix[i][j] = Matrix[i][0] * b.Matrix[0][j] +
+                                  Matrix[i][1] * b.Matrix[1][j] +
+                                  Matrix[i][2] * b.Matrix[2][j];
+            }
+        }
+
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                Matrix[i][j] = tmpMatrix[i][j];
+            }
+        }
+
+        return this;
     }
 }

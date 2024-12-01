@@ -6,6 +6,35 @@
         public double y;
         public double z;
 
+        public Vec2 xy
+        {
+            get => new Vec2(x, y);
+            set
+            {
+                x = value.x;
+                y = value.y;
+            }
+        }
+        public Vec2 xz
+        {
+            get => new Vec2(x, z);
+            set
+            {
+                x = value.x;
+                z = value.y;
+            }
+        }
+        public Vec2 yz
+        {
+            get => new Vec2(y, z);
+            set
+            {
+                y = value.x;
+                z = value.y;
+            }
+        }
+
+
         public Vec3(double fx, double fy, double fz)
         {
             x = fx;

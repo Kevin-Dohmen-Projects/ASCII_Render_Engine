@@ -25,7 +25,7 @@ namespace ASCII_Render_Engine.Core
                     char tmpChar;
                     if (config.Dithering)
                     {
-                        tmpChar = CharFromColorDither(screenBuffer.Buffer[y][x], x, y);
+                        tmpChar = CharFromColorDither(screenBuffer.Buffer[height - y - 1][x], x, y);
                     }
                     else
                     {

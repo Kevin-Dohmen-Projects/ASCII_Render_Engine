@@ -35,33 +35,6 @@ namespace Example_ASCII_Game_Engine
             Rectangle BarLeft = new(new Vec2(8, 10), new Vec2(4, 20), new Vec2(1, 1));
             Rectangle BarRight = new(new Vec2(188, 10), new Vec2(4, 20), new Vec2(1, 1));
 
-            ICamera camera = new PerspectiveCamera3D(new Vec3(0, 0, -15), new Vec3(0, 0, 1), 75, 1, 1000);
-            //ICamera camera = new OrthographicCamera3D(new Vec3(0, 0, -15), new Vec3(0, 0, 1), 10);
-
-            CameraConfig cameraConfig = new CameraConfig(camera);
-
-
-            // -=-=-=- Cube1 Start -=-=-=-
-            Vertex3D c1v1 = new(new Vec3(-5, -5, -5), new Vec2());
-            Vertex3D c1v2 = new(new Vec3(5, -5, -5), new Vec2());
-            Vertex3D c1v3 = new(new Vec3(5, 5, -5), new Vec2());
-            Vertex3D c1v4 = new(new Vec3(-5, 5, -5), new Vec2());
-            Vertex3D c1v5 = new(new Vec3(-5, -5, 5), new Vec2());
-            Vertex3D c1v6 = new(new Vec3(5, -5, 5), new Vec2());
-            Vertex3D c1v7 = new(new Vec3(5, 5, 5), new Vec2());
-            Vertex3D c1v8 = new(new Vec3(-5, 5, 5), new Vec2());
-
-            Poly3D c1face1 = new([c1v1, c1v2, c1v3, c1v4]); // Front face
-            Poly3D c1face2 = new([c1v5, c1v6, c1v7, c1v8]); // Back face
-            Poly3D c1face3 = new([c1v1, c1v2, c1v6, c1v5]); // Bottom face
-            Poly3D c1face4 = new([c1v3, c1v4, c1v8, c1v7]); // Top face
-            Poly3D c1face5 = new([c1v1, c1v4, c1v8, c1v5]); // Left face
-            Poly3D c1face6 = new([c1v2, c1v3, c1v7, c1v6]); // Right face
-
-            Mesh3D Cube1 = new([c1face1, c1face2, c1face3, c1face4, c1face5, c1face6], cameraConfig);
-            // -=-=-=- Cube1 End -=-=-=-
-
-
             // physics config
             double ballBaseVelocity = 50; // pixels per second
             double ballVelocityIncrease = 5; // pixels per second ^ 2
@@ -198,15 +171,11 @@ namespace Example_ASCII_Game_Engine
                 // apply new pos
                 ball.Pos = ballTempNextPos;
 
-                Cube1.Angle = new Vec3(runTime/5, runTime, runTime/2);
-
                 // drawing
                 screen.Clear();
                 screen.Draw(ball.ToRenderable());
                 screen.Draw(BarLeft);
                 screen.Draw(BarRight);
-
-                screen.Draw(Cube1);
 
                 screen.Render();
 

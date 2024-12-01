@@ -40,7 +40,7 @@ public class PerspectiveCamera3D : ICamera
         FarPlane = camera.FarPlane;
     }
 
-    public Vec2 PerspectiveTransform(Vec3 point, Vec2 screenResolution, double aspectRatio = 0)
+    public Vec3 PerspectiveTransform(Vec3 point, Vec2 screenResolution, double aspectRatio = 0)
     {
         // Normalize the forward direction
         Vec3 forward = Direction.Normalize();
@@ -104,11 +104,13 @@ public class PerspectiveCamera3D : ICamera
         if (transformedPoint.w == 0) throw new DivideByZeroException("Perspective divide failed (w == 0)");
         double x = transformedPoint.x / transformedPoint.w;
         double y = transformedPoint.y / transformedPoint.w;
+        double z = transformedPoint.z / transformedPoint.w;
 
         // Map to screen resolution (normalized to pixel coordinates)
         double screenX = (1 - x) * 0.5 * screenResolution.x; // Invert x-axis mapping
-        double screenY = (1 - y) * 0.5 * screenResolution.y; // Map from [-1, 1] to [0, height] (y inverted for screen space)
+        double screenY = (1 - y) * 0.5 * screenResolution.y; // Map from [-1, 1] to [0, height] (y inverted for screen space)\
+        double ZLevel = z;
 
-        return new Vec2(screenX, screenY);
+        return new Vec3(screenX, screenY, ZLevel);
     }
 }

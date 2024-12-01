@@ -35,7 +35,7 @@ public class OrthographicCamera3D : ICamera
         OrthographicScale = camera.OrthographicScale;
     }
 
-    public Vec2 PerspectiveTransform(Vec3 point, Vec2 screenResolution, double aspectRatio = 0)
+    public Vec3 PerspectiveTransform(Vec3 point, Vec2 screenResolution, double aspectRatio = 0)
     {
         // Normalize the forward direction
         Vec3 forward = Direction.Normalize();
@@ -80,6 +80,7 @@ public class OrthographicCamera3D : ICamera
         // Apply orthographic scaling
         double x = transformedPoint.x / OrthographicScale;
         double y = transformedPoint.y / OrthographicScale;
+        double z = transformedPoint.z / OrthographicScale;
 
         if (aspectRatio == 0)
         {
@@ -92,8 +93,9 @@ public class OrthographicCamera3D : ICamera
         // Map to screen resolution (normalized to pixel coordinates)
         double screenX = (x + 1) * 0.5 * screenResolution.x; // Map from [-1, 1] to [0, width]
         double screenY = (y + 1) * 0.5 * screenResolution.y;
+        double ZLevel = z;
 
-        return new Vec2(screenX, screenY);
+        return new Vec3(screenX, screenY, ZLevel);
     }
 
 }

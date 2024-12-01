@@ -23,6 +23,13 @@ public class Vertex3D : IRenderable
         Camera = camera;
     }
 
+    public Vertex3D(Vec3 position, CameraConfig camera = null)
+    {
+        Position = position;
+        UV = new Vec2();
+        Camera = camera;
+    }
+
     public Vertex3D()
     {
         Position = new Vec3();
@@ -41,15 +48,15 @@ public class Vertex3D : IRenderable
         UV = new Vec2(vertex.UV);
     }
 
-    public Vec2 PerspectiveTransform(Vec2 screenResolution)
+    public Vec3 PerspectiveTransform(Vec2 screenResolution)
     {
         return Camera.Camera.PerspectiveTransform(Position, screenResolution);
     }
 
     public void Render(ScreenBuffer buffer, int frame, double runTime)
     {
-        Vec2 screenPos = PerspectiveTransform(new Vec2(buffer.Width, buffer.Height));
-        if (screenPos.x >= 0 && screenPos.x < buffer.Width && screenPos.y >= 0 && screenPos.y < buffer.Height)
+        Vec3 screenPos = PerspectiveTransform(new Vec2(buffer.Width, buffer.Height));
+        if (screenPos.x >= 0 && screenPos.x < buffer.Width && screenPos.y >= 0 && screenPos.y < buffer.Height && screenPos.z > 0)
         {
             buffer.Buffer[(int)screenPos.y][(int)screenPos.x] = new Vec2(1, 1);
         }

@@ -10,13 +10,32 @@ namespace ASCII_Render_Engine.MathUtils.Matrixes;
 public class Mat4x4
 {
     double[][] Matrix { get; set; }
+    private double[][] tmpMatrix;
 
     public Mat4x4()
     {
         Matrix = new double[4][];
+        tmpMatrix = new double[4][];
         for (int i = 0; i < 4; i++)
         {
             Matrix[i] = new double[4];
+            tmpMatrix[i] = new double[4];
+        }
+    }
+
+    public Mat4x4(Mat4x4 mat)
+    {
+        Matrix = new double[4][];
+        tmpMatrix = new double[4][];
+        for (int i = 0; i < 4; i++)
+        {
+            Matrix[i] = new double[4];
+            tmpMatrix[i] = new double[4];
+            for (int j = 0; j < 4; j++)
+            {
+                Matrix[i][j] = mat.Matrix[i][j];
+
+            }
         }
     }
 
@@ -50,5 +69,27 @@ public class Mat4x4
             a.Matrix[3][0] * b.x + a.Matrix[3][1] * b.y + a.Matrix[3][2] * b.z + a.Matrix[3][3] * b.w
             );
         return result;
+    }
+
+    public Mat4x4 MultiplyInPlace(Mat4x4 b)
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            for (int j = 0; j < 4; j++)
+            {
+                tmpMatrix[i][j] = Matrix[i][0] * b.Matrix[0][j] +
+                                  Matrix[i][1] * b.Matrix[1][j] +
+                                  Matrix[i][2] * b.Matrix[2][j] +
+                                  Matrix[i][3] * b.Matrix[3][j];
+            }
+        }
+        for (int i = 0; i < 4; i++)
+        {
+            for (int j = 0; j < 4; j++)
+            {
+                Matrix[i][j] = tmpMatrix[i][j];
+            }
+        }
+        return this;
     }
 }
