@@ -3,6 +3,8 @@ using ASCII_Render_Engine.MathUtils.Vectors;
 using ASCII_Render_Engine.Objects.Camera;
 using ASCII_Render_Engine.Objects.Geometry.Vertices;
 using ASCII_Render_Engine.Rendering;
+using ASCII_Render_Engine.Rendering.Geometry;
+using ASCII_Render_Engine.Rendering.Geometry.PolyRenderer;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -16,9 +18,10 @@ public class Poly3D : IRenderable
 {
     public Vertex3D[] Vertices { get; set; }
     public CameraConfig Camera { get; set; }
+    public IPoly3DRenderer Renderer { get; set; } = new Poly3DWireframeRenderer();
 
     // pool
-    private Vertex3D[] transformedVertices;
+    public Vertex3D[] transformedVertices;
 
     public Poly3D(Vertex3D[] vertices, CameraConfig cameraConfig = null)
     {
@@ -74,30 +77,7 @@ public class Poly3D : IRenderable
 
     public void Render(ScreenBuffer buffer, int frame, double runTime)
     {
-        Vec2 screenResolution = new Vec2(buffer.Width, buffer.Height);
-
-        for (int i = 0; i < Vertices.Length; i++)
-        {
-            Vertices[i].Camera = Camera;
-            transformedVertices[i].Position = Vertices[i].PerspectiveTransform(screenResolution);
-        }
-
-        for (int i = 0; i < transformedVertices.Length; i++)
-        {
-            Vertex3D vertex = transformedVertices[i];
-            Vertex3D nextVertex = transformedVertices[(i + 1) % transformedVertices.Length];
-            Vec3 delta = nextVertex.Position - vertex.Position;
-            double length = delta.Length();
-            Vec3 step = delta / length;
-            for (int j = 0; j < length; j++)
-            {
-                Vec3 pos = vertex.Position + step * j;
-                if (pos.x >= 0 && pos.x < buffer.Width && pos.y >= 0 && pos.y < buffer.Height && pos.z > 0)
-                {
-                    buffer.Buffer[(int)(buffer.Height - pos.y)][(int)pos.x] = new Vec2(1, 1);
-                }
-            }
-        }
+        Renderer.Render(buffer, frame, runTime, this);
     }
 
 }

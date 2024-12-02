@@ -1,6 +1,7 @@
 ﻿using ASCII_Render_Engine.Core;
 using ASCII_Render_Engine.MathUtils.Vectors;
 using ASCII_Render_Engine.Rendering;
+using ASCII_Render_Engine.Rendering.Geometry.VertexRenderer;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,6 +15,7 @@ namespace ASCII_Render_Engine.Objects.Geometry.Vertices
     {
         public Vec2 Position { get; set; }
         public Vec2 UV { get; set; }
+        public IVertex2DRenderer Renderer { get; set; } = new Vertex2DRenderer();
 
         public Vertex2D(Vec2 position, Vec2 uv)
         {
@@ -35,10 +37,7 @@ namespace ASCII_Render_Engine.Objects.Geometry.Vertices
 
         public void Render(ScreenBuffer buffer, int frame, double runTime)
         {
-            if (Position.x >= 0 && Position.x < buffer.Width && Position.y >= 0 && Position.y < buffer.Height)
-            {
-                buffer.Buffer[(int)Position.y][(int)Position.x] = new Vec2(1, 1);
-            }
+            Renderer.Render(buffer, frame, runTime, this);
         }
     }
 }

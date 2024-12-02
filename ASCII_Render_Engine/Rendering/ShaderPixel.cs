@@ -3,7 +3,7 @@ using ASCII_Render_Engine.Utils;
 
 namespace ASCII_Render_Engine.Rendering
 {
-    public class ShaderPixel
+    public struct ShaderPixel
     {
         public Vec2 ScreenPos;
         public Vec2 ScreenRes;

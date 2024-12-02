@@ -2,6 +2,7 @@
 using ASCII_Render_Engine.MathUtils.Vectors;
 using ASCII_Render_Engine.Objects.Camera;
 using ASCII_Render_Engine.Rendering;
+using ASCII_Render_Engine.Rendering.Geometry.VertexRenderer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ public class Vertex3D : IRenderable
     public Vec3 Position { get; set; }
     public Vec2 UV { get; set; }
     public CameraConfig Camera { get; set; }
+    public IVertex3DRenderer Renderer { get; set; } = new Vertex3DRenderer();
 
     public Vertex3D(Vec3 position, Vec2 uv, CameraConfig camera = null)
     {
@@ -48,17 +50,8 @@ public class Vertex3D : IRenderable
         UV = new Vec2(vertex.UV);
     }
 
-    public Vec3 PerspectiveTransform(Vec2 screenResolution)
-    {
-        return Camera.Camera.PerspectiveTransform(Position, screenResolution);
-    }
-
     public void Render(ScreenBuffer buffer, int frame, double runTime)
     {
-        Vec3 screenPos = PerspectiveTransform(new Vec2(buffer.Width, buffer.Height));
-        if (screenPos.x >= 0 && screenPos.x < buffer.Width && screenPos.y >= 0 && screenPos.y < buffer.Height && screenPos.z > 0)
-        {
-            buffer.Buffer[(int)(buffer.Height - screenPos.y)][(int)screenPos.x] = new Vec2(1, 1);
-        }
+        Renderer.Render(buffer, frame, runTime, this);
     }
 }

@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ASCII_Render_Engine.MathUtils.Matrixes.Transforms;
 using ASCII_Render_Engine.Objects.Camera;
+using ASCII_Render_Engine.Rendering.Geometry.Mesh3DRenderer;
 
 namespace ASCII_Render_Engine.Objects.Geometry.Mesh;
 
@@ -20,9 +21,10 @@ public class Mesh3D : IRenderable
     public Vec3 Origin { get; set; }
     public Vec3 Angle { get; set; }
     public CameraConfig Camera { get; set; }
+    public IMesh3DRenderer Renderer { get; set; } = new Mesh3DWireframeRenderer();
 
     // pool
-    private Poly3D[] globalPolygons { get; set; }
+    public Poly3D[] globalPolygons { get; set; }
 
     public Mesh3D(Poly3D[] polygons, CameraConfig camera)
     {
@@ -111,23 +113,6 @@ public class Mesh3D : IRenderable
 
     public void Render(ScreenBuffer buffer, int frame, double runTime)
     {
-        // transform
-        for (int i = 0; i < Polygons.Length; i++)
-        {
-            Poly3D localPoly = Polygons[i];
-            Poly3D globalPoly = globalPolygons[i];
-            globalPoly.Copy(localPoly);
-            for (int j = 0; j < localPoly.Vertices.Length; j++)
-            {
-                // rotate around local origin
-                Vec3 vertex = localPoly.Vertices[j].Position;
-                Mat3x3 rotationMatrix = Rotation.Rotate(Angle);
-                Vec3 rotatedVertex = rotationMatrix * (vertex - Origin) + Origin;
-                Vec3 globalVertex = rotatedVertex + Position;
-                globalPoly.Vertices[j].Position = globalVertex;
-            }
-            globalPoly.Camera = Camera;
-            globalPoly.Render(buffer, frame, runTime);
-        }
+        Renderer.Render(buffer, frame, runTime, this);
     }
 }
