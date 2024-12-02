@@ -11,6 +11,9 @@ using ASCII_Render_Engine.Input.Keyboard;
 using System.Numerics;
 using ASCII_Render_Engine.Objects.Camera;
 using ASCII_Render_Engine.Objects.Geometry.Mesh;
+using ASCII_Render_Engine.MathUtils.Noise;
+using ASCII_Render_Engine.Utils.Profiling;
+using ASCII_Render_Engine.Rendering;
 
 namespace _3D_Demo;
 
@@ -60,6 +63,7 @@ public static class Program
         DateTime frameStart = DateTime.Now;
         DateTime lastFPSTime = DateTime.Now;
         DateTime roundStartTime = DateTime.Now;
+        TimeProfiler logicProfiler = new();
         double roundTime = 0;
 
         // key states
@@ -73,6 +77,7 @@ public static class Program
         while (true)
         {
             frameStart = DateTime.Now;
+            logicProfiler.Start();
             runTime = (frameStart - startTime).TotalSeconds;
             //deltaTime = (frameStart - prevFrameTime).TotalSeconds;
             deltaTime = screen.FrameTimer.ElapsedTime / 1000;
@@ -83,7 +88,7 @@ public static class Program
             if ((frameStart - lastFPSTime).TotalSeconds >= 0.5)
             {
                 double fps = 1 / (screen.FrameTimer.ElapsedTime / 1000);
-                Console.Title = $"RT:{screen.RenderTimer.ElapsedTime:F1}ms|VT:{screen.VisualizeTimer.ElapsedTime:F1}ms|FPS:{fps:F0}";
+                Console.Title = $"{logicProfiler.ElapsedTime:F1}ms|{screen.RenderTimer.ElapsedTime:F1}ms|{screen.VisualizeTimer.ElapsedTime:F1}ms|{fps:F0}FPS";
                 lastFPSTime = frameStart;
             }
 
@@ -103,6 +108,8 @@ public static class Program
             camera.Position = new Vec3(Math.Sin(runTime/5)*30, Math.Sin(runTime / 10) * 20 + 30, Math.Cos(runTime/5)*30);
             camera.Direction = (CameraTarget.Position - camera.Position).Normalize();
             camera.FieldOfView = 80 + Math.Sin(runTime/3) * 10;
+
+            logicProfiler.Stop();
 
             // drawing
             screen.Clear();
