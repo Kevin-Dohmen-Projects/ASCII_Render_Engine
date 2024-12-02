@@ -94,7 +94,7 @@ public class Poly3D : IRenderable
                 Vec3 pos = vertex.Position + step * j;
                 if (pos.x >= 0 && pos.x < buffer.Width && pos.y >= 0 && pos.y < buffer.Height && pos.z > 0)
                 {
-                    buffer.Buffer[(int)pos.y][(int)pos.x] = new Vec2(1, 1);
+                    buffer.Buffer[(int)(buffer.Height - pos.y)][(int)pos.x] = new Vec2(1, 1);
                 }
             }
         }
