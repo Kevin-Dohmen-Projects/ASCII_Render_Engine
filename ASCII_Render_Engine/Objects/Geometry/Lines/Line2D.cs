@@ -31,87 +31,17 @@ namespace ASCII_Render_Engine.Objects.Geometry.Lines
 
         public void Render(ScreenBuffer buffer, int frame, double runTime)
         {
-            Vec2 deltaVec = B - A - 1;
-
-            Vec2 min = new Vec2(Math.Min(A.x, B.x), Math.Min(A.y, B.y));
-            Vec2 max = new Vec2(Math.Max(A.x, B.x), Math.Max(A.y, B.y));
-            int xMin = (int)Math.Floor(Math.Max(min.x, 0));
-            int yMin = (int)Math.Floor(Math.Max(min.y, 0));
-            int xMax = (int)Math.Ceiling(Math.Min(max.x, buffer.Width)); //NOTE: the +1 is the laziest way of fixing THE problem
-            int yMax = (int)Math.Ceiling(Math.Min(max.y, buffer.Height));
-            bool isCol = false;
-
-            double slope = deltaVec.y / deltaVec.x;
-
-            bool isHorizontal = deltaVec.y == 0f;
-            bool isVertical = deltaVec.x == 0f;
-            bool isDot = deltaVec.x == 0 && deltaVec.y == 0f;
-            bool isSideways = slope <= 1 && slope >= -1;
-
-            //Console.WriteLine("{0} {1} {2} {3}", isHorizontal, isVertical, isDot, isSideways);
-
-            if (isHorizontal)
+            Vec2 delta = B - A;
+            double length = delta.Length();
+            Vec2 step = delta / length;
+            for (int j = 0; j < length; j++)
             {
-                for (int x = xMin; x < xMax; x++)
+                Vec2 pos = A + step * j;
+                if (pos.x >= 0 && pos.x < buffer.Width && pos.y >= 0 && pos.y < buffer.Height)
                 {
-                    buffer.Buffer[yMin][x] = RenderFuncs.AlphaTransform(Color, buffer.Buffer[yMin][x]);
-                }
-            }
-            else if (isVertical)
-            {
-                for (int y = yMin; y < yMax; y++)
-                {
-                    buffer.Buffer[y][xMin] = RenderFuncs.AlphaTransform(Color, buffer.Buffer[y][xMin]);
-                }
-            }
-            else if (isDot)
-            {
-                buffer.Buffer[yMin][xMin] = RenderFuncs.AlphaTransform(Color, buffer.Buffer[yMin][xMin]);
-            }
-            else if (isSideways)
-            {
-                for (int y = yMin; y < yMax; y++)
-                {
-                    for (int x = xMin; x < xMax; x++)
-                    {
-                        isCol = false;
-                        double f = -slope * (x - A.x) + (y - A.y);
-
-                        if (f >= 0 && f < 1)
-                        {
-                            isCol = true;
-                        }
-
-                        if (isCol)
-                        {
-                            buffer.Buffer[y][x] = RenderFuncs.AlphaTransform(Color, buffer.Buffer[y][x]);
-                        }
-                    }
-                }
-            }
-            else
-            {
-                for (int y = yMin; y < yMax; y++)
-                {
-                    for (int x = xMin; x < xMax; x++)
-                    {
-                        isCol = false;
-                        double f = -(1 / slope) * (y - A.y) + (x - A.x);
-                        //double f = -(slope) * (x - this.A.x) + (y - this.A.y);
-
-                        if (f >= 0 && f < 1)
-                        {
-                            isCol = true;
-                        }
-
-                        if (isCol)
-                        {
-                            buffer.Buffer[y][x] = RenderFuncs.AlphaTransform(Color, buffer.Buffer[y][x]);
-                        }
-                    }
+                    buffer.Buffer[(int)pos.y][(int)pos.x] = new Vec2(1, 1);
                 }
             }
         }
-
     }
 }

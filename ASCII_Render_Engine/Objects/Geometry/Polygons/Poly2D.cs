@@ -36,7 +36,10 @@ public class Poly2D : IRenderable
             for (int j = 0; j < length; j++)
             {
                 Vec2 pos = vertex.Position + step * j;
-                buffer.Buffer[(int)pos.y][(int)pos.x] = new Vec2(1, 1);
+                if (pos.x >= 0 && pos.x < buffer.Width && pos.y >= 0 && pos.y < buffer.Height)
+                {
+                    buffer.Buffer[(int)pos.y][(int)pos.x] = new Vec2(1, 1);
+                }
             }
         }
     }
