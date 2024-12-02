@@ -94,8 +94,8 @@ public static class Program
 
             RightArm.Rotation = new Vec3(Math.Sin(runTime) * 0.15, 0, Math.Sin(runTime * 1.5) * 0.05 + 0.05);
             LeftArm.Rotation = new Vec3(Math.Sin(runTime + 34) * 0.15, 0, Math.Sin(runTime + 34) * 0.05 - 0.05);
-            RightLeg.Rotation = new Vec3(Math.Sin(runTime + 10) * 0.15, 0, Math.Sin((runTime + 10) * 1.5) * 0.05 + 0.05);
-            LeftLeg.Rotation = new Vec3(Math.Sin(runTime + 44) * 0.15, 0, Math.Sin(runTime + 44) * 0.05 - 0.05);
+            RightLeg.Rotation = new Vec3(Math.Sin(runTime + 10) * 0.05, 0, Math.Sin((runTime + 10) * 1.5) * 0.01 + 0.01);
+            LeftLeg.Rotation = new Vec3(Math.Sin(runTime + 44) * 0.05, 0, Math.Sin(runTime + 44) * 0.01 - 0.01);
             Head.Rotation = new Vec3(Math.Sin(runTime / 4) * 0.2, (Math.Sin(runTime / 2) * 0.5 + Math.Sin(runTime) * 0.2) * Math.Sin(runTime / 5), 0);
 
             CameraTarget.Position = new Vec3(Math.Sin(runTime / 4) * 5, 27.5 + Math.Sin(runTime / 7) * 10, Math.Sin(runTime / 3) * 2);
