@@ -28,7 +28,7 @@ public static class Program
         //screen.Background = new FullScreenShaderObject(new SpiralShader(), 0.25);
 
         // camera
-        ICamera camera = new PerspectiveCamera3D(new Vec3(0, 0, -20), new Vec3(0, 0, 1), 90, 1, 1000);
+        PerspectiveCamera3D camera = new PerspectiveCamera3D(new Vec3(0, 0, -20), new Vec3(0, 0, 1), 90, 1, 1000);
         CameraConfig cameraConfig = new(camera);
 
         // objects
@@ -41,12 +41,15 @@ public static class Program
         Cube Body = new(new Vec3(0, 30, 0), new Vec3(10, 20, 5), cameraConfig);
 
         Cube Head = new(new Vec3(0, 45, 0), new Vec3(10, 10, 10), cameraConfig);
+        Head.Origin = new Vec3(0, -10, 0);
 
         Cube RightLeg = new(new Vec3(2.5, 10, 0), new Vec3(5, 20, 5), cameraConfig);
         RightLeg.Origin = new Vec3(-2.5, 10, 0);
 
         Cube LeftLeg = new(new Vec3(-2.5, 10, 0), new Vec3(5, 20, 5), cameraConfig);
         LeftLeg.Origin = new Vec3(2.5, 10, 0);
+
+        Vertex3D CameraTarget = new(new Vec3(), cameraConfig);
 
 
         // counters
@@ -93,9 +96,13 @@ public static class Program
             LeftArm.Rotation = new Vec3(Math.Sin(runTime + 34) * 0.15, 0, Math.Sin(runTime + 34) * 0.05 - 0.05);
             RightLeg.Rotation = new Vec3(Math.Sin(runTime + 10) * 0.15, 0, Math.Sin((runTime + 10) * 1.5) * 0.05 + 0.05);
             LeftLeg.Rotation = new Vec3(Math.Sin(runTime + 44) * 0.15, 0, Math.Sin(runTime + 44) * 0.05 - 0.05);
+            Head.Rotation = new Vec3(Math.Sin(runTime / 4) * 0.2, (Math.Sin(runTime / 2) * 0.5 + Math.Sin(runTime) * 0.2) * Math.Sin(runTime / 5), 0);
+
+            CameraTarget.Position = new Vec3(Math.Sin(runTime / 4) * 5, 27.5 + Math.Sin(runTime / 7) * 10, Math.Sin(runTime / 3) * 2);
 
             camera.Position = new Vec3(Math.Sin(runTime/5)*30, Math.Sin(runTime / 10) * 20 + 30, Math.Cos(runTime/5)*30);
-            camera.Direction = (new Vec3(0, 27.5, 0) - camera.Position).Normalize();
+            camera.Direction = (CameraTarget.Position - camera.Position).Normalize();
+            camera.FieldOfView = 80 + Math.Sin(runTime/3) * 10;
 
             // drawing
             screen.Clear();
@@ -105,6 +112,7 @@ public static class Program
             screen.Draw(Head);
             screen.Draw(RightLeg);
             screen.Draw(LeftLeg);
+            screen.Draw(CameraTarget);
 
             screen.Render();
 
