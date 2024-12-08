@@ -1,7 +1,6 @@
-namespace ASCII_Render_Engine.Input.Keyboard.KeyboardInputs
+namespace ASCII_Render_Engine.Input.Keyboard.KeyboardInputs;
+
+public interface IKeyboardInput
 {
-    public interface IKeyboardInput
-    {
-        bool IsKeyPressed(Keys key);
-    }
+    bool IsKeyPressed(Keys key);
 }

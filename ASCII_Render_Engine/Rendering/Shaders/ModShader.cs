@@ -1,37 +1,36 @@
 ﻿using ASCII_Render_Engine.MathUtils.Vectors;
 
-namespace ASCII_Render_Engine.Rendering.Shaders
+namespace ASCII_Render_Engine.Rendering.Shaders;
+
+public class ModShader : IShader
 {
-    public class ModShader : IShader
+    public string Name { get; } = "Modulo Shader";
+
+    // Shader Settings
+    public double TimeOffset { get; set; }
+
+    public ModShader()
     {
-        public string Name { get; } = "Modulo Shader";
+        TimeOffset = 0;
+    }
 
-        // Shader Settings
-        public double TimeOffset { get; set; }
+    public ModShader(double timeOffset)
+    {
+        TimeOffset = timeOffset;
+    }
 
-        public ModShader()
-        {
-            TimeOffset = 0;
-        }
+    public Vec2 Render(ShaderPixel shaderPixel)
+    {
+        Vec2 col = new Vec2();
+        Vec2 uv = shaderPixel.UV;
+        double frame = shaderPixel.Frame;
+        double time = shaderPixel.Time + TimeOffset;
 
-        public ModShader(double timeOffset)
-        {
-            TimeOffset = timeOffset;
-        }
+        col.y = 1;
 
-        public Vec2 Render(ShaderPixel shaderPixel)
-        {
-            Vec2 col = new Vec2();
-            Vec2 uv = shaderPixel.UV;
-            double frame = shaderPixel.Frame;
-            double time = shaderPixel.Time + TimeOffset;
+        // shader
+        col.x = (uv.x + time * 0.1) % 0.25 * 4;
 
-            col.y = 1;
-
-            // shader
-            col.x = (uv.x + time * 0.1) % 0.25 * 4;
-
-            return col;
-        }
+        return col;
     }
 }

@@ -1,44 +1,43 @@
 ﻿using ASCII_Render_Engine.MathUtils.Vectors;
 
-namespace ASCII_Render_Engine.Rendering.Shaders
+namespace ASCII_Render_Engine.Rendering.Shaders;
+
+public class PulsingDotShader : IShader
 {
-    public class PulsingDotShader : IShader
+    public string Name { get; } = "Pulsing Dot Shader";
+
+    // ShaderSettings
+    public double TimeOffset { get; set; }
+
+    public PulsingDotShader()
     {
-        public string Name { get; } = "Pulsing Dot Shader";
+        TimeOffset = 0;
+    }
 
-        // ShaderSettings
-        public double TimeOffset { get; set; }
+    public PulsingDotShader(double timeOffset)
+    {
+        TimeOffset = timeOffset;
+    }
 
-        public PulsingDotShader()
-        {
-            TimeOffset = 0;
-        }
+    // Source: ChatGPT
+    public Vec2 Render(ShaderPixel shaderPixel)
+    {
+        Vec2 col = new Vec2();
+        Vec2 uv = shaderPixel.UV;
+        double frame = shaderPixel.Frame;
+        double time = shaderPixel.Time + TimeOffset;
 
-        public PulsingDotShader(double timeOffset)
-        {
-            TimeOffset = timeOffset;
-        }
+        col.y = 1;
 
-        // Source: ChatGPT
-        public Vec2 Render(ShaderPixel shaderPixel)
-        {
-            Vec2 col = new Vec2();
-            Vec2 uv = shaderPixel.UV;
-            double frame = shaderPixel.Frame;
-            double time = shaderPixel.Time + TimeOffset;
+        // Shift uv to center and compute distance from center
+        uv += -0.5;
+        double distance = Math.Sqrt(uv.x * uv.x + uv.y * uv.y);
 
-            col.y = 1;
+        // Set a pulsing effect by varying the radius with frame
+        double radius = 0.35 + 0.15 * Math.Sin(time);
+        col.x = distance < radius ? 1.0 : 0.0;
+        col.y = col.x;
 
-            // Shift uv to center and compute distance from center
-            uv += -0.5;
-            double distance = Math.Sqrt(uv.x * uv.x + uv.y * uv.y);
-
-            // Set a pulsing effect by varying the radius with frame
-            double radius = 0.35 + 0.15 * Math.Sin(time);
-            col.x = distance < radius ? 1.0 : 0.0;
-            col.y = col.x;
-
-            return col;
-        }
+        return col;
     }
 }

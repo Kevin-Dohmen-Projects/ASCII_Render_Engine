@@ -1,26 +1,25 @@
-﻿namespace ASCII_Render_Engine.Core
+﻿namespace ASCII_Render_Engine.Core;
+
+public struct ScreenConfig
 {
-    public struct ScreenConfig
+    // Resolution:
+    public bool ScaleToWindow;
+
+    // Render settings:
+    public bool Dithering;
+    public double FPSCap;
+    public bool CenterScreen;
+
+    public bool VisualizeAsync;
+
+    public ScreenConfig()
     {
-        // Resolution:
-        public bool ScaleToWindow;
+        ScaleToWindow = false;
 
-        // Render settings:
-        public bool Dithering;
-        public double FPSCap;
-        public bool CenterScreen;
+        Dithering = false;
+        FPSCap = 30;
+        CenterScreen = false;
 
-        public bool VisualizeAsync;
-
-        public ScreenConfig()
-        {
-            ScaleToWindow = false;
-
-            Dithering = false;
-            FPSCap = 30;
-            CenterScreen = false;
-
-            VisualizeAsync = false;
-        }
+        VisualizeAsync = false;
     }
 }

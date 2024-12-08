@@ -2,7 +2,6 @@
 using ASCII_Render_Engine.MathUtils.Vectors;
 using ASCII_Render_Engine.Objects.Geometry.Primitives;
 using ASCII_Render_Engine.Rendering.Shaders;
-using System.Drawing;
 
 namespace ASCII_Render_Engine.Rendering.Geometry.Primitives.RectangleRenderer;
 

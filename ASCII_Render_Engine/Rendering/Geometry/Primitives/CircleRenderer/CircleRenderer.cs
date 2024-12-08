@@ -1,8 +1,7 @@
 ﻿using ASCII_Render_Engine.Core;
 using ASCII_Render_Engine.MathUtils.Vectors;
-using ASCII_Render_Engine.Rendering.Shaders;
 using ASCII_Render_Engine.Objects.Geometry.Primitives;
-using System.Drawing;
+using ASCII_Render_Engine.Rendering.Shaders;
 
 namespace ASCII_Render_Engine.Rendering.Geometry.Primitives.CircleRenderer;
 

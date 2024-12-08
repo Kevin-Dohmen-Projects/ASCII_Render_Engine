@@ -1,37 +1,36 @@
 ﻿using ASCII_Render_Engine.MathUtils.Vectors;
 
-namespace ASCII_Render_Engine.Rendering.Shaders
+namespace ASCII_Render_Engine.Rendering.Shaders;
+
+public class SinShader : IShader
 {
-    public class SinShader : IShader
+    public string Name { get; } = "Sinus Shader";
+
+    // ShaderSettings
+    public double TimeOffset { get; set; }
+
+    public SinShader()
     {
-        public string Name { get; } = "Sinus Shader";
+        TimeOffset = 0;
+    }
 
-        // ShaderSettings
-        public double TimeOffset { get; set; }
+    public SinShader(double timeOffset)
+    {
+        TimeOffset = timeOffset;
+    }
 
-        public SinShader()
-        {
-            TimeOffset = 0;
-        }
+    public Vec2 Render(ShaderPixel shaderPixel)
+    {
+        Vec2 col = new Vec2();
+        Vec2 uv = shaderPixel.UV;
+        double frame = shaderPixel.Frame;
+        double time = shaderPixel.Time + TimeOffset;
 
-        public SinShader(double timeOffset)
-        {
-            TimeOffset = timeOffset;
-        }
+        col.y = 1;
 
-        public Vec2 Render(ShaderPixel shaderPixel)
-        {
-            Vec2 col = new Vec2();
-            Vec2 uv = shaderPixel.UV;
-            double frame = shaderPixel.Frame;
-            double time = shaderPixel.Time + TimeOffset;
+        // shader
+        col.x = (Math.Sin(uv.x * 20 + time * 2) + Math.Sin(uv.y * 20 + time)) / 4 + .5;
 
-            col.y = 1;
-
-            // shader
-            col.x = (Math.Sin(uv.x * 20 + time * 2) + Math.Sin(uv.y * 20 + time)) / 4 + .5;
-
-            return col;
-        }
+        return col;
     }
 }

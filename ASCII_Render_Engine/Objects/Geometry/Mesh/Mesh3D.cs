@@ -1,15 +1,8 @@
 ﻿using ASCII_Render_Engine.Core;
 using ASCII_Render_Engine.MathUtils.Vectors;
+using ASCII_Render_Engine.Objects.Camera;
 using ASCII_Render_Engine.Objects.Geometry.Polygons;
 using ASCII_Render_Engine.Rendering;
-using ASCII_Render_Engine.MathUtils.Matrixes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ASCII_Render_Engine.MathUtils.Matrixes.Transforms;
-using ASCII_Render_Engine.Objects.Camera;
 using ASCII_Render_Engine.Rendering.Geometry.Mesh3DRenderer;
 
 namespace ASCII_Render_Engine.Objects.Geometry.Mesh;

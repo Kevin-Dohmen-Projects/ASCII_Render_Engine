@@ -3,53 +3,52 @@ using ASCII_Render_Engine.MathUtils.Vectors;
 using ASCII_Render_Engine.Rendering;
 using ASCII_Render_Engine.Rendering.Shaders;
 
-namespace ASCII_Render_Engine.Objects.Geometry.Primitives
+namespace ASCII_Render_Engine.Objects.Geometry.Primitives;
+
+public class FullScreenShaderObject
 {
-    public class FullScreenShaderObject
+    Vec2 Color;
+    public IShader? Shader;
+
+    // pool
+    ShaderPixel shaderPixel = new ShaderPixel();
+
+    public FullScreenShaderObject(IShader? shader, double Alpha = 1)
     {
-        Vec2 Color;
-        public IShader? Shader;
+        Shader = shader;
+        Color = new(1, Alpha);
+    }
+    public FullScreenShaderObject(Vec2 color)
+    {
+        Color = color;
+        Shader = null;
+    }
 
-        // pool
-        ShaderPixel shaderPixel = new ShaderPixel();
+    public void Render(ScreenBuffer buffer, int frame, double time)
+    {
+        ShaderPixel pix = shaderPixel;
+        shaderPixel.ScreenRes.x = buffer.Width;
+        shaderPixel.ScreenRes.y = buffer.Height;
 
-        public FullScreenShaderObject(IShader? shader, double Alpha = 1)
+        pix.Frame = frame;
+        pix.Time = time;
+
+        for (int y = 0; y < buffer.Height; y++)
         {
-            Shader = shader;
-            Color = new(1, Alpha);
-        }
-        public FullScreenShaderObject(Vec2 color)
-        {
-            Color = color;
-            Shader = null;
-        }
-
-        public void Render(ScreenBuffer buffer, int frame, double time)
-        {
-            ShaderPixel pix = shaderPixel;
-            shaderPixel.ScreenRes.x = buffer.Width;
-            shaderPixel.ScreenRes.y = buffer.Height;
-
-            pix.Frame = frame;
-            pix.Time = time;
-
-            for (int y = 0; y < buffer.Height; y++)
+            for (int x = 0; x < buffer.Width; x++)
             {
-                for (int x = 0; x < buffer.Width; x++)
+                if (Shader != null)
                 {
-                    if (Shader != null)
-                    {
-                        pix.ScreenPos.x = x;
-                        pix.ScreenPos.y = y;
-                        pix.UV = pix.ScreenPos / pix.ScreenRes;
+                    pix.ScreenPos.x = x;
+                    pix.ScreenPos.y = y;
+                    pix.UV = pix.ScreenPos / pix.ScreenRes;
 
-                        Vec2 col = Shader.Render(pix);
-                        buffer.Buffer[y][x] = RenderFuncs.AlphaTransform(col * Color, buffer.Buffer[y][x]);
-                    }
-                    else
-                    {
-                        buffer.Buffer[y][x] = RenderFuncs.AlphaTransform(Color, buffer.Buffer[y][x]);
-                    }
+                    Vec2 col = Shader.Render(pix);
+                    buffer.Buffer[y][x] = RenderFuncs.AlphaTransform(col * Color, buffer.Buffer[y][x]);
+                }
+                else
+                {
+                    buffer.Buffer[y][x] = RenderFuncs.AlphaTransform(Color, buffer.Buffer[y][x]);
                 }
             }
         }

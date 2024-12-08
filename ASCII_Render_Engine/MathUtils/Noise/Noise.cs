@@ -1,18 +1,12 @@
-﻿using ASCII_Render_Engine.MathUtils.Vectors;
-using ASCII_Render_Engine.MathUtils.Noise.Perlin;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ASCII_Render_Engine.MathUtils.Noise.Perlin;
+using ASCII_Render_Engine.MathUtils.Vectors;
 
-namespace ASCII_Render_Engine.MathUtils.Noise
+namespace ASCII_Render_Engine.MathUtils.Noise;
+
+public static class Noise
 {
-    public static class Noise
+    public static double FractalPerlinNoise1D(Vec3 vector, double scale, int detail, double roughness)
     {
-        public static double FractalPerlinNoise1D(Vec3 vector, double scale, int detail, double roughness)
-        {
-            return FractalPerlinNoise.FractalPerlin(vector, scale, detail, roughness);
-        }
+        return FractalPerlinNoise.FractalPerlin(vector, scale, detail, roughness);
     }
 }

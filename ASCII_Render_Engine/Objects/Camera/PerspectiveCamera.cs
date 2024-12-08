@@ -1,7 +1,5 @@
-﻿using ASCII_Render_Engine.MathUtils.Vectors;
-using ASCII_Render_Engine.MathUtils.Matrixes;
-using System;
-using System.Diagnostics;
+﻿using ASCII_Render_Engine.MathUtils.Matrixes;
+using ASCII_Render_Engine.MathUtils.Vectors;
 
 namespace ASCII_Render_Engine.Objects.Camera;
 

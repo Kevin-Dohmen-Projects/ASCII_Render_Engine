@@ -5,13 +5,6 @@ using ASCII_Render_Engine.Objects.Geometry.Mesh;
 using ASCII_Render_Engine.Objects.Geometry.Polygons;
 using ASCII_Render_Engine.Objects.Geometry.Vertices;
 using ASCII_Render_Engine.Rendering;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.Intrinsics.X86;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ASCII_Render_Engine.Objects.Geometry.Primitives;
 

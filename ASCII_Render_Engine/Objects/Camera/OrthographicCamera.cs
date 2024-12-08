@@ -1,10 +1,5 @@
-﻿using ASCII_Render_Engine.MathUtils.Vectors;
-using ASCII_Render_Engine.MathUtils.Matrixes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ASCII_Render_Engine.MathUtils.Matrixes;
+using ASCII_Render_Engine.MathUtils.Vectors;
 
 namespace ASCII_Render_Engine.Objects.Camera;
 

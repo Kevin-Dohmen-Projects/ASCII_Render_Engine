@@ -1,8 +1,6 @@
-﻿using ASCII_Render_Engine.MathUtils.Vectors;
-using ASCII_Render_Engine.Utils;
-using ASCII_Render_Engine.Objects.Geometry.Primitives;
-using ASCII_Render_Engine.Utils.Profiling;
+﻿using ASCII_Render_Engine.Objects.Geometry.Primitives;
 using ASCII_Render_Engine.Rendering;
+using ASCII_Render_Engine.Utils.Profiling;
 using System.Diagnostics;
 
 namespace ASCII_Render_Engine.Core
@@ -155,7 +153,7 @@ namespace ASCII_Render_Engine.Core
             }
             finally
             {
-                
+
                 renderSemaphore.Release(); // Allow the next render to proceed
             }
         }
