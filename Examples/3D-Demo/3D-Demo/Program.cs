@@ -54,6 +54,8 @@ public static class Program
 
         Vertex3D CameraTarget = new(new Vec3(), cameraConfig);
 
+        Rectangle2D testRect = new(new Vec2(50, 0), new Vec2(50, 50), new SpiralShader());
+
 
         // counters
         int frames = 0;
@@ -120,6 +122,7 @@ public static class Program
             screen.Draw(RightLeg);
             screen.Draw(LeftLeg);
             screen.Draw(CameraTarget);
+            screen.Draw(testRect);
 
             screen.Render();
 

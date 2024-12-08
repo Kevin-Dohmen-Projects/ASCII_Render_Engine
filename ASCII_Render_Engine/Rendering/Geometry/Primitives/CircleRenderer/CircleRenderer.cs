@@ -7,17 +7,12 @@ namespace ASCII_Render_Engine.Rendering.Geometry.Primitives.CircleRenderer;
 
 public class CircleRenderer : ICircleRenderer
 {
-    public void Render(ScreenBuffer buffer, int frame, double runTime, object obj)
+    public void Render(ScreenBuffer buffer, int frame, double runTime, Circle2D obj)
     {
-        if (obj is not Circle2D circle)
-        {
-            throw new ArgumentException("Object is not a Circle");
-        }
-
-        Vec2 Pos = circle.Pos;
-        Vec2 Size = circle.Size;
-        Vec2 Color = circle.Color;
-        IShader? Shader = circle.Shader;
+        Vec2 Pos = obj.Pos;
+        Vec2 Size = obj.Size;
+        Vec2 Color = obj.Color;
+        IShader? Shader = obj.Shader;
 
         int posx = (int)Math.Floor(Pos.x);
         int posy = (int)Math.Floor(Pos.y);

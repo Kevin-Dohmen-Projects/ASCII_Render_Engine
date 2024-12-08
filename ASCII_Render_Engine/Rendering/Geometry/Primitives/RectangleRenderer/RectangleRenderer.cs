@@ -7,18 +7,13 @@ namespace ASCII_Render_Engine.Rendering.Geometry.Primitives.RectangleRenderer;
 
 public class RectangleRenderer : IRectangleRenderer
 {
-    public void Render(ScreenBuffer buffer, int frame, double runTime, object obj)
+    public void Render(ScreenBuffer buffer, int frame, double runTime, Rectangle2D obj)
     {
-        if (obj is not Rectangle2D rect)
-        {
-            throw new ArgumentException("Object is not a Rectangle2D");
-        }
-
-        Vec2 Pos = rect.Pos;
-        Vec2 Size = rect.Size;
-        Vec2 Color = rect.Color;
-        bool IsFilled = rect.IsFilled;
-        IShader? Shader = rect.Shader;
+        Vec2 Pos = obj.Pos;
+        Vec2 Size = obj.Size;
+        Vec2 Color = obj.Color;
+        bool IsFilled = obj.IsFilled;
+        IShader? Shader = obj.Shader;
 
         int posx = (int)Math.Floor(Pos.x);
         int posy = (int)Math.Floor(Pos.y);
@@ -41,7 +36,7 @@ public class RectangleRenderer : IRectangleRenderer
                     {
                         pix.ScreenPos.x = x - posx;
                         pix.ScreenPos.y = y - posy;
-                        pix.UV = pix.ScreenPos / pix.ScreenRes;
+                        pix.UV = pix.ScreenPos / Size;
 
                         Vec2 col = Shader.Render(pix);
                         buffer.Buffer[y][x] = RenderFuncs.AlphaTransform(col * Color, buffer.Buffer[y][x]);

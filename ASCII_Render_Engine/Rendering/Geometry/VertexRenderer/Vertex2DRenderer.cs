@@ -6,14 +6,9 @@ namespace ASCII_Render_Engine.Rendering.Geometry.VertexRenderer;
 
 public class Vertex2DRenderer : IVertex2DRenderer
 {
-    public void Render(ScreenBuffer buffer, int frame, double runTime, object obj)
+    public void Render(ScreenBuffer buffer, int frame, double runTime, Vertex2D obj)
     {
-        if (obj is not Vertex2D vertex)
-        {
-            throw new ArgumentException("Object is not a Vertex2D");
-        }
-
-        Vec2 Position = vertex.Position;
+        Vec2 Position = obj.Position;
 
         if (Position.x >= 0 && Position.x < buffer.Width && Position.y >= 0 && Position.y < buffer.Height)
         {
