@@ -22,7 +22,6 @@ public class CircleRenderer : ICircleRenderer
         ShaderPixel pix = new ShaderPixel();
         pix.ScreenRes = new Vec2(buffer.Width, buffer.Height);
 
-
         pix.Frame = frame;
         pix.Time = runTime;
 
@@ -41,7 +40,7 @@ public class CircleRenderer : ICircleRenderer
                     {
                         pix.ScreenPos.x = x - posx;
                         pix.ScreenPos.y = y - posy;
-                        pix.UV = pix.ScreenPos / pix.ScreenRes;
+                        pix.UV = pix.ScreenPos / Size;
 
                         Vec2 col = Shader.Render(pix);
                         buffer.Buffer[y][x] = RenderFuncs.AlphaTransform(col * Color, buffer.Buffer[y][x]);
