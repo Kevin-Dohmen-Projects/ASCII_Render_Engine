@@ -54,7 +54,7 @@ public static class Program
 
         Vertex3D CameraTarget = new(new Vec3(), cameraConfig);
 
-        Rectangle2D testRect = new(new Vec2(50, 0), new Vec2(50, 50), new SpiralShader());
+        Circle2D testRect = new(new Vec2(50, 0), new Vec2(50, 50), new SpiralShader());
 
 
         // counters
