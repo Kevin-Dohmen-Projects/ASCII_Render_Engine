@@ -38,12 +38,12 @@ public class Cube : IRenderable
         Vertex3D v7 = new(new Vec3(size.x / 2, size.y / 2, size.z / 2));
         Vertex3D v8 = new(new Vec3(-size.x / 2, size.y / 2, size.z / 2));
 
-        Poly3D p1 = new([v1, v2, v3, v4]);
-        Poly3D p2 = new([v5, v6, v7, v8]);
-        Poly3D p3 = new([v1, v5, v6, v2]);
-        Poly3D p4 = new([v2, v6, v7, v3]);
-        Poly3D p5 = new([v3, v7, v8, v4]);
-        Poly3D p6 = new([v4, v8, v5, v1]);
+        Quad3D p1 = new([v1, v2, v3, v4]);
+        Quad3D p2 = new([v5, v6, v7, v8]);
+        Quad3D p3 = new([v1, v5, v6, v2]);
+        Quad3D p4 = new([v2, v6, v7, v3]);
+        Quad3D p5 = new([v3, v7, v8, v4]);
+        Quad3D p6 = new([v4, v8, v5, v1]);
 
         return new Mesh3D([p1, p2, p3, p4, p5, p6], null);
     }

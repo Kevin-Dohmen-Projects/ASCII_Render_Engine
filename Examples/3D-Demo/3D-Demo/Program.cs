@@ -10,10 +10,11 @@ using ASCII_Render_Engine.Core;
 using ASCII_Render_Engine.Input.Keyboard;
 using System.Numerics;
 using ASCII_Render_Engine.Objects.Camera;
-using ASCII_Render_Engine.Objects.Geometry.Mesh;
+//using ASCII_Render_Engine.Objects.Geometry.Mesh;
 using ASCII_Render_Engine.MathUtils.Noise;
 using ASCII_Render_Engine.Utils.Profiling;
 using ASCII_Render_Engine.Rendering;
+using ASCII_Render_Engine.Objects.Geometry.Mesh;
 
 namespace _3D_Demo;
 
@@ -54,8 +55,18 @@ public static class Program
 
         Vertex3D CameraTarget = new(new Vec3(), cameraConfig);
 
-        Circle2D testRect = new(new Vec2(50, 0), new Vec2(50, 50), new SpiralShader());
-
+        Mesh3D Floor = new Mesh3D(
+        [
+            new NGon3D(
+            [
+                new Vertex3D(new Vec3(50, 0, 0)),
+                new Vertex3D(new Vec3(25, 0, 43.3)),
+                new Vertex3D(new Vec3(-25, 0, 43.3)),
+                new Vertex3D(new Vec3(-50, 0, 0)),
+                new Vertex3D(new Vec3(-25, 0, -43.3)),
+                new Vertex3D(new Vec3(25, 0, -43.3))
+            ])
+        ], cameraConfig);
 
         // counters
         int frames = 0;
@@ -122,7 +133,7 @@ public static class Program
             screen.Draw(RightLeg);
             screen.Draw(LeftLeg);
             screen.Draw(CameraTarget);
-            screen.Draw(testRect);
+            screen.Draw(Floor);
 
             screen.Render();
 

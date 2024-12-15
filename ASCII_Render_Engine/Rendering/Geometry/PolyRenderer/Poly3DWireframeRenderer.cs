@@ -12,21 +12,21 @@ public class Poly3DWireframeRenderer : IPoly3DRenderer
     {
 
         Vertex3D[] Vertices = obj.Vertices;
-        Vertex3D[] transformedVertices = obj.transformedVertices;
         CameraConfig Camera = obj.Camera;
+        Poly3D transformedPoly = new Poly3D(obj);
 
 
         Vec2 screenResolution = new Vec2(buffer.Width, buffer.Height);
 
         for (int i = 0; i < Vertices.Length; i++)
         {
-            transformedVertices[i].Position = Camera.Camera.PerspectiveTransform(Vertices[i].Position, screenResolution);
+            transformedPoly.Vertices[i].Position = Camera.Camera.PerspectiveTransform(Vertices[i].Position, screenResolution);
         }
 
-        for (int i = 0; i < transformedVertices.Length; i++)
+        for (int i = 0; i < transformedPoly.Vertices.Length; i++)
         {
-            Vertex3D vertex = transformedVertices[i];
-            Vertex3D nextVertex = transformedVertices[(i + 1) % transformedVertices.Length];
+            Vertex3D vertex = transformedPoly.Vertices[i];
+            Vertex3D nextVertex = transformedPoly.Vertices[(i + 1) % transformedPoly.Vertices.Length];
             Vec3 delta = nextVertex.Position - vertex.Position;
             double length = delta.Length();
             Vec3 step = delta / length;

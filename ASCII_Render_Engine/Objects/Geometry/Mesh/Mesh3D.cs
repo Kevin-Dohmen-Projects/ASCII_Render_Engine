@@ -9,59 +9,54 @@ namespace ASCII_Render_Engine.Objects.Geometry.Mesh;
 
 public class Mesh3D : IRenderable
 {
-    public Poly3D[] Polygons { get; set; }
+    public IPolygon3D[] Polygons { get; set; }
     public Vec3 Position { get; set; }
     public Vec3 Origin { get; set; }
     public Vec3 Angle { get; set; }
+    public Vec3 Scale { get; set; }
     public CameraConfig Camera { get; set; }
     public IMesh3DRenderer Renderer { get; set; } = new Mesh3DWireframeRenderer();
 
-    // pool
-    public Poly3D[] globalPolygons { get; set; }
-
-    public Mesh3D(Poly3D[] polygons, CameraConfig camera)
+    public Mesh3D(IPolygon3D[] polygons, CameraConfig camera)
     {
-        Polygons = new Poly3D[polygons.Length];
-        globalPolygons = new Poly3D[polygons.Length];
+        Polygons = new IPolygon3D[polygons.Length];
         for (int i = 0; i < polygons.Length; i++)
         {
-            Polygons[i] = new Poly3D(polygons[i]);
-            globalPolygons[i] = new Poly3D(Polygons[i]);
+            Polygons[i] = polygons[i].Copy();
         }
 
         Position = new Vec3();
         Origin = new Vec3();
         Angle = new Vec3();
+        Scale = new Vec3(1);
         Camera = camera;
     }
     public Mesh3D(int polygonCount, CameraConfig camera)
     {
-        Polygons = new Poly3D[polygonCount];
-        globalPolygons = new Poly3D[polygonCount];
+        Polygons = new IPolygon3D[polygonCount];
         for (int i = 0; i < Polygons.Length; i++)
         {
-            Polygons[i] = new Poly3D(3, null);
-            globalPolygons[i] = new Poly3D(3, null);
+            Polygons[i] = new Poly3D();
         }
 
         Position = new Vec3();
         Origin = new Vec3();
         Angle = new Vec3();
+        Scale = new Vec3(1);
         Camera = camera;
     }
     public Mesh3D(Mesh3D mesh)
     {
-        Polygons = new Poly3D[mesh.Polygons.Length];
-        globalPolygons = new Poly3D[mesh.Polygons.Length];
+        Polygons = new IPolygon3D[mesh.Polygons.Length];
         for (int i = 0; i < mesh.Polygons.Length; i++)
         {
-            Polygons[i] = new Poly3D(mesh.Polygons[i]);
-            globalPolygons[i] = new Poly3D(mesh.Polygons[i]);
+            Polygons[i] = mesh.Polygons[i].Copy();
         }
 
         Position = mesh.Position;
         Origin = mesh.Origin;
         Angle = mesh.Angle;
+        Scale = mesh.Scale;
         Camera = mesh.Camera;
     }
 
@@ -69,30 +64,35 @@ public class Mesh3D : IRenderable
     {
         if (Polygons.Length != mesh.Polygons.Length)
         {
-            Polygons = new Poly3D[mesh.Polygons.Length];
+            Polygons = new IPolygon3D[mesh.Polygons.Length];
         }
         for (int i = 0; i < mesh.Polygons.Length; i++)
         {
-            Polygons[i].Copy(mesh.Polygons[i]);
+            Polygons[i] = mesh.Polygons[i].Copy();
         }
         Position = mesh.Position;
         Origin = mesh.Origin;
         Angle = mesh.Angle;
+        Scale = mesh.Scale;
     }
 
-    public void Add(Poly3D poly)
+    public void Add(IPolygon3D poly)
     {
-        Poly3D[] newPolygons = new Poly3D[Polygons.Length + 1];
+        IPolygon3D[] newPolygons = new IPolygon3D[Polygons.Length + 1];
         for (int i = 0; i < Polygons.Length; i++)
         {
             newPolygons[i] = Polygons[i];
         }
         newPolygons[Polygons.Length] = poly;
         Polygons = newPolygons;
+        Position = new Vec3();
+        Origin = new Vec3();
+        Angle = new Vec3();
+        Scale = new Vec3(1);
     }
     public void Remove(int index)
     {
-        Poly3D[] newPolygons = new Poly3D[Polygons.Length - 1];
+        IPolygon3D[] newPolygons = new IPolygon3D[Polygons.Length - 1];
         for (int i = 0; i < index; i++)
         {
             newPolygons[i] = Polygons[i];

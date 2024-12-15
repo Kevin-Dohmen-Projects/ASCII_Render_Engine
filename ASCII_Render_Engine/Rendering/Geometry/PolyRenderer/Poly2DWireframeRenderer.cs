@@ -9,7 +9,6 @@ public class Poly2DWireframeRenderer : IPoly2DRenderer
 {
     public void Render(ScreenBuffer buffer, int frame, double runTime, Poly2D obj)
     {
-
         Vertex2D[] Vertices = obj.Vertices;
 
         for (int i = 0; i < Vertices.Length; i++)

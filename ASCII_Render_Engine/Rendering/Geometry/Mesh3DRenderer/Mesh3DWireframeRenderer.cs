@@ -15,22 +15,22 @@ public class Mesh3DWireframeRenderer : IMesh3DRenderer
         Vec3 Position = obj.Position;
         Vec3 Origin = obj.Origin;
         Vec3 Angle = obj.Angle;
+        Vec3 scale = obj.Scale;
         CameraConfig Camera = obj.Camera;
-        Poly3D[] Polygons = obj.Polygons;
-        Poly3D[] globalPolygons = obj.globalPolygons;
+        IPolygon3D[] Polygons = obj.Polygons;
 
         // transform
         for (int i = 0; i < Polygons.Length; i++)
         {
-            Poly3D localPoly = Polygons[i];
-            Poly3D globalPoly = globalPolygons[i];
-            globalPoly.Copy(localPoly);
+            IPolygon3D localPoly = Polygons[i];
+            IPolygon3D globalPoly = localPoly.Copy();
             for (int j = 0; j < localPoly.Vertices.Length; j++)
             {
                 // rotate around local origin
                 Vec3 vertex = localPoly.Vertices[j].Position;
                 Mat3x3 rotationMatrix = Rotation.Rotate(Angle);
-                Vec3 rotatedVertex = rotationMatrix * (vertex - Origin) + Origin;
+                Vec3 scaledVertex = vertex * scale;
+                Vec3 rotatedVertex = rotationMatrix * (scaledVertex - Origin) + Origin;
                 Vec3 globalVertex = rotatedVertex + Position;
                 globalPoly.Vertices[j].Position = globalVertex;
             }
