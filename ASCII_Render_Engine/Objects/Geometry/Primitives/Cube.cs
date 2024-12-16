@@ -1,4 +1,5 @@
 ﻿using ASCII_Render_Engine.Core;
+using ASCII_Render_Engine.MathUtils.Transform.Rotation;
 using ASCII_Render_Engine.MathUtils.Vectors;
 using ASCII_Render_Engine.Objects.Camera;
 using ASCII_Render_Engine.Objects.Geometry.Mesh;
@@ -13,7 +14,7 @@ public class Cube : IRenderable
     public Vec3 Pos;
     public Vec3 Size;
     public Vec3 Origin;
-    public Vec3 Rotation;
+    public IRotation Rotation;
     public Mesh3D Mesh;
     public CameraConfig Camera;
 
@@ -22,7 +23,7 @@ public class Cube : IRenderable
         Pos = pos;
         Size = size;
         Origin = new Vec3();
-        Rotation = new Vec3();
+        Rotation = new EulerRotation(new Vec3(0, 0, 0));
         Camera = camera;
         Mesh = InitCube(size);
     }
@@ -52,7 +53,7 @@ public class Cube : IRenderable
     {
         Mesh.Origin = Origin;
         Mesh.Position = Pos;
-        Mesh.Angle = Rotation;
+        Mesh.Rotation = Rotation;
         Mesh.Camera = Camera;
         Mesh.Render(buffer, frame, runTime);
     }

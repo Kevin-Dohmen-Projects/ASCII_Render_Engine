@@ -177,6 +177,12 @@ public struct Vec4
             + left.w * right.w;
     }
 
+    public Vec4 Inverse()
+    {
+        double lengthSq = x * x + y * y + z * z + w * w;
+        return new Vec4(-x / lengthSq, -y / lengthSq, -z / lengthSq, w / lengthSq);
+    }
+
 
     // -=-=-=-=- conversion and parse -=-=-=-=-
     public string Stringify()

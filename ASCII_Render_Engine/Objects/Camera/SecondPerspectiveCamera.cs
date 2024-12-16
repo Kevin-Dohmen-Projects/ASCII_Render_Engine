@@ -1,42 +1,28 @@
 ﻿using ASCII_Render_Engine.MathUtils.Matrixes;
 using ASCII_Render_Engine.MathUtils.Transform.Rotation;
 using ASCII_Render_Engine.MathUtils.Vectors;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace ASCII_Render_Engine.Objects.Camera;
-
-public class PerspectiveCamera3D : ICamera
+public class SecondPerspectiveCamera : ICamera
 {
     public Vec3 Position { get; set; }
     public IRotation Rotation { get; set; }
-    public double FieldOfView; // Field of view in degrees
-    public double NearPlane;
-    public double FarPlane;
+    public double FieldOfView { get; set; } // Field of view in degrees
+    public double NearPlane { get; set; }
+    public double FarPlane { get; set; }
 
-    public PerspectiveCamera3D(Vec3 position, IRotation direction, double fieldOfView, double nearPlane, double farPlane)
+    public SecondPerspectiveCamera(Vec3 position, IRotation direction, double fieldOfView, double nearPlane, double farPlane)
     {
         Position = position;
         Rotation = direction;
         FieldOfView = fieldOfView;
         NearPlane = nearPlane;
         FarPlane = farPlane;
-    }
-
-    public PerspectiveCamera3D()
-    {
-        Position = new Vec3(0, 0, 0);
-        Rotation = new QuaternionRotation(new Vec3(0, 0, 1), 0);
-        FieldOfView = 90; // Default FOV
-        NearPlane = 0.1;
-        FarPlane = 1000;
-    }
-
-    public PerspectiveCamera3D(PerspectiveCamera3D camera)
-    {
-        Position = new Vec3(camera.Position);
-        Rotation = camera.Rotation;
-        FieldOfView = camera.FieldOfView;
-        NearPlane = camera.NearPlane;
-        FarPlane = camera.FarPlane;
     }
 
     public Vec3 PerspectiveTransform(Vec3 point, Vec2 screenResolution, double aspectRatio = 0)

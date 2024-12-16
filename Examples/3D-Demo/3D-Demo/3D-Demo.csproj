@@ -11,7 +11,7 @@
 	<!---->
 	<ItemGroup>
 		<Reference Include="ASCII_Render_Engine">
-			<HintPath>../../../ASCII_Render_Engine/bin/Release/net9.0/ASCII_Render_Engine.dll</HintPath>
+			<HintPath>../../../ASCII_Render_Engine/bin/Debug/net9.0/ASCII_Render_Engine.dll</HintPath>
 		</Reference>
 	</ItemGroup>
 	<!---->

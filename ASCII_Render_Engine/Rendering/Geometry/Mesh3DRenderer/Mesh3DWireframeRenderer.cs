@@ -1,6 +1,6 @@
 ﻿using ASCII_Render_Engine.Core;
 using ASCII_Render_Engine.MathUtils.Matrixes;
-using ASCII_Render_Engine.MathUtils.Matrixes.Transforms;
+using ASCII_Render_Engine.MathUtils.Transform.Rotation;
 using ASCII_Render_Engine.MathUtils.Vectors;
 using ASCII_Render_Engine.Objects.Camera;
 using ASCII_Render_Engine.Objects.Geometry.Mesh;
@@ -14,7 +14,7 @@ public class Mesh3DWireframeRenderer : IMesh3DRenderer
     {
         Vec3 Position = obj.Position;
         Vec3 Origin = obj.Origin;
-        Vec3 Angle = obj.Angle;
+        IRotation Rotation = obj.Rotation;
         Vec3 scale = obj.Scale;
         CameraConfig Camera = obj.Camera;
         IPolygon3D[] Polygons = obj.Polygons;
@@ -28,9 +28,10 @@ public class Mesh3DWireframeRenderer : IMesh3DRenderer
             {
                 // rotate around local origin
                 Vec3 vertex = localPoly.Vertices[j].Position;
-                Mat3x3 rotationMatrix = Rotation.Rotate(Angle);
                 Vec3 scaledVertex = vertex * scale;
-                Vec3 rotatedVertex = rotationMatrix * (scaledVertex - Origin) + Origin;
+
+                Vec3 rotatedVertex = Rotation.RotateVector(scaledVertex - Origin) + Origin;
+
                 Vec3 globalVertex = rotatedVertex + Position;
                 globalPoly.Vertices[j].Position = globalVertex;
             }

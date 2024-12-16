@@ -3,6 +3,7 @@ using ASCII_Render_Engine.MathUtils.Vectors;
 using ASCII_Render_Engine.Objects.Camera;
 using ASCII_Render_Engine.Objects.Geometry.Polygons;
 using ASCII_Render_Engine.Objects.Geometry.Vertices;
+using System.Diagnostics;
 
 namespace ASCII_Render_Engine.Rendering.Geometry.PolyRenderer;
 
@@ -35,7 +36,7 @@ public class Poly3DWireframeRenderer : IPoly3DRenderer
                 Vec3 pos = vertex.Position + step * j;
                 if (pos.x >= 0 && pos.x < buffer.Width && pos.y >= 0 && pos.y < buffer.Height && pos.z > 0)
                 {
-                    buffer.Buffer[(int)(buffer.Height - pos.y)][(int)pos.x] = new Vec2(1, 1);
+                    buffer.Buffer[(int)(buffer.Height - 1 - pos.y)][(int)pos.x] = new Vec2(1, 1);
                 }
             }
         }

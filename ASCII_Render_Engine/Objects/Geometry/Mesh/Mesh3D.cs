@@ -1,4 +1,5 @@
 ﻿using ASCII_Render_Engine.Core;
+using ASCII_Render_Engine.MathUtils.Transform.Rotation;
 using ASCII_Render_Engine.MathUtils.Vectors;
 using ASCII_Render_Engine.Objects.Camera;
 using ASCII_Render_Engine.Objects.Geometry.Polygons;
@@ -12,7 +13,7 @@ public class Mesh3D : IRenderable
     public IPolygon3D[] Polygons { get; set; }
     public Vec3 Position { get; set; }
     public Vec3 Origin { get; set; }
-    public Vec3 Angle { get; set; }
+    public IRotation Rotation { get; set; }
     public Vec3 Scale { get; set; }
     public CameraConfig Camera { get; set; }
     public IMesh3DRenderer Renderer { get; set; } = new Mesh3DWireframeRenderer();
@@ -27,7 +28,7 @@ public class Mesh3D : IRenderable
 
         Position = new Vec3();
         Origin = new Vec3();
-        Angle = new Vec3();
+        Rotation = new EulerRotation(new Vec3(0, 0, 0));
         Scale = new Vec3(1);
         Camera = camera;
     }
@@ -41,7 +42,7 @@ public class Mesh3D : IRenderable
 
         Position = new Vec3();
         Origin = new Vec3();
-        Angle = new Vec3();
+        Rotation = new EulerRotation(new Vec3(0, 0, 0));
         Scale = new Vec3(1);
         Camera = camera;
     }
@@ -55,7 +56,7 @@ public class Mesh3D : IRenderable
 
         Position = mesh.Position;
         Origin = mesh.Origin;
-        Angle = mesh.Angle;
+        Rotation = mesh.Rotation;
         Scale = mesh.Scale;
         Camera = mesh.Camera;
     }
@@ -72,7 +73,7 @@ public class Mesh3D : IRenderable
         }
         Position = mesh.Position;
         Origin = mesh.Origin;
-        Angle = mesh.Angle;
+        Rotation = mesh.Rotation;
         Scale = mesh.Scale;
     }
 
@@ -87,7 +88,7 @@ public class Mesh3D : IRenderable
         Polygons = newPolygons;
         Position = new Vec3();
         Origin = new Vec3();
-        Angle = new Vec3();
+        Rotation = new EulerRotation(new Vec3(0, 0, 0));
         Scale = new Vec3(1);
     }
     public void Remove(int index)

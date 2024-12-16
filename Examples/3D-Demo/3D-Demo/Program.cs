@@ -15,6 +15,7 @@ using ASCII_Render_Engine.MathUtils.Noise;
 using ASCII_Render_Engine.Utils.Profiling;
 using ASCII_Render_Engine.Rendering;
 using ASCII_Render_Engine.Objects.Geometry.Mesh;
+using ASCII_Render_Engine.MathUtils.Transform.Rotation;
 
 namespace _3D_Demo;
 
@@ -32,10 +33,11 @@ public static class Program
         //screen.Background = new FullScreenShaderObject(new SpiralShader(), 0.25);
 
         // camera
-        PerspectiveCamera3D camera = new PerspectiveCamera3D(new Vec3(0, 0, -20), new Vec3(0, 0, 1), 90, 1, 1000);
+        PerspectiveCamera3D camera = new PerspectiveCamera3D(new Vec3(0, 0, -20), new QuaternionRotation(new Vec3(0, 0, 1), 0), 90, 1, 1000);
+        //SecondPerspectiveCamera camera = new SecondPerspectiveCamera(new Vec3(0, 30, -30), new DirecitonVectorRotation(new Vec3(0, 0, 1)), 90, 1, 1000);
         CameraConfig cameraConfig = new(camera);
 
-        // objects
+        //objects
         Cube RightArm = new(new Vec3(7.5, 30, 0), new Vec3(5, 20, 5), cameraConfig);
         RightArm.Origin = new Vec3(-2.5, 7.5, 0);
 
@@ -67,6 +69,8 @@ public static class Program
                 new Vertex3D(new Vec3(25, 0, -43.3))
             ])
         ], cameraConfig);
+
+        Cube testCube = new Cube(new Vec3(), new Vec3(5), cameraConfig);
 
         // counters
         int frames = 0;
@@ -110,17 +114,20 @@ public static class Program
             isLeftArrowPressed = keyboardInput.IsKeyPressed(Keys.LeftArrow);
             isRightArrowPressed = keyboardInput.IsKeyPressed(Keys.RightArrow);
 
-            RightArm.Rotation = new Vec3(Math.Sin(runTime) * 0.15, 0, Math.Sin(runTime * 1.5) * 0.05 + 0.05);
-            LeftArm.Rotation = new Vec3(Math.Sin(runTime + 34) * 0.15, 0, Math.Sin(runTime + 34) * 0.05 - 0.05);
-            RightLeg.Rotation = new Vec3(Math.Sin(runTime + 10) * 0.05, 0, Math.Sin((runTime + 10) * 1.5) * 0.01 + 0.01);
-            LeftLeg.Rotation = new Vec3(Math.Sin(runTime + 44) * 0.05, 0, Math.Sin(runTime + 44) * 0.01 - 0.01);
-            Head.Rotation = new Vec3(Math.Sin(runTime / 4) * 0.2, (Math.Sin(runTime / 2) * 0.5 + Math.Sin(runTime) * 0.2) * Math.Sin(runTime / 5), 0);
+            RightArm.Rotation = new EulerRotation(new Vec3(Math.Sin(runTime) * 0.15, 0, Math.Sin(runTime * 1.5) * 0.05 + 0.05));
+            LeftArm.Rotation = new EulerRotation(new Vec3(Math.Sin(runTime + 34) * 0.15, 0, Math.Sin(runTime + 34) * 0.05 - 0.05));
+            RightLeg.Rotation = new EulerRotation(new Vec3(Math.Sin(runTime + 10) * 0.05, 0, Math.Sin((runTime + 10) * 1.5) * 0.01 + 0.01));
+            LeftLeg.Rotation = new EulerRotation(new Vec3(Math.Sin(runTime + 44) * 0.05, 0, Math.Sin(runTime + 44) * 0.01 - 0.01));
+            Head.Rotation = new EulerRotation(new Vec3(Math.Sin(runTime / 4) * 0.2, (Math.Sin(runTime / 2) * 0.5 + Math.Sin(runTime) * 0.2) * Math.Sin(runTime / 5), 0));
 
             CameraTarget.Position = new Vec3(Math.Sin(runTime / 4) * 5, 27.5 + Math.Sin(runTime / 7) * 10, Math.Sin(runTime / 3) * 2);
 
-            camera.Position = new Vec3(Math.Sin(runTime/5)*30, Math.Sin(runTime / 10) * 20 + 30, Math.Cos(runTime/5)*30);
-            camera.Direction = (CameraTarget.Position - camera.Position).Normalize();
-            camera.FieldOfView = 80 + Math.Sin(runTime/3) * 10;
+            camera.Position = new Vec3(Math.Sin(runTime / 5) * 30, Math.Sin(runTime / 10) * 20 + 30, Math.Cos(runTime / 5) * 30);
+
+            // point camera to CameraTarget
+            // camera.Rotation = new DirecitonVectorRotation(camera.Position - CameraTarget.Position);
+
+            camera.FieldOfView = 80 + Math.Sin(runTime / 3) * 10;
 
             logicProfiler.Stop();
 
@@ -134,6 +141,7 @@ public static class Program
             screen.Draw(LeftLeg);
             screen.Draw(CameraTarget);
             screen.Draw(Floor);
+            screen.Draw(testCube);
 
             screen.Render();
 
@@ -145,7 +153,7 @@ public static class Program
                 if (frameTime < targetFrameTime)
                 {
                     int sleepTime = (int)(targetFrameTime - frameTime);
-                    System.Threading.Thread.Sleep(sleepTime);
+                    Thread.Sleep(sleepTime);
                 }
             }
         }

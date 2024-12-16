@@ -2,9 +2,9 @@
 
 public struct Vec3
 {
-    public double x;
-    public double y;
-    public double z;
+    public double x { get; set; }
+    public double y { get; set; }
+    public double z { get; set; }
 
     public Vec2 xy
     {
@@ -191,6 +191,13 @@ public struct Vec3
             y = left.z * right.x - left.x * right.z,
             z = left.x * right.y - left.y * right.x
         };
+    }
+
+    public static double Angle(Vec3 left, Vec3 right)
+    {
+        double dotProduct = Dot(left, right);
+        double magnitudeProduct = left.Length() * right.Length();
+        return Math.Acos(dotProduct / magnitudeProduct);
     }
 
     // -=-=-=-=- conversion and parse -=-=-=-=-
