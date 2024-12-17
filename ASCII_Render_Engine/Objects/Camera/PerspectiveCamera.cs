@@ -56,7 +56,7 @@ public class PerspectiveCamera3D : ICamera
         point = Rotation.RotateVector(point);
 
         // Create the perspective matrix
-        secondMat4x4 perspectiveMatrix = new secondMat4x4();
+        Mat4x4 perspectiveMatrix = Mat4x4.GetFromPool();
         perspectiveMatrix.Matrix[0][0] = fAspectRatio * fFovRad;
         perspectiveMatrix.Matrix[1][1] = fFovRad;
         perspectiveMatrix.Matrix[2][2] = fFar / (fFar - fNear);
@@ -64,7 +64,10 @@ public class PerspectiveCamera3D : ICamera
         perspectiveMatrix.Matrix[2][3] = 1.0;
 
         Vec4 point4 = new Vec4(point.x, point.y, point.z, 1);
-        Vec4 transformed = secondMat4x4.Multiply(point4, perspectiveMatrix);
+        Vec4 transformed = perspectiveMatrix * point4;
+
+        // Return the matrix to the pool
+        Mat4x4.ReturnToPool(perspectiveMatrix);
 
         if (transformed.w != 0)
         {

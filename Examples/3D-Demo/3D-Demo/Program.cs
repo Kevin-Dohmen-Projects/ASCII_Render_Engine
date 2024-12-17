@@ -90,6 +90,9 @@ public static class Program
         bool isRightArrowPressed = false;
         KeyboardInput keyboardInput = new KeyboardInput();
 
+        double lrRot = 0;
+        double udRot = 0;
+
         // game loop
         while (true)
         {
@@ -114,6 +117,24 @@ public static class Program
             isLeftArrowPressed = keyboardInput.IsKeyPressed(Keys.LeftArrow);
             isRightArrowPressed = keyboardInput.IsKeyPressed(Keys.RightArrow);
 
+            if (isUpArrowPressed)
+            {
+                udRot += 0.5 * deltaTime;
+            }
+            if (isDownArrowPressed)
+            {
+                udRot -= 0.5 * deltaTime;
+            }
+            if (isLeftArrowPressed)
+            {
+                lrRot += 0.5 * deltaTime;
+            }
+            if (isRightArrowPressed)
+            {
+                lrRot -= 0.5 * deltaTime;
+            }
+
+
             RightArm.Rotation = new EulerRotation(new Vec3(Math.Sin(runTime) * 0.15, 0, Math.Sin(runTime * 1.5) * 0.05 + 0.05));
             LeftArm.Rotation = new EulerRotation(new Vec3(Math.Sin(runTime + 34) * 0.15, 0, Math.Sin(runTime + 34) * 0.05 - 0.05));
             RightLeg.Rotation = new EulerRotation(new Vec3(Math.Sin(runTime + 10) * 0.05, 0, Math.Sin((runTime + 10) * 1.5) * 0.01 + 0.01));
@@ -124,8 +145,9 @@ public static class Program
 
             camera.Position = new Vec3(Math.Sin(runTime / 5) * 30, Math.Sin(runTime / 10) * 20 + 30, Math.Cos(runTime / 5) * 30);
 
-            // point camera to CameraTarget
-            // camera.Rotation = new DirecitonVectorRotation(camera.Position - CameraTarget.Position);
+            QuaternionRotation yRot = new(new Vec3(0, 1, 0), lrRot);
+            QuaternionRotation xRot = new(new Vec3(1, 0, 0), udRot); 
+            camera.Rotation = yRot * xRot; // note: i dont think this works as its supposed to...
 
             camera.FieldOfView = 80 + Math.Sin(runTime / 3) * 10;
 

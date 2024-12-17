@@ -1,23 +1,42 @@
 ﻿namespace ASCII_Render_Engine.Utils;
+
 public class ObjectPool<T> where T : new()
 {
     private readonly Stack<T> _pool;
     private readonly int _maxSize;
 
-    // Constructor to initialize the pool with a max size
+    private Func<T>? _initFunc = null;
+    private Func<T, T>? _clearFunc = null;
+
     public ObjectPool(int maxSize = 100)
     {
         _pool = new Stack<T>(maxSize);
         _maxSize = maxSize;
     }
 
-    // Method to get an object from the pool
-    public T GetObject()
+    public ObjectPool(Func<T> initFunc, int maxSize = 100)
     {
-        return _pool.Count > 0 ? _pool.Pop() : new T();
+        _pool = new Stack<T>(maxSize);
+        _maxSize = maxSize;
+        _initFunc = initFunc;
     }
 
-    // Method to return an object to the pool
+    public ObjectPool(Func<T> initFunc, Func<T, T> clearFunc, int maxSize = 100)
+    {
+        _pool = new Stack<T>(maxSize);
+        _maxSize = maxSize;
+        _initFunc = initFunc;
+        _clearFunc = clearFunc;
+    }
+
+    public T GetObject()
+    {
+        T obj;
+        obj = _pool.Count > 0 ? _pool.Pop() : (_initFunc != null ? _initFunc() : new T());
+        obj = _clearFunc != null ? _clearFunc(obj) : obj;
+        return obj;
+    }
+
     public void ReturnObject(T obj)
     {
         if (_pool.Count < _maxSize)

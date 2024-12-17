@@ -85,5 +85,10 @@ namespace ASCII_Render_Engine.MathUtils.Transform.Rotation
                 left.w * right.w - left.x * right.x - left.y * right.y - left.z * right.z
             );
         }
+
+        public static QuaternionRotation operator *(QuaternionRotation left, QuaternionRotation right)
+        {
+            return left.Multiply(right);
+        }
     }
 }
