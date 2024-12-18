@@ -14,7 +14,7 @@ public struct Vertex3D : IRenderable
     public CameraConfig? Camera { get; set; }
     public IVertex3DRenderer? Renderer { get; set; } = new Vertex3DRenderer();
 
-    public Vertex3D(Vec3 position, Vec2 uv, Vec3 normal, CameraConfig camera = null)
+    public Vertex3D(Vec3 position, Vec2 uv, Vec3 normal, CameraConfig? camera = null)
     {
         Position = position;
         UV = uv;
@@ -22,7 +22,7 @@ public struct Vertex3D : IRenderable
         Camera = camera;
     }
 
-    public Vertex3D(Vec3 position, CameraConfig camera = null)
+    public Vertex3D(Vec3 position, CameraConfig? camera = null)
     {
         Position = position;
         UV = new Vec2();

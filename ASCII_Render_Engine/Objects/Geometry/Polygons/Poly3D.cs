@@ -8,10 +8,10 @@ namespace ASCII_Render_Engine.Objects.Geometry.Polygons;
 public struct Poly3D : IRenderable, IPolygon3D
 {
     public Vertex3D[] Vertices { get; set; }
-    public IPoly3DRenderer? Renderer { get; set; } = new Poly3DWireframeRenderer();
+    public IPoly3DRenderer? Renderer { get; set; }
     public CameraConfig? Camera { get; set; }
 
-    public Poly3D(Vertex3D[] vertices, CameraConfig camera = null)
+    public Poly3D(Vertex3D[] vertices, CameraConfig? camera = null, IPoly3DRenderer? renderer = null)
     {
         if (vertices.Length != 3)
         {
@@ -22,6 +22,7 @@ public struct Poly3D : IRenderable, IPolygon3D
         {
             Vertices[i] = new Vertex3D(vertices[i]);
         }
+        Renderer = renderer;
         Camera = camera;
     }
 
@@ -32,6 +33,7 @@ public struct Poly3D : IRenderable, IPolygon3D
         {
             Vertices[i] = new Vertex3D(poly.Vertices[i]);
         }
+        Renderer = poly.Renderer;
         Camera = poly.Camera;
     }
 
@@ -42,6 +44,7 @@ public struct Poly3D : IRenderable, IPolygon3D
         {
             Vertices[i] = new Vertex3D();
         }
+        Renderer = null;
     }
 
     public IPolygon3D Copy()

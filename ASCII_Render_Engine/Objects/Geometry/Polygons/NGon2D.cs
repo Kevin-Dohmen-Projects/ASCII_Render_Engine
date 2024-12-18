@@ -13,9 +13,9 @@ namespace ASCII_Render_Engine.Objects.Geometry.Polygons;
 public struct NGon2D : IRenderable
 {
     Vertex2D[] Vertices { get; set; }
-    public IPoly2DRenderer? Renderer { get; set; } = new Poly2DWireframeRenderer();
+    public IPoly2DRenderer? Renderer { get; set; }
 
-    public NGon2D(Vertex2D[] vertices)
+    public NGon2D(Vertex2D[] vertices, IPoly2DRenderer? renderer = null)
     {
         if (vertices.Length < 3)
         {
@@ -26,6 +26,7 @@ public struct NGon2D : IRenderable
         {
             Vertices[i] = new Vertex2D(vertices[i]);
         }
+        Renderer = renderer;
     }
 
     public NGon2D(NGon2D nGon)
@@ -35,6 +36,7 @@ public struct NGon2D : IRenderable
         {
             Vertices[i] = new Vertex2D(nGon.Vertices[i]);
         }
+        Renderer = nGon.Renderer;
     }
 
     public NGon2D()
@@ -44,6 +46,7 @@ public struct NGon2D : IRenderable
         {
             Vertices[i] = new Vertex2D();
         }
+        Renderer = null;
     }
 
     public void Render(ScreenBuffer buffer, int frame, double runTime)

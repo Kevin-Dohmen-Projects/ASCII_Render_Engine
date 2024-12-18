@@ -9,7 +9,7 @@ public struct Quad2D : IRenderable
     Vertex2D[] Vertices { get; set; }
     public IPoly2DRenderer? Renderer { get; set; } = new Poly2DWireframeRenderer();
 
-    public Quad2D(Vertex2D[] vertices)
+    public Quad2D(Vertex2D[] vertices, IPoly2DRenderer? renderer = null)
     {
         if (vertices.Length != 4)
         {
@@ -20,6 +20,7 @@ public struct Quad2D : IRenderable
         {
             Vertices[i] = new Vertex2D(vertices[i]);
         }
+        Renderer = renderer;
     }
 
     public Quad2D(Quad2D quad)
@@ -29,6 +30,7 @@ public struct Quad2D : IRenderable
         {
             Vertices[i] = new Vertex2D(quad.Vertices[i]);
         }
+        Renderer = quad.Renderer;
     }
 
     public Quad2D()
@@ -38,6 +40,7 @@ public struct Quad2D : IRenderable
         {
             Vertices[i] = new Vertex2D();
         }
+        Renderer = null;
     }
 
     public void Render(ScreenBuffer buffer, int frame, double runTime)

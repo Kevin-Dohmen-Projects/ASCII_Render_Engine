@@ -4,10 +4,10 @@ namespace ASCII_Render_Engine.Core;
 
 public class ASCIIConverter
 {
-    char[] chars = [' ', '.', ':', ';', '+', '=', 'x', 'X', '$'];
-    //char[] chars = { ' ', '.', ':', '-', '=', '+', '*', '#', '%', '&', '$' };
+    private static readonly char[] chars = [' ', '.', ':', ';', '+', '=', 'x', 'X', '$'];
+    //private static readonly char[] chars = { ' ', '.', ':', '-', '=', '+', '*', '#', '%', '&', '$' };
 
-    private readonly double[,] ditherMatrix = new double[,]
+    private static readonly double[,] ditherMatrix = new double[,]
     {
         { -0.25, 0.25 },
         { 0.5, -0.5 }

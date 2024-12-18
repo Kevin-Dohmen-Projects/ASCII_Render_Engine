@@ -16,7 +16,7 @@ public struct Quad3D : IRenderable, IPolygon3D
     public IPoly3DRenderer? Renderer { get; set; } = new Poly3DWireframeRenderer();
     public CameraConfig? Camera { get; set; }
 
-    public Quad3D(Vertex3D[] vertices, CameraConfig camera = null)
+    public Quad3D(Vertex3D[] vertices, CameraConfig? camera = null, IPoly3DRenderer? renderer = null)
     {
         if (vertices.Length != 4)
         {
@@ -27,6 +27,7 @@ public struct Quad3D : IRenderable, IPolygon3D
         {
             Vertices[i] = new Vertex3D(vertices[i]);
         }
+        Renderer = renderer != null ? renderer : new Poly3DWireframeRenderer();
         Camera = camera;
     }
 
@@ -37,6 +38,7 @@ public struct Quad3D : IRenderable, IPolygon3D
         {
             Vertices[i] = new Vertex3D(quad.Vertices[i]);
         }
+        Renderer = quad.Renderer;
         Camera = quad.Camera;
     }
 
@@ -47,6 +49,7 @@ public struct Quad3D : IRenderable, IPolygon3D
         {
             Vertices[i] = new Vertex3D();
         }
+        Renderer = new Poly3DWireframeRenderer();
     }
 
     public IPolygon3D Copy()
@@ -57,8 +60,8 @@ public struct Quad3D : IRenderable, IPolygon3D
     public void Render(ScreenBuffer buffer, int frame, double runTime)
     {
         // turn the quad into 2 triangles
-        Poly3D triangle1 = new(new Vertex3D[] { Vertices[0], Vertices[1], Vertices[2] }, Camera);
-        Poly3D triangle2 = new(new Vertex3D[] { Vertices[0], Vertices[2], Vertices[3] }, Camera);
+        Poly3D triangle1 = new([Vertices[0], Vertices[1], Vertices[2]], Camera, null);
+        Poly3D triangle2 = new([Vertices[0], Vertices[2], Vertices[3]], Camera, null);
         Renderer?.Render(buffer, frame, runTime, triangle1);
         Renderer?.Render(buffer, frame, runTime, triangle2);
     }

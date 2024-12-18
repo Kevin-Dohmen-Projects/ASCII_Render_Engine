@@ -13,10 +13,10 @@ namespace ASCII_Render_Engine.Objects.Geometry.Polygons;
 public struct NGon3D : IRenderable, IPolygon3D
 {
     public Vertex3D[] Vertices { get; set; }
-    public IPoly3DRenderer? Renderer { get; set; } = new Poly3DWireframeRenderer();
+    public IPoly3DRenderer? Renderer { get; set; }
     public CameraConfig? Camera { get; set; }
 
-    public NGon3D(Vertex3D[] vertices, CameraConfig camera = null, IPoly3DRenderer renderer = null)
+    public NGon3D(Vertex3D[] vertices, CameraConfig? camera = null, IPoly3DRenderer? renderer = null)
     {
         if (vertices.Length < 3)
         {
@@ -27,6 +27,7 @@ public struct NGon3D : IRenderable, IPolygon3D
         {
             Vertices[i] = new Vertex3D(vertices[i]);
         }
+        Renderer = renderer;
         Camera = camera;
     }
 
@@ -48,6 +49,7 @@ public struct NGon3D : IRenderable, IPolygon3D
         {
             Vertices[i] = new Vertex3D();
         }
+        Renderer = null;
     }
 
     public NGon3D()
@@ -57,6 +59,7 @@ public struct NGon3D : IRenderable, IPolygon3D
         {
             Vertices[i] = new Vertex3D();
         }
+        Renderer = null;
     }
 
     public IPolygon3D Copy()
@@ -69,7 +72,7 @@ public struct NGon3D : IRenderable, IPolygon3D
         // turn the NGon into n-2 triangles
         for (int i = 1; i < Vertices.Length - 1; i++)
         {
-            Poly3D triangle = new(new Vertex3D[] { Vertices[0], Vertices[i], Vertices[i + 1] }, Camera);
+            Poly3D triangle = new(new Vertex3D[] { Vertices[0], Vertices[i], Vertices[i + 1] }, Camera, null);
             Renderer?.Render(buffer, frame, runTime, triangle);
         }
     }
