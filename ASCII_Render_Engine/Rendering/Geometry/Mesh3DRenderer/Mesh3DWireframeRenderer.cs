@@ -5,11 +5,14 @@ using ASCII_Render_Engine.MathUtils.Vectors;
 using ASCII_Render_Engine.Objects.Camera;
 using ASCII_Render_Engine.Objects.Geometry.Mesh;
 using ASCII_Render_Engine.Objects.Geometry.Polygons;
+using ASCII_Render_Engine.Rendering.Geometry.PolyRenderer;
 
 namespace ASCII_Render_Engine.Rendering.Geometry.Mesh3DRenderer;
 
 public class Mesh3DWireframeRenderer : IMesh3DRenderer
 {
+    public IPoly3DRenderer poly3DRenderer = new Poly3DWireframeRenderer();
+
     public void Render(ScreenBuffer buffer, int frame, double runTime, Mesh3D obj)
     {
         Vec3 Position = obj.Position;
@@ -36,6 +39,7 @@ public class Mesh3DWireframeRenderer : IMesh3DRenderer
                 globalPoly.Vertices[j].Position = globalVertex;
             }
             globalPoly.Camera = Camera;
+            globalPoly.Renderer = poly3DRenderer;
             globalPoly.Render(buffer, frame, runTime);
         }
     }

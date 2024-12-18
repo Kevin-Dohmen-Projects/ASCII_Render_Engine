@@ -39,6 +39,11 @@ public class PerspectiveCamera3D : ICamera
         FarPlane = camera.FarPlane;
     }
 
+    public Vec3 TranslateToWorldSpace(Vec3 point) // Translate the point to the camera's world space
+    {
+        return Rotation.RotateVector(point - Position);
+    }
+
     public Vec3 PerspectiveTransform(Vec3 point, Vec2 screenResolution, double aspectRatio = 0)
     {
         // Initialize the projection matrix
@@ -48,12 +53,6 @@ public class PerspectiveCamera3D : ICamera
         double fFov = FieldOfView;
         double fAspectRatio = aspectRatio != 0 ? aspectRatio : screenResolution.y / screenResolution.x;
         double fFovRad = 1.0 / Math.Tan(fFov * 0.5 / 180.0 * Math.PI);
-
-        // Translate the point to the camera's local space
-        point -= Position;
-
-        // Rotate the point
-        point = Rotation.RotateVector(point);
 
         // Create the perspective matrix
         Mat4x4 perspectiveMatrix = Mat4x4.GetFromPool();
@@ -74,6 +73,12 @@ public class PerspectiveCamera3D : ICamera
             transformed.x /= transformed.w;
             transformed.y /= transformed.w;
             transformed.z /= transformed.w;
+        }
+
+        // If the point is behind the camera, ensure the z value remains negative
+        if (point.z < 0)
+        {
+            transformed.z = -Math.Abs(transformed.z);
         }
 
         Vec3 vec3 = new Vec3(transformed.x, transformed.y, transformed.z);

@@ -31,15 +31,17 @@ public class OrthographicCamera3D : ICamera
         OrthographicScale = camera.OrthographicScale;
     }
 
-    public Vec3 PerspectiveTransform(Vec3 point, Vec2 screenResolution, double aspectRatio = 0)
+    public Vec3 TranslateToWorldSpace(Vec3 point)
     {
-        point -= Position;
-        Vec3 transformedPoint = Rotation.RotateVector(point);
+        return Rotation.RotateVector(point - Position);
+    }
 
+    public Vec3 PerspectiveTransform(Vec3 worldPoint, Vec2 screenResolution, double aspectRatio = 0)
+    {
         // Apply orthographic scaling
-        double x = transformedPoint.x / OrthographicScale;
-        double y = transformedPoint.y / OrthographicScale;
-        double z = transformedPoint.z / OrthographicScale;
+        double x = worldPoint.x / OrthographicScale;
+        double y = worldPoint.y / OrthographicScale;
+        double z = worldPoint.z / OrthographicScale;
 
         if (aspectRatio == 0)
         {

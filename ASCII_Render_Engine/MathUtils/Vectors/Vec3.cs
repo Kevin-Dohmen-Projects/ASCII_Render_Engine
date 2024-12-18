@@ -186,11 +186,11 @@ public struct Vec3
     public static Vec3 Cross(Vec3 left, Vec3 right)
     {
         return new Vec3
-        {
-            x = left.y * right.z - left.z * right.y,
-            y = left.z * right.x - left.x * right.z,
-            z = left.x * right.y - left.y * right.x
-        };
+        (
+            left.y * right.z - left.z * right.y,
+            left.z * right.x - left.x * right.z,
+            left.x * right.y - left.y * right.x
+        );
     }
 
     public static double Angle(Vec3 left, Vec3 right)

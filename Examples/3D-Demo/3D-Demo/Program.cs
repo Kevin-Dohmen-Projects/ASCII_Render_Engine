@@ -16,6 +16,8 @@ using ASCII_Render_Engine.Utils.Profiling;
 using ASCII_Render_Engine.Rendering;
 using ASCII_Render_Engine.Objects.Geometry.Mesh;
 using ASCII_Render_Engine.MathUtils.Transform.Rotation;
+using ASCII_Render_Engine.Rendering.Geometry.PolyRenderer;
+using ASCII_Render_Engine.Rendering.Geometry.Mesh3DRenderer;
 
 namespace _3D_Demo;
 
@@ -37,22 +39,27 @@ public static class Program
         //SecondPerspectiveCamera camera = new SecondPerspectiveCamera(new Vec3(0, 30, -30), new DirecitonVectorRotation(new Vec3(0, 0, 1)), 90, 1, 1000);
         CameraConfig cameraConfig = new(camera);
 
+        // renderer
+        Poly3DWireframeBackfaceCullingRenderer poly3DRenderer = new();
+        Mesh3DWireframeRenderer mesh3DRenderer = new Mesh3DWireframeRenderer();
+        mesh3DRenderer.poly3DRenderer = poly3DRenderer;
+
         //objects
-        Cube RightArm = new(new Vec3(7.5, 30, 0), new Vec3(5, 20, 5), cameraConfig);
+        Cube RightArm = new(new Vec3(7.5, 30, 0), new Vec3(5, 20, 5), cameraConfig, mesh3DRenderer);
         RightArm.Origin = new Vec3(-2.5, 7.5, 0);
 
-        Cube LeftArm = new(new Vec3(-7.5, 30, 0), new Vec3(5, 20, 5), cameraConfig);
+        Cube LeftArm = new(new Vec3(-7.5, 30, 0), new Vec3(5, 20, 5), cameraConfig, mesh3DRenderer);
         LeftArm.Origin = new Vec3(2.5, 7.5, 0);
 
-        Cube Body = new(new Vec3(0, 30, 0), new Vec3(10, 20, 5), cameraConfig);
+        Cube Body = new(new Vec3(0, 30, 0), new Vec3(10, 20, 5), cameraConfig, mesh3DRenderer);
 
-        Cube Head = new(new Vec3(0, 45, 0), new Vec3(10, 10, 10), cameraConfig);
+        Cube Head = new(new Vec3(0, 45, 0), new Vec3(10, 10, 10), cameraConfig, mesh3DRenderer);
         Head.Origin = new Vec3(0, -10, 0);
 
-        Cube RightLeg = new(new Vec3(2.5, 10, 0), new Vec3(5, 20, 5), cameraConfig);
+        Cube RightLeg = new(new Vec3(2.5, 10, 0), new Vec3(5, 20, 5), cameraConfig, mesh3DRenderer);
         RightLeg.Origin = new Vec3(-2.5, 10, 0);
 
-        Cube LeftLeg = new(new Vec3(-2.5, 10, 0), new Vec3(5, 20, 5), cameraConfig);
+        Cube LeftLeg = new(new Vec3(-2.5, 10, 0), new Vec3(5, 20, 5), cameraConfig, mesh3DRenderer);
         LeftLeg.Origin = new Vec3(2.5, 10, 0);
 
         Vertex3D CameraTarget = new(new Vec3(), cameraConfig);
@@ -68,9 +75,10 @@ public static class Program
                 new Vertex3D(new Vec3(-25, 0, -43.3)),
                 new Vertex3D(new Vec3(25, 0, -43.3))
             ])
-        ], cameraConfig);
+        ], cameraConfig, mesh3DRenderer);
+        Floor.Rotation = new EulerRotation(new Vec3(Math.PI, 0, 0));
 
-        Cube testCube = new Cube(new Vec3(), new Vec3(5), cameraConfig);
+        Cube testCube = new Cube(new Vec3(), new Vec3(5), cameraConfig, mesh3DRenderer);
 
         // counters
         int frames = 0;
@@ -144,6 +152,10 @@ public static class Program
             CameraTarget.Position = new Vec3(Math.Sin(runTime / 4) * 5, 27.5 + Math.Sin(runTime / 7) * 10, Math.Sin(runTime / 3) * 2);
 
             camera.Position = new Vec3(Math.Sin(runTime / 5) * 30, Math.Sin(runTime / 10) * 20 + 30, Math.Cos(runTime / 5) * 30);
+            //camera.Position = new Vec3(Math.Sin(runTime / 3) * 10, 3, -10);
+            //camera.Position = new Vec3(0, 3, -10);
+
+            testCube.Rotation = new EulerRotation(new Vec3(0, runTime / 5, 0));
 
             QuaternionRotation yRot = new(new Vec3(0, 1, 0), lrRot);
             QuaternionRotation xRot = new(new Vec3(1, 0, 0), udRot); 

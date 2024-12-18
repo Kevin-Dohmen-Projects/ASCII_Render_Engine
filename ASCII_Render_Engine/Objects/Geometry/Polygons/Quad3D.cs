@@ -27,7 +27,7 @@ public struct Quad3D : IRenderable, IPolygon3D
         {
             Vertices[i] = new Vertex3D(vertices[i]);
         }
-        Renderer = renderer != null ? renderer : new Poly3DWireframeRenderer();
+        Renderer = renderer;
         Camera = camera;
     }
 

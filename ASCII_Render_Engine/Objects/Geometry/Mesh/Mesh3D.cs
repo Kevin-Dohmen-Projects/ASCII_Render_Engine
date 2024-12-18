@@ -15,10 +15,10 @@ public class Mesh3D : IRenderable
     public Vec3 Origin { get; set; }
     public IRotation Rotation { get; set; }
     public Vec3 Scale { get; set; }
-    public CameraConfig Camera { get; set; }
-    public IMesh3DRenderer Renderer { get; set; } = new Mesh3DWireframeRenderer();
+    public CameraConfig? Camera { get; set; }
+    public IMesh3DRenderer? Renderer { get; set; }
 
-    public Mesh3D(IPolygon3D[] polygons, CameraConfig camera)
+    public Mesh3D(IPolygon3D[] polygons, CameraConfig? camera = null, IMesh3DRenderer? renderer = null)
     {
         Polygons = new IPolygon3D[polygons.Length];
         for (int i = 0; i < polygons.Length; i++)
@@ -31,8 +31,9 @@ public class Mesh3D : IRenderable
         Rotation = new EulerRotation(new Vec3(0, 0, 0));
         Scale = new Vec3(1);
         Camera = camera;
+        Renderer = renderer;
     }
-    public Mesh3D(int polygonCount, CameraConfig camera)
+    public Mesh3D(int polygonCount, CameraConfig? camera, IMesh3DRenderer? renderer = null)
     {
         Polygons = new IPolygon3D[polygonCount];
         for (int i = 0; i < Polygons.Length; i++)
@@ -45,6 +46,7 @@ public class Mesh3D : IRenderable
         Rotation = new EulerRotation(new Vec3(0, 0, 0));
         Scale = new Vec3(1);
         Camera = camera;
+        Renderer = renderer;
     }
     public Mesh3D(Mesh3D mesh)
     {
@@ -59,6 +61,7 @@ public class Mesh3D : IRenderable
         Rotation = mesh.Rotation;
         Scale = mesh.Scale;
         Camera = mesh.Camera;
+        Renderer = mesh.Renderer;
     }
 
     public void Copy(Mesh3D mesh)
@@ -75,6 +78,7 @@ public class Mesh3D : IRenderable
         Origin = mesh.Origin;
         Rotation = mesh.Rotation;
         Scale = mesh.Scale;
+        Camera = mesh.Camera;
     }
 
     public void Add(IPolygon3D poly)
@@ -107,6 +111,6 @@ public class Mesh3D : IRenderable
 
     public void Render(ScreenBuffer buffer, int frame, double runTime)
     {
-        Renderer.Render(buffer, frame, runTime, this);
+        Renderer?.Render(buffer, frame, runTime, this);
     }
 }
