@@ -1,5 +1,4 @@
 ﻿using ASCII_Render_Engine.Core;
-using ASCII_Render_Engine.MathUtils.Matrixes;
 using ASCII_Render_Engine.MathUtils.Transform.Rotation;
 using ASCII_Render_Engine.Objects.Camera;
 using ASCII_Render_Engine.Objects.Geometry.Mesh;

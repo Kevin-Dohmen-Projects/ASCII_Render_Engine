@@ -46,6 +46,16 @@ public struct Vertex3D : IRenderable
         Renderer = vertex.Renderer;
     }
 
+    public Vertex3D Clear()
+    {
+        Position = new Vec3();
+        UV = new Vec2();
+        Normal = new Vec3();
+        Camera = null;
+        Renderer = null;
+        return this;
+    }
+
     public void Render(ScreenBuffer buffer, int frame, double runTime)
     {
         Renderer?.Render(buffer, frame, runTime, this);

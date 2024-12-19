@@ -1,19 +1,16 @@
 ﻿using ASCII_Render_Engine.Core;
-using ASCII_Render_Engine.MathUtils;
 using ASCII_Render_Engine.Objects.Geometry.Vertices;
 using ASCII_Render_Engine.Rendering;
 using ASCII_Render_Engine.Rendering.Geometry.PolyRenderer;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ASCII_Render_Engine.Objects.Geometry.Polygons;
 public struct NGon2D : IRenderable
 {
     Vertex2D[] Vertices { get; set; }
     public IPoly2DRenderer? Renderer { get; set; }
+
+    // pool
+    
 
     public NGon2D(Vertex2D[] vertices, IPoly2DRenderer? renderer = null)
     {
@@ -54,7 +51,7 @@ public struct NGon2D : IRenderable
         // turn the n-gon into n-2 triangles
         for (int i = 1; i < Vertices.Length - 1; i++)
         {
-            Poly2D triangle = new(new Vertex2D[] { Vertices[0], Vertices[i], Vertices[i + 1] });
+            Poly2D triangle = new([ Vertices[0], Vertices[i], Vertices[i + 1] ]);
             Renderer?.Render(buffer, frame, runTime, triangle);
         }
     }
