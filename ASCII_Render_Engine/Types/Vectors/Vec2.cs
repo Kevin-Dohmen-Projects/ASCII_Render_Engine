@@ -1,4 +1,4 @@
-﻿namespace ASCII_Render_Engine.MathUtils.Vectors;
+﻿namespace ASCII_Render_Engine.Types.Vectors;
 
 
 public struct Vec2

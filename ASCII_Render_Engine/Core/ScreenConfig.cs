@@ -17,7 +17,7 @@ public struct ScreenConfig
         ScaleToWindow = false;
 
         Dithering = false;
-        FPSCap = 30;
+        FPSCap = 0;
         CenterScreen = false;
 
         VisualizeAsync = false;

@@ -1,8 +1,8 @@
 ﻿using ASCII_Render_Engine.Core;
-using ASCII_Render_Engine.MathUtils.Vectors;
 using ASCII_Render_Engine.Objects.Camera;
 using ASCII_Render_Engine.Objects.Geometry.Polygons;
 using ASCII_Render_Engine.Objects.Geometry.Vertices;
+using ASCII_Render_Engine.Types.Vectors;
 using System.Diagnostics;
 
 namespace ASCII_Render_Engine.Rendering.Geometry.PolyRenderer;
@@ -21,7 +21,7 @@ public class Poly3DWireframeRenderer : IPoly3DRenderer
 
         for (int i = 0; i < Vertices.Length; i++)
         {
-            transformedPoly.Vertices[i].Position = Camera.Camera.TranslateToWorldSpace(Vertices[i].Position);
+            transformedPoly.Vertices[i].Position = Camera.Camera.TranslateToCameraSpace(Vertices[i].Position);
         }
 
         // calculate the normal

@@ -1,6 +1,6 @@
 ﻿using ASCII_Render_Engine.MathUtils.Matrixes;
 using ASCII_Render_Engine.MathUtils.Transform.Rotation;
-using ASCII_Render_Engine.MathUtils.Vectors;
+using ASCII_Render_Engine.Types.Vectors;
 
 namespace ASCII_Render_Engine.Objects.Camera;
 
@@ -31,7 +31,7 @@ public class OrthographicCamera3D : ICamera
         OrthographicScale = camera.OrthographicScale;
     }
 
-    public Vec3 TranslateToWorldSpace(Vec3 point)
+    public Vec3 TranslateToCameraSpace(Vec3 point)
     {
         return Rotation.RotateVector(point - Position);
     }

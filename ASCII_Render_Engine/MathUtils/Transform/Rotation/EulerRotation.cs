@@ -1,5 +1,5 @@
 ﻿using ASCII_Render_Engine.MathUtils.Matrixes;
-using ASCII_Render_Engine.MathUtils.Vectors;
+using ASCII_Render_Engine.Types.Vectors;
 using ASCII_Render_Engine.Utils;
 using System.Reflection.Metadata.Ecma335;
 

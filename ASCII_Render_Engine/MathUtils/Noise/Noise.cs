@@ -1,5 +1,5 @@
 ﻿using ASCII_Render_Engine.MathUtils.Noise.Perlin;
-using ASCII_Render_Engine.MathUtils.Vectors;
+using ASCII_Render_Engine.Types.Vectors;
 
 namespace ASCII_Render_Engine.MathUtils.Noise;
 

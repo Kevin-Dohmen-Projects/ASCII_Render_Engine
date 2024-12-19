@@ -1,7 +1,7 @@
 ﻿using ASCII_Render_Engine.Core;
-using ASCII_Render_Engine.MathUtils.Vectors;
 using ASCII_Render_Engine.Rendering;
 using ASCII_Render_Engine.Rendering.Geometry.LineRenderer;
+using ASCII_Render_Engine.Types.Vectors;
 
 namespace ASCII_Render_Engine.Objects.Geometry.Lines;
 

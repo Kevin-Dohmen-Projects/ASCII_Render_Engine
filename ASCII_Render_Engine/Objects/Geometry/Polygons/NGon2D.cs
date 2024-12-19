@@ -1,5 +1,5 @@
 ﻿using ASCII_Render_Engine.Core;
-using ASCII_Render_Engine.MathUtils.Vectors;
+using ASCII_Render_Engine.MathUtils;
 using ASCII_Render_Engine.Objects.Geometry.Vertices;
 using ASCII_Render_Engine.Rendering;
 using ASCII_Render_Engine.Rendering.Geometry.PolyRenderer;

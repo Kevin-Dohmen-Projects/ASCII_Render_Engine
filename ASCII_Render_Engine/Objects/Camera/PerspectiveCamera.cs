@@ -1,6 +1,6 @@
 ﻿using ASCII_Render_Engine.MathUtils.Matrixes;
 using ASCII_Render_Engine.MathUtils.Transform.Rotation;
-using ASCII_Render_Engine.MathUtils.Vectors;
+using ASCII_Render_Engine.Types.Vectors;
 
 namespace ASCII_Render_Engine.Objects.Camera;
 
@@ -39,7 +39,7 @@ public class PerspectiveCamera3D : ICamera
         FarPlane = camera.FarPlane;
     }
 
-    public Vec3 TranslateToWorldSpace(Vec3 point) // Translate the point to the camera's world space
+    public Vec3 TranslateToCameraSpace(Vec3 point) // Translate the point to the camera's world space
     {
         return Rotation.RotateVector(point - Position);
     }

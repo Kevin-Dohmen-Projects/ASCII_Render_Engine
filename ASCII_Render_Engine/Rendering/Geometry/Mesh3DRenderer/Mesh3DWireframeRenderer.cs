@@ -1,11 +1,11 @@
 ﻿using ASCII_Render_Engine.Core;
 using ASCII_Render_Engine.MathUtils.Matrixes;
 using ASCII_Render_Engine.MathUtils.Transform.Rotation;
-using ASCII_Render_Engine.MathUtils.Vectors;
 using ASCII_Render_Engine.Objects.Camera;
 using ASCII_Render_Engine.Objects.Geometry.Mesh;
 using ASCII_Render_Engine.Objects.Geometry.Polygons;
 using ASCII_Render_Engine.Rendering.Geometry.PolyRenderer;
+using ASCII_Render_Engine.Types.Vectors;
 
 namespace ASCII_Render_Engine.Rendering.Geometry.Mesh3DRenderer;
 

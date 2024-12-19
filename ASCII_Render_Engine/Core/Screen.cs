@@ -133,7 +133,7 @@ namespace ASCII_Render_Engine.Core
 
                 Queue.Clear();
 
-                string fullScreen = Converter.BufferToFullScreen(Buffer, Display, Config).ToString();
+                string fullScreen = ASCIIConverter.BufferToFullScreen(Buffer, Display, Config).ToString();
 
                 RenderTimer.Stop();
 

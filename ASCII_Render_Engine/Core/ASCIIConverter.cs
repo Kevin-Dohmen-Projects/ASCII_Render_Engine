@@ -1,4 +1,4 @@
-﻿using ASCII_Render_Engine.MathUtils.Vectors;
+﻿using ASCII_Render_Engine.Types.Vectors;
 
 namespace ASCII_Render_Engine.Core;
 
@@ -13,7 +13,7 @@ public class ASCIIConverter
         { 0.5, -0.5 }
     };
 
-    public Display BufferToFullScreen(ScreenBuffer screenBuffer, Display display, ScreenConfig config)
+    public static Display BufferToFullScreen(ScreenBuffer screenBuffer, Display display, ScreenConfig config)
     {
         int width = screenBuffer.Width;
         int height = screenBuffer.Height;
@@ -38,13 +38,13 @@ public class ASCIIConverter
         return display;
     }
 
-    public char CharFromColor(Vec2 color)
+    public static char CharFromColor(Vec2 color)
     {
         double lum = Math.Clamp(color.x * color.y, 0, 1);
         return chars[(int)Math.Round(lum * (chars.Length - 1))];
     }
 
-    public char CharFromColorDither(Vec2 color, int x, int y)
+    public static char CharFromColorDither(Vec2 color, int x, int y)
     {
         double lum = Math.Clamp(color.x * color.y, 0, 1);
 

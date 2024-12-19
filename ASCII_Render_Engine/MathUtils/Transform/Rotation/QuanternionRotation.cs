@@ -1,4 +1,4 @@
-﻿using ASCII_Render_Engine.MathUtils.Vectors;
+﻿using ASCII_Render_Engine.Types.Vectors;
 using System;
 
 namespace ASCII_Render_Engine.MathUtils.Transform.Rotation
