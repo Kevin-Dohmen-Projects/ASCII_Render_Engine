@@ -156,14 +156,11 @@ public struct Vec3
     // functions
     public double Length()
     {
-        double len2d = Math.Sqrt(
-            x * x
-            + y * y
-            );
         return Math.Sqrt(
-            len2d * len2d
-            + z * z
-            );
+            x ** 2 +
+            y ** 2 +
+            z ** 3
+        );
     }
     public Vec3 Normalize()
     {
